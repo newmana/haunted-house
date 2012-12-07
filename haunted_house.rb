@@ -6,7 +6,8 @@ class HauntedHouse
         "HELP", "CARRYING?", "GO", "N", "S", "W", "E", "U", "D", "GET", "TAKE", "OPEN", "EXAMINE", "READ", "SAY",
         "DIG", "SWING", "ClIMB", "LIGHT", "UNLIGHT", "SPRAY", "USE", "UNLOCK", "LEAVE", "SCORE"
     ]
-    @directions = [
+
+    @rooms = [
         "SE", "WE", "WE", "SWE", "WE", "WE", "SWE", "WS",
         "NS", "SE", "WE", "NW", "SE", "W", "NE", "NSW",
         "NS", "NS", "SE", "WE", "NWUD", "SE", "WSUD", "NS",
@@ -15,14 +16,6 @@ class HauntedHouse
         "NE", "NW", "NE", "W", "NSE", "WE", "W", "NS",
         "SE", "NSW", "E", "WE", "NW", "S", "SW", "NW",
         "NE", "NWE", "WE", "WE", "WE", "NWE", "NWE", "W"
-    ]
-
-    @objects = [
-        "Painting", "Ring", "Magic Spells", "Goblet", "Scroll", "Coins", "Statue", "Candelstick",
-        "Matches", "Vacuum", "Batteries", "Shovel", "Axe", "Rope", "Boat", "Aerosol", "Candle", "Key",
-        "North", "South", "West", "East", "Up", "Down",
-        "Doors", "Bats", "Ghosts", "Drawer", "Desk", "Cost", "Rubbish",
-        "Coffin", "Books", "Xzanfar", "Wall", "Spells"
     ]
 
     @rooms = [
@@ -39,9 +32,17 @@ class HauntedHouse
         "Closet", "Front Lobby", "Library of Evil Books", "Study with a Desk and Hole in the Wall",
         "Weird Cobwebby Room", "Very Cold Chamber", "Spooky Room", "Cliff Path by the Marsh",
         "Rubble-Strewn Verandah", "Front Porch", "Front Tower", "Sloping Corridor",
-        "Upper Gallery", "Marsh by a Wall", "Marsh", "Soggy Path by a Twisted Railing",
-        "Path through an Iron Gate", "By Railings", "Beneath the Front Tower",
+        "Upper Gallery", "Marsh by a Wall", "Marsh", "Soggy Path",
+        "By a Twisted Railing", "Path through an Iron Gate", "By Railings", "Beneath the Front Tower",
         "Debris from Crumbling Facade", "Large Fallen Brick Work", "Rotting Stone Arch", "Crumbling Clifftop"
+    ]
+
+    @objects = [
+        "Painting", "Ring", "Magic Spells", "Goblet", "Scroll", "Coins", "Statue", "Candlestick",
+        "Matches", "Vacuum", "Batteries", "Shovel", "Axe", "Rope", "Boat", "Aerosol", "Candle", "Key",
+        "North", "South", "West", "East", "Up", "Down",
+        "Doors", "Bats", "Ghosts", "Drawer", "Desk", "Cost", "Rubbish",
+        "Coffin", "Books", "Xzanfar", "Wall", "Spells"
     ]
   end
 
@@ -50,9 +51,9 @@ class HauntedHouse
     puts "-------------"
     puts "Your location: #{@rooms[@location]}"
     print "Exits: "
-    @directions[@location].chars.each_with_index do |c, index|
+    @rooms[@location].chars.each_with_index do |c, index|
       print "#{c}"
-      print "," if index < (@directions[@location].length - 1)
+      print "," if index < (@rooms[@location].length - 1)
     end
     STDOUT.flush
     puts

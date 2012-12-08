@@ -1,13 +1,13 @@
 class HauntedHouse
   def initialize
-    @location = 57
+    @room = 57
 
     @verbs = [
         "HELP", "CARRYING?", "GO", "N", "S", "W", "E", "U", "D", "GET", "TAKE", "OPEN", "EXAMINE", "READ", "SAY",
         "DIG", "SWING", "ClIMB", "LIGHT", "UNLIGHT", "SPRAY", "USE", "UNLOCK", "LEAVE", "SCORE"
     ]
 
-    @rooms = [
+    @routes = [
         "SE", "WE", "WE", "SWE", "WE", "WE", "SWE", "WS",
         "NS", "SE", "WE", "NW", "SE", "W", "NE", "NSW",
         "NS", "NS", "SE", "WE", "NWUD", "SE", "WSUD", "NS",
@@ -18,17 +18,17 @@ class HauntedHouse
         "NE", "NWE", "WE", "WE", "WE", "NWE", "NWE", "W"
     ]
 
-    @rooms = [
+    @descriptions = [
         "Dark Corner", "Overgrown Garden", "By a Large Wood Pile", "Yard by Rubbish",
         "Weed Patch", "Forest", "Thick Forest", "Blasted Tree",
         "Corner of the House", "Entrance to the Kitchen", "Kitchen and Grimy Cooker", "Scullery Door",
-        "Room with Inches of Dust", "Rest Turret Room", "Clearing by House", "Path",
+        "Room with Inches of Dust", "Rear Turret Room", "Clearing by House", "Path",
         "Side of the House", "Back of the Hallway", "Dark Alcove", "Small Dark Room",
         "Bottom of a Spiral Staircase", "Wide Passage", "Slippery Steps", "Clifftop",
         "Near a Crumbling Wall", "Gloomy Passage", "Pool of Light", "Impressive Vaulted Hallway",
         "Hall by a Thick Wooden Door", "Trophy Room", "Cellar with Barred Window", "Cliff Path",
         "Cupboard with Hanging Coat", "Front Hall", "Sitting Room", "Secret Room",
-        "Steep Marble Stairs", "Dining Room",  "Deep Cellar with a Coffin", "Cliff Path",
+        "Steep Marble Stairs", "Dining Room", "Deep Cellar with a Coffin", "Cliff Path",
         "Closet", "Front Lobby", "Library of Evil Books", "Study with a Desk and Hole in the Wall",
         "Weird Cobwebby Room", "Very Cold Chamber", "Spooky Room", "Cliff Path by the Marsh",
         "Rubble-Strewn Verandah", "Front Porch", "Front Tower", "Sloping Corridor",
@@ -44,19 +44,51 @@ class HauntedHouse
         "Doors", "Bats", "Ghosts", "Drawer", "Desk", "Cost", "Rubbish",
         "Coffin", "Books", "Xzanfar", "Wall", "Spells"
     ]
+
+    # Locations for gettable objects
+    @locations = [
+        46, 38, 35, 50, 13, 18, 28, 42, 10, 25, 26, 4, 2, 7, 47, 60, 43, 32
+    ]
+
+    @flags = []
+    @flags[18] = @flags[17] = @flags[2] = @flags[26] = @flags[28] = @flags[23] = true
+
+    @carrying = []
+
+    @message = "Ok"
+  end
+
+  def show_location
+    show_room
+    show_objects
+    puts "============================"
+    puts @message
+    @message = "What"
+    puts "What will you do now?"
+    @question = gets
+  end
+
+  def show_room
+    puts "Your location: #{@descriptions[@room]}"
+    print "Exits: "
+    @routes[@room].chars.each_with_index do |c, index|
+      print "#{c}"
+      print "," if index < (@routes[@room].length - 1)
+    end
+    STDOUT.flush
+    puts
+  end
+
+  def show_objects
+    @locations.each_with_index do |l, i|
+      puts "You can see #{@objects[i]}" if @locations[i] == @room && !@flags[i]
+    end
   end
 
   def welcome
     puts "Haunted House"
     puts "-------------"
-    puts "Your location: #{@rooms[@location]}"
-    print "Exits: "
-    @rooms[@location].chars.each_with_index do |c, index|
-      print "#{c}"
-      print "," if index < (@rooms[@location].length - 1)
-    end
-    STDOUT.flush
-    puts
+    show_location
   end
 end
 

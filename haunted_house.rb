@@ -70,14 +70,30 @@ class HauntedHouse
     wi = @objects.index(word)
     @message = "That's silly" if !word.nil? && !word.empty? && wi.nil?
     display_help if vi == 0
+    display_carrying if vi == 1
+    movement(vi, wi) if (2..8).include?(vi)
   end
 
   def display_help
     puts "Words I know:"
-    @verbs.each do |v|
-      print "#{v},"
+    @verbs.each_with_index do |v, index|
+      print "#{v}"
+      print "," if index < @verbs.length
     end
     puts
+  end
+
+  def display_carrying
+    puts "You are carrying:"
+    @carrying.each_with_index do |c, index|
+      print "#{c}"
+      print "," if index < @carrying.length
+    end
+  end
+
+  def movement(vi, wi)
+    direction = 0
+    print "#{@verbs[vi]} #{@objects[wi]}"
   end
 
   def show_room
@@ -108,7 +124,7 @@ class HauntedHouse
       verb.strip! unless verb.nil?
       verb.upcase! unless verb.nil?
       word.strip! unless word.nil?
-      word..upcase! unless word.nil?
+      word.capitalize! unless word.nil?
       return verb, word
     end
     return "", ""

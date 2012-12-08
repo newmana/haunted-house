@@ -65,7 +65,19 @@ class HauntedHouse
     puts @message
     @message = "What"
     puts "What will you do now?"
-    @question = gets
+    verb, word = get_verb_word(gets)
+    vi = @verbs.index(verb)
+    wi = @objects.index(word)
+    @message = "That's silly" if !word.nil? && !word.empty? && wi.nil?
+    display_help if vi == 0
+  end
+
+  def display_help
+    puts "Words I know:"
+    @verbs.each do |v|
+      print "#{v},"
+    end
+    puts
   end
 
   def show_room
@@ -83,6 +95,23 @@ class HauntedHouse
     @locations.each_with_index do |l, i|
       puts "You can see #{@objects[i]}" if @locations[i] == @room && !@flags[i]
     end
+  end
+
+  def get_verb_word(question)
+    if question.length > 0
+      question = question.split
+      verb = question[0]
+      if question.length > 1
+        question.shift
+        word = question.join(' ')
+      end
+      verb.strip! unless verb.nil?
+      verb.upcase! unless verb.nil?
+      word.strip! unless word.nil?
+      word..upcase! unless word.nil?
+      return verb, word
+    end
+    return "", ""
   end
 
   def welcome

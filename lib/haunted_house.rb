@@ -66,12 +66,17 @@ class HauntedHouse
     @message = "What"
     puts "What will you do now?"
     verb, word = get_verb_word(gets)
-    vi = @verbs.index(verb)
-    wi = @objects.index(word)
-    @message = "That's silly" if !word.nil? && !word.empty? && wi.nil?
+    vi, wi, message = find_verb_word(verb, word)
     display_help if vi == 0
     display_carrying if vi == 1
     movement(vi, wi) if (2..8).include?(vi)
+  end
+
+  def find_verb_word(verb, word)
+    vi = @verbs.index(verb)
+    wi = @objects.index(word)
+    message = "That's silly" if !word.nil? && !word.empty? && wi.nil?
+    return vi, wi, message
   end
 
   def display_help
@@ -136,6 +141,3 @@ class HauntedHouse
     show_location
   end
 end
-
-h = HauntedHouse.new
-h.welcome

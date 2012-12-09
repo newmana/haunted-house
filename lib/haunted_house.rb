@@ -75,8 +75,10 @@ class HauntedHouse
   def find_verb_word(verb, word)
     vi = @verbs.index(verb)
     wi = @objects.index(word)
-    message = "That's silly" if !word.nil? && !word.empty? && wi.nil?
+    message = "That's silly" if !vi.nil? && !word.nil? && !word.empty? && wi.nil?
     message = "I need two words" if !word.nil? && word.empty?
+    message = "You don't make sense" if vi.nil? && wi.nil?
+    message = "You can't '#{verb}'" if vi.nil? && !wi.nil?
     return vi, wi, message
   end
 

@@ -76,6 +76,7 @@ class HauntedHouse
     vi = @verbs.index(verb)
     wi = @objects.index(word)
     message = "That's silly" if !word.nil? && !word.empty? && wi.nil?
+    message = "I need two words" if !word.nil? && word.empty?
     return vi, wi, message
   end
 

@@ -55,53 +55,74 @@ class HauntedHouse
 
     @carrying = []
 
+    @light_limit = 60
+
     @message = "Ok"
   end
 
   def show_location
-    show_room
-    show_objects
-    puts "============================"
-    puts @message
-    @message = "What"
-    puts "What will you do now?"
-    verb, word = get_verb_word(gets)
-    vi, wi, message = find_verb_word(verb, word)
-    display_help if vi == 0
-    display_carrying if vi == 1
-    movement(vi, wi) if (2..8).include?(vi)
+      show_room
+      show_objects
+      puts "============================"
+      puts @message
+      @message = "What?"
+      puts "What will you do now?"
+      verb, word = get_verb_word(gets)
+      candle
+      vi, wi, @message = message(verb, word)
+      display_help if vi == 0
+      display_carrying if vi == 1
+      movement(vi, wi) if (2..8).include?(vi)
   end
 
-  def find_verb_word(verb, word)
+  def message(verb, word)
     vi = @verbs.index(verb)
     wi = @objects.index(word)
-    message = "That's silly" if !vi.nil? && !word.nil? && !word.empty? && wi.nil?
+    puts "#{word} #{wi}"
+    message = "That's silly" if !vi.nil? && wi.nil? && !word.nil? && !word.empty?
     message = "I need two words" if !word.nil? && word.empty?
     message = "You don't make sense" if vi.nil? && wi.nil?
     message = "You can't '#{verb}'" if vi.nil? && !wi.nil?
+    message = "You don't have #{word}" if !vi.nil? && !wi.nil? && !@carrying[wi]
+    message = "Your candle is waning!" if @light_limit == 10
+    message = "Your candle is out" if @light_limit == 0
     return vi, wi, message
   end
 
-  def display_help
-    puts "Words I know:"
-    @verbs.each_with_index do |v, index|
-      print "#{v}"
-      print "," if index < @verbs.length
+  def candle
+    if @flags[0]
+      @light_limit -= 1
     end
-    puts
+    flags[0] = false if @light_limit < 1
+  end
+
+  def display_help
+    display_list("Words I know:", @verbs)
   end
 
   def display_carrying
-    puts "You are carrying:"
-    @carrying.each_with_index do |c, index|
-      print "#{c}"
-      print "," if index < @carrying.length
+    display_list("You are carrying:", @carrying)
+  end
+
+  def display_list(message, list)
+    puts "#{message}"
+    @verbs.each_with_index do |v, index|
+      print "#{v}"
+      print "," if index < @verbs.length - 1
     end
+    puts "\nPress enter to continue"
+    gets
   end
 
   def movement(vi, wi)
     direction = 0
-    print "#{@verbs[vi]} #{@objects[wi]}"
+    direction = vi - 2 if wi.nil?
+    @routes[@room].chars.each do |c|
+      @room -= 8 if c.eql?("N") && direction == 1
+      @room += 8 if c.eql?("S") && direction == 2
+      @room -= 1 if c.eql?("W") && direction == 3
+      @room += 1 if c.eql?("E") && direction == 4
+    end
   end
 
   def show_room
@@ -139,8 +160,11 @@ class HauntedHouse
   end
 
   def welcome
-    puts "Haunted House"
-    puts "-------------"
-    show_location
+    while true
+      print "\e[2J\e[f"
+      puts "Haunted House"
+      puts "-------------"
+      show_location
+    end
   end
 end

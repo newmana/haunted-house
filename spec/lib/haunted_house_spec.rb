@@ -27,4 +27,11 @@ describe 'haunted house' do
     vi, wi, message = @house.message("USE", "Matches")
     message.should eql("You don't have Matches")
   end
+
+  it "Check going a direction" do
+    vi, wi, message = @house.message("GO", "North")
+    message.should be_nil
+    vi.should == 2
+    wi.should == 18
+  end
 end

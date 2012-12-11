@@ -61,29 +61,28 @@ class HauntedHouse
   end
 
   def show_location
-      show_room
-      show_objects
-      puts "============================"
-      puts @message
-      @message = "What?"
-      puts "What will you do now?"
-      verb, word = get_verb_word(gets)
-      candle
-      vi, wi, @message = message(verb, word)
-      display_help if vi == 0
-      display_carrying if vi == 1
-      movement(vi, wi) if (2..8).include?(vi)
+    show_room
+    show_objects
+    puts "============================"
+    puts @message
+    @message = "What?"
+    puts "What will you do now?"
+    verb, word = get_verb_word(gets)
+    candle
+    vi, wi, @message = message(verb, word)
+    display_help if vi == 0
+    display_carrying if vi == 1
+    movement(vi, wi) if (2..8).include?(vi)
   end
 
   def message(verb, word)
     vi = @verbs.index(verb)
     wi = @objects.index(word)
-    puts "#{word} #{wi}"
     message = "That's silly" if !vi.nil? && wi.nil? && !word.nil? && !word.empty?
     message = "I need two words" if !word.nil? && word.empty?
     message = "You don't make sense" if vi.nil? && wi.nil?
     message = "You can't '#{verb}'" if vi.nil? && !wi.nil?
-    message = "You don't have #{word}" if !vi.nil? && !wi.nil? && !@carrying[wi]
+    message = "You don't have #{word}" if !vi.nil? && vi > 8 && !wi.nil? && !@carrying[wi]
     message = "Your candle is waning!" if @light_limit == 10
     message = "Your candle is out" if @light_limit == 0
     return vi, wi, message
@@ -117,6 +116,13 @@ class HauntedHouse
   def movement(vi, wi)
     direction = 0
     direction = vi - 2 if wi.nil?
+    direction = wi - 17 if !vi.nil? && vi == 2
+    direction = 1 if direction == 5 && @room == 20
+    direction = 3 if direction == 6 && @room == 20
+    direction = 3 if direction == 5 && @room == 22
+    direction = 2 if direction == 6 && @room == 22
+    direction = 2 if direction == 5 && @room == 36
+    direction = 1 if direction == 6 && @room == 36
     @routes[@room].chars.each do |c|
       @room -= 8 if c.eql?("N") && direction == 1
       @room += 8 if c.eql?("S") && direction == 2

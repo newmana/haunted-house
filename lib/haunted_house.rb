@@ -75,6 +75,31 @@ class HauntedHouse
     if (2..8).include?(vi)
       move(vi, wi)
     end
+    get_take(vi, wi) if !wi.nil? && vi == 9 || vi == 10
+  end
+
+  def get_verb_word(question)
+    if question.length > 0
+      question = question.split
+      verb = question[0]
+      if question.length > 1
+        question.shift
+        word = question.join(' ')
+      end
+      verb.strip! unless verb.nil?
+      verb.upcase! unless verb.nil?
+      word.strip! unless word.nil?
+      word.capitalize! unless word.nil?
+      return verb, word
+    end
+    return "", ""
+  end
+
+  def candle
+    if @flags[0]
+      @light_limit -= 1
+    end
+    flags[0] = false if @light_limit < 1
   end
 
   def message(verb, word)
@@ -90,26 +115,28 @@ class HauntedHouse
     return vi, wi, message
   end
 
-  def candle
-    if @flags[0]
-      @light_limit -= 1
-    end
-    flags[0] = false if @light_limit < 1
-  end
-
   def display_help
     display_list("Words I know:", @verbs)
   end
 
   def display_carrying
-    display_list("You are carrying:", @carrying)
+    display_list("You are carrying:", create_carrying(@carrying, @objects))
+  end
+
+  def create_carrying(carrying, all_objects)
+    index = -1
+    objects = carrying.map do |c|
+      index += 1
+      c ? index : -1
+    end
+    objects.select { |c| !c.nil? && c > 0 }.map { |c| all_objects[c]}
   end
 
   def display_list(message, list)
     puts "#{message}"
-    @verbs.each_with_index do |v, index|
+    list.each_with_index do |v, index|
       print "#{v}"
-      print "," if index < @verbs.length - 1
+      print "," if index < list.length - 1
     end
     puts "\nPress enter to continue"
     gets
@@ -170,6 +197,18 @@ class HauntedHouse
     change
   end
 
+  def get_take(vi, wi)
+    @message = "I can't get #{@objects[wi]}" if wi > 18
+    @message = "It isn't here" if @locations[wi] != @room
+    @message = "What #{@objects[wi]}?" if @flags[wi]
+    @message = "You already have it" if @carrying[wi]
+    if wi > 0 && wi < 18 && @locations[wi] == @room && !@flags[wi]
+      @carrying[wi] = true
+      @locations[wi] = 65
+      @message = "You have the #{@objects[wi]}"
+    end
+  end
+
   def show_room
     puts "Your location: #{@descriptions[@room]}"
     print "Exits: "
@@ -185,23 +224,6 @@ class HauntedHouse
     @locations.each_with_index do |l, i|
       puts "You can see #{@objects[i]}" if @locations[i] == @room && !@flags[i]
     end
-  end
-
-  def get_verb_word(question)
-    if question.length > 0
-      question = question.split
-      verb = question[0]
-      if question.length > 1
-        question.shift
-        word = question.join(' ')
-      end
-      verb.strip! unless verb.nil?
-      verb.upcase! unless verb.nil?
-      word.strip! unless word.nil?
-      word.capitalize! unless word.nil?
-      return verb, word
-    end
-    return "", ""
   end
 
   def welcome

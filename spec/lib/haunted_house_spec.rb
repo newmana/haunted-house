@@ -34,4 +34,9 @@ describe 'haunted house' do
     vi.should == 2
     wi.should == 18
   end
+
+  it "Check carrying" do
+    result = @house.create_carrying([false, true], ["Steam", "Shovel"])
+    result.should eql(["Shovel"])
+  end
 end

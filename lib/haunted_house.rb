@@ -72,7 +72,24 @@ class HauntedHouse
     vi, wi, @message = message(verb, word)
     display_help if vi == 0
     display_carrying if vi == 1
-    movement(vi, wi) if (2..8).include?(vi)
+    if (2..8).include?(vi)
+      if @flags[14]
+        @flags[14] = false
+        @message = "Crash! You fell out of a tree!"
+      elsif @flags[17] && @room == 52
+        @message = "Ghosts will not let you move."
+      elsif @room == 45 && @carrying[1] && !@flags[34]
+        @message = "A magical barrier to the west."
+      elsif @room == 54 && !@carrying[15]
+        @message = "You're stuck!"
+      elsif @carrying[15] and !([53, 54, 55, 57].include?(@room))
+        @message = "You can't carry a boat!"
+      elsif (26..30).include?(@room) && @flags[0]
+        @message = "Too dark to move."
+      else
+        movement(vi, wi)
+      end
+    end
   end
 
   def message(verb, word)
@@ -123,11 +140,21 @@ class HauntedHouse
     direction = 2 if direction == 6 && @room == 22
     direction = 2 if direction == 5 && @room == 36
     direction = 1 if direction == 6 && @room == 36
-    @routes[@room].chars.each do |c|
-      @room -= 8 if c.eql?("N") && direction == 1
-      @room += 8 if c.eql?("S") && direction == 2
-      @room -= 1 if c.eql?("W") && direction == 3
-      @room += 1 if c.eql?("E") && direction == 4
+    if (@room == 26 && !@flags[0]) && (direction == 1 || direction == 4)
+      @message = "You need a light."
+    else
+      change = 0
+      @routes[@room].chars.each do |c|
+        change = -8 if c.eql?("N") && direction == 1
+        change = 8 if c.eql?("S") && direction == 2
+        change = -1 if c.eql?("W") && direction == 3
+        change = 1 if c.eql?("E") && direction == 4
+      end
+      if change != 0
+        @room += change
+      else
+        @message = "Can't go that way!"
+      end
     end
   end
 

@@ -77,6 +77,7 @@ class HauntedHouse
     end
     get_take(vi, wi) if !wi.nil? && vi == 9 || vi == 10
     open(vi, wi) if vi == 11
+    unlock(vi, wi) if vi == 22
     leave(vi, wi) if vi == 23
     score if vi == 24
   end
@@ -223,6 +224,16 @@ class HauntedHouse
     end
   end
 
+  def unlock(vi, wi)
+    open(vi, wi) if @room == 42 && (wi == 26 || wi == 27)
+    if @room == 27 && wi == 24 && !@flags[24] && @carrying[17]
+      @flags[24] = true
+      @routes[@room] = "SEW"
+      @descriptions[@room] = "A huge door opens"
+      @message = "The key turns!"
+    end
+  end
+
   def leave(vi, wi)
     if @carrying[wi]
       @carrying[wi] = false
@@ -234,7 +245,7 @@ class HauntedHouse
   def score
     score = @carrying.reduce(0) { |sum, value| value.nil? ? sum : sum += 1 }
     if score == 17
-      if @carrying[14] && room != 57
+      if @carrying[14] && room != 56
         puts "You have everything.\nReturn to the gate to get the final score"
       elsif room == 57
         puts "Double score for reaching here!"

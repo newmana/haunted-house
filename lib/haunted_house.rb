@@ -76,6 +76,8 @@ class HauntedHouse
       move(vi, wi)
     end
     get_take(vi, wi) if !wi.nil? && vi == 9 || vi == 10
+    open(vi, wi) if vi == 11
+    leave(vi, wi) if vi == 23
   end
 
   def get_verb_word(question)
@@ -109,7 +111,7 @@ class HauntedHouse
     message = "I need two words" if !word.nil? && word.empty?
     message = "You don't make sense" if vi.nil? && wi.nil?
     message = "You can't '#{verb}'" if vi.nil? && !wi.nil?
-    message = "You don't have #{word}" if !vi.nil? && vi > 8 && !wi.nil? && !@carrying[wi]
+    message = "You don't have #{word}" if !vi.nil? && !wi.nil? && wi > 0 && !@carrying[wi]
     message = "Your candle is waning!" if @light_limit == 10
     message = "Your candle is out" if @light_limit == 0
     return vi, wi, message
@@ -148,11 +150,11 @@ class HauntedHouse
       @message = "Crash! You fell out of a tree!"
     elsif @flags[17] && @room == 52
       @message = "Ghosts will not let you move."
-    elsif @room == 45 && @carrying[1] && !@flags[34]
+    elsif @room == 45 && @carrying[0] && !@flags[34]
       @message = "A magical barrier to the west."
-    elsif @room == 54 && !@carrying[15]
+    elsif @room == 54 && !@carrying[14]
       @message = "You're stuck!"
-    elsif @carrying[15] and !([53, 54, 55, 57].include?(@room))
+    elsif @carrying[14] and !([53, 54, 55, 57].include?(@room))
       @message = "You can't carry a boat!"
     elsif (26..30).include?(@room) && @flags[0]
       @message = "Too dark to move."
@@ -206,6 +208,26 @@ class HauntedHouse
       @carrying[wi] = true
       @locations[wi] = 65
       @message = "You have the #{@objects[wi]}"
+    end
+  end
+
+  def open(vi, wi)
+    if @room == 43 && (wi == 27 || wi == 28)
+      @flags[17] = false
+      @message = "Drawer open"
+    elsif @room == 28 and wi == 24
+      @message = "It's locked"
+    elsif @room == 38 and wi == 31
+      @message = "That's creepy!"
+      @flags[2] = false
+    end
+  end
+
+  def leave(vi, wi)
+    if @carrying[wi]
+      @carrying[wi] = false
+      @locations[wi] = @room
+      @message = "Done."
     end
   end
 

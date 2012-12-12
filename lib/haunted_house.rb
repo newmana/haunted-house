@@ -73,22 +73,7 @@ class HauntedHouse
     display_help if vi == 0
     display_carrying if vi == 1
     if (2..8).include?(vi)
-      if @flags[14]
-        @flags[14] = false
-        @message = "Crash! You fell out of a tree!"
-      elsif @flags[17] && @room == 52
-        @message = "Ghosts will not let you move."
-      elsif @room == 45 && @carrying[1] && !@flags[34]
-        @message = "A magical barrier to the west."
-      elsif @room == 54 && !@carrying[15]
-        @message = "You're stuck!"
-      elsif @carrying[15] and !([53, 54, 55, 57].include?(@room))
-        @message = "You can't carry a boat!"
-      elsif (26..30).include?(@room) && @flags[0]
-        @message = "Too dark to move."
-      else
-        movement(vi, wi)
-      end
+      move(vi, wi)
     end
   end
 
@@ -130,7 +115,39 @@ class HauntedHouse
     gets
   end
 
+  def move(vi, wi)
+    if @flags[14]
+      @flags[14] = false
+      @message = "Crash! You fell out of a tree!"
+    elsif @flags[17] && @room == 52
+      @message = "Ghosts will not let you move."
+    elsif @room == 45 && @carrying[1] && !@flags[34]
+      @message = "A magical barrier to the west."
+    elsif @room == 54 && !@carrying[15]
+      @message = "You're stuck!"
+    elsif @carrying[15] and !([53, 54, 55, 57].include?(@room))
+      @message = "You can't carry a boat!"
+    elsif (26..30).include?(@room) && @flags[0]
+      @message = "Too dark to move."
+    elsif vi == 2 && wi.nil?
+      @message = "Go where?"
+    else
+      change = movement(vi, wi)
+      if change != 0
+        @room += change
+        if @room == 41 && @flags[23]
+          @routes[49] = "SW"
+          @message = "The door slams shut!"
+          @flags[23] = false
+        end
+      else
+        @message = "Can't go that way!"
+      end
+    end
+  end
+
   def movement(vi, wi)
+    change = 0
     direction = 0
     direction = vi - 2 if wi.nil?
     direction = wi - 17 if !vi.nil? && vi == 2
@@ -143,19 +160,14 @@ class HauntedHouse
     if (@room == 26 && !@flags[0]) && (direction == 1 || direction == 4)
       @message = "You need a light."
     else
-      change = 0
       @routes[@room].chars.each do |c|
         change = -8 if c.eql?("N") && direction == 1
         change = 8 if c.eql?("S") && direction == 2
         change = -1 if c.eql?("W") && direction == 3
         change = 1 if c.eql?("E") && direction == 4
       end
-      if change != 0
-        @room += change
-      else
-        @message = "Can't go that way!"
-      end
     end
+    change
   end
 
   def show_room

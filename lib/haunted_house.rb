@@ -78,6 +78,7 @@ class HauntedHouse
     get_take(vi, wi) if !wi.nil? && vi == 9 || vi == 10
     open(vi, wi) if vi == 11
     leave(vi, wi) if vi == 23
+    score if vi == 24
   end
 
   def get_verb_word(question)
@@ -140,8 +141,7 @@ class HauntedHouse
       print "#{v}"
       print "," if index < list.length - 1
     end
-    puts "\nPress enter to continue"
-    gets
+    press_enter_to_continue
   end
 
   def move(vi, wi)
@@ -231,6 +231,21 @@ class HauntedHouse
     end
   end
 
+  def score
+    score = @carrying.reduce(0) { |sum, value| value.nil? ? sum : sum += 1 }
+    if score == 17
+      if @carrying[14] && room != 57
+        puts "You have everything.\nReturn to the gate to get the final score"
+      elsif room == 57
+        puts "Double score for reaching here!"
+        score *= 2
+      end
+    end
+    puts "Your score #{score}"
+    puts "Well done! You finished the game." if score > 18
+    press_enter_to_continue
+  end
+
   def show_room
     puts "Your location: #{@descriptions[@room]}"
     print "Exits: "
@@ -246,6 +261,11 @@ class HauntedHouse
     @locations.each_with_index do |l, i|
       puts "You can see #{@objects[i]}" if @locations[i] == @room && !@flags[i]
     end
+  end
+
+  def press_enter_to_continue
+    puts "\nPress enter to continue"
+    gets
   end
 
   def welcome

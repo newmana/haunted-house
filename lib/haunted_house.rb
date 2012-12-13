@@ -73,6 +73,8 @@ class HauntedHouse
     end
     get_take(vi, wi) if !wi.nil? && vi == 9 || vi == 10
     open(vi, wi) if vi == 11
+    dig(vi, wi) if vi == 15
+    swing(vi, wi) if vi == 16
     climb(vi, wi) if vi == 17
     light(vi, wi) if vi == 18
     unlight(vi, wi) if vi == 19
@@ -222,6 +224,32 @@ class HauntedHouse
     elsif @room == 38 and wi == 31
       @message = "That's creepy!"
       @flags[2] = false
+    end
+  end
+
+  def dig(vi, wi)
+    if @carrying[11]
+      if @room == 30
+        @message = "Dug the bars out."
+        @descriptions[@room] = "Hole in the wall."
+        @routes[@room] = "NSE"
+      else
+        @message = "You've made a hole."
+      end
+    end
+  end
+
+  def swing(vi, wi)
+    @message = "This is no time to play games." if @carrying[13] && @room == 7
+    @message = "You swung it" if wi == 13 && @carrying[13]
+    if wi == 12 && @carrying[12]
+      if @room == 43
+        @descriptions[@room] = "Study with a secret room."
+        @routes[@room] = "WN"
+        @message = "You broke the thin wall."
+      else
+        @message = "Whoosh" if wi == 12 && @carrying[12]
+      end
     end
   end
 

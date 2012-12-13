@@ -2,7 +2,10 @@ require 'haunted_house'
 
 describe 'haunted house' do
   before(:all) do
-    @house = HauntedHouse.new
+    @flags = []
+    @flags[18] = @flags[17] = @flags[2] = @flags[26] = @flags[28] = @flags[23] = true
+    @carrying = []
+    @house = HauntedHouse.new(@flags, @carrying)
   end
 
   it "Should be silly if we can't find the word" do

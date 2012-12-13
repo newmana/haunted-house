@@ -1,5 +1,5 @@
 class HauntedHouse
-  def initialize
+  def initialize(flags, carrying)
     @room = 57
 
     @verbs = [
@@ -50,13 +50,9 @@ class HauntedHouse
         46, 38, 35, 50, 13, 18, 28, 42, 10, 25, 26, 4, 2, 7, 47, 60, 43, 32
     ]
 
-    @flags = []
-    @flags[18] = @flags[17] = @flags[2] = @flags[26] = @flags[28] = @flags[23] = true
-
-    @carrying = []
-
+    @flags = flags
+    @carrying = carrying
     @light_limit = 60
-
     @message = "Ok"
   end
 
@@ -77,6 +73,11 @@ class HauntedHouse
     end
     get_take(vi, wi) if !wi.nil? && vi == 9 || vi == 10
     open(vi, wi) if vi == 11
+    climb(vi, wi) if vi == 17
+    light(vi, wi) if vi == 18
+    unlight(vi, wi) if vi == 19
+    spray(vi, wi) if vi == 20
+    use(vi, wi) if vi == 21
     unlock(vi, wi) if vi == 22
     leave(vi, wi) if vi == 23
     score if vi == 24
@@ -113,7 +114,7 @@ class HauntedHouse
     message = "I need two words" if !word.nil? && word.empty?
     message = "You don't make sense" if vi.nil? && wi.nil?
     message = "You can't '#{verb}'" if vi.nil? && !wi.nil?
-    message = "You don't have #{word}" if !vi.nil? && !wi.nil? && wi > 0 && !@carrying[wi]
+    message = "You don't have #{word}" if !vi.nil? && !wi.nil? && wi > 0 && vi > 8 && !@carrying[wi]
     message = "Your candle is waning!" if @light_limit == 10
     message = "Your candle is out" if @light_limit == 0
     return vi, wi, message
@@ -133,7 +134,7 @@ class HauntedHouse
       index += 1
       c ? index : -1
     end
-    objects.select { |c| !c.nil? && c > 0 }.map { |c| all_objects[c]}
+    objects.select { |c| !c.nil? && c > 0 }.map { |c| all_objects[c] }
   end
 
   def display_list(message, list)
@@ -149,13 +150,13 @@ class HauntedHouse
     if @flags[14]
       @flags[14] = false
       @message = "Crash! You fell out of a tree!"
-    elsif @flags[17] && @room == 52
+    elsif @flags[27] && @room == 52
       @message = "Ghosts will not let you move."
-    elsif @room == 45 && @carrying[0] && !@flags[34]
+    elsif @room == 45 && @carrying[1] && !@flags[34]
       @message = "A magical barrier to the west."
-    elsif @room == 54 && !@carrying[14]
+    elsif @room == 54 && !@carrying[15]
       @message = "You're stuck!"
-    elsif @carrying[14] and !([53, 54, 55, 57].include?(@room))
+    elsif @carrying[15] and !([53, 54, 55, 57].include?(@room))
       @message = "You can't carry a boat!"
     elsif (26..30).include?(@room) && @flags[0]
       @message = "Too dark to move."
@@ -213,14 +214,72 @@ class HauntedHouse
   end
 
   def open(vi, wi)
-    if @room == 43 && (wi == 27 || wi == 28)
-      @flags[17] = false
+    if @room == 42 && (wi == 27 || wi == 28)
+      @flags[16] = false
       @message = "Drawer open"
-    elsif @room == 28 and wi == 24
+    elsif @room == 27 and wi == 24
       @message = "It's locked"
     elsif @room == 38 and wi == 31
       @message = "That's creepy!"
       @flags[2] = false
+    end
+  end
+
+  def climb(vi, wi)
+    if wi == 13
+      if @carrying[13]
+        @message = "It isn't attached to anything!"
+      elsif !@carrying[13] && @room == 6
+        if @flags[14]
+          @message = "Going down."
+          @flags[14] = false
+        else
+          @message = "You see a thick forest and a cliff south."
+          @flags[14] = true
+        end
+      end
+    end
+  end
+
+  def light(vi, wi)
+    if wi == 16
+      if @carrying[16]
+        @message = "It will burn your hands." if !@carrying[7]
+        @message = "Nothing to light it with." if !@carrying[8]
+        if @carrying[7] && @carrying[8]
+          @message = "It casts a flickering light."
+          @flags[0] = true
+        end
+      end
+    end
+  end
+
+  def unlight(vi, wi)
+    if @flags[0]
+      @flags[0] = false
+      @message = "Extinguished."
+    end
+  end
+
+  def spray(vi, wi)
+    if wi == 25 && @carrying[15]
+      if @flags[26]
+        @flags[26] = false
+        @message = "Pfft! Got them."
+      else
+        @message = "Hissss"
+      end
+    end
+  end
+
+  def use(vi, wi)
+    if wi == 9 and @carrying[9] & @carrying[10]
+      @message = "Switched on."
+      @flags[24] = true
+    end
+    if @flags[27] && @flags[24]
+      @message = "Whizz -- Vacuumed the ghosts up!"
+      @flags[27] = false
     end
   end
 
@@ -229,7 +288,7 @@ class HauntedHouse
     if @room == 27 && wi == 24 && !@flags[24] && @carrying[17]
       @flags[24] = true
       @routes[@room] = "SEW"
-      @descriptions[@room] = "A huge door opens"
+      @descriptions[@room] = "Huge open door."
       @message = "The key turns!"
     end
   end

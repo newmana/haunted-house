@@ -73,6 +73,9 @@ class HauntedHouse
     end
     get_take(vi, wi) if !wi.nil? && vi == 9 || vi == 10
     open(vi, wi) if vi == 11
+    examine(vi, wi) if vi == 12
+    read(vi, wi) if vi == 13
+    say(word, wi) if vi == 14
     dig(vi, wi) if vi == 15
     swing(vi, wi) if vi == 16
     climb(vi, wi) if vi == 17
@@ -224,6 +227,36 @@ class HauntedHouse
     elsif @room == 38 and wi == 31
       @message = "That's creepy!"
       @flags[2] = false
+    end
+  end
+
+  def examine(vi, wi)
+    @message = "There is a drawer" if wi == 27 || wi == 28
+    if wi == 29
+      @flags[17] = false
+      @message = "Something here!"
+    end
+    @message = "That's disgusting!" if wi == 30
+    open(vi, wi) if wi == 31
+    read(vi, wi) if wi == 32 || wi == 4
+    @message = "There's something beyond" if @room == 43 && wi == 34
+  end
+
+  def read(vi, wi)
+    @message = "They are demonic works." if @room == 42 && wi == 32
+    @message = "Use this word with care 'Xzanfar'." if (wi == 2 || wi == 35) && @carrying[2] && !@flags[33]
+    @message = "The script is in an alien tongue." if @carrying[0] && wi == 4
+  end
+
+  def say(word, wi)
+    @message = "Ok #{word}"
+    if @carrying[2] && wi == 33
+      @message = "*Magic Occurs*"
+      if @room == 45
+        @flags[33] = true
+      else
+        @room = Random.new(64) - 1
+      end
     end
   end
 

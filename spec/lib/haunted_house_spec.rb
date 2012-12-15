@@ -2,10 +2,8 @@ require 'haunted_house'
 
 describe 'haunted house' do
   before(:all) do
-    @flags = []
-    @flags[18] = @flags[17] = @flags[2] = @flags[26] = @flags[28] = @flags[23] = true
     @carrying = []
-    @house = HauntedHouse.new(57, @flags, @carrying)
+    @house = HauntedHouse.new(57, HauntedHouse.default_flags, @carrying)
   end
 
   describe "Message" do
@@ -72,6 +70,38 @@ describe 'haunted house' do
       name = @house.objects[object]
       @house.get_take(object)
       @house.message.should eql("I can't get #{name}")
+    end
+  end
+
+  describe "Open" do
+    it "Drawer" do
+      h = HauntedHouse.new(43, HauntedHouse.default_flags, [])
+      h.flags[17].should be_true
+      check_open(h, 27, "Drawer open")
+      h.flags[17].should be_false
+    end
+
+    it "Desk" do
+      h = HauntedHouse.new(43, HauntedHouse.default_flags, [])
+      h.flags[17].should be_true
+      check_open(h, 28, "Drawer open")
+      h.flags[17].should be_false
+    end
+
+    it "Doors" do
+      h = HauntedHouse.new(28, HauntedHouse.default_flags, [])
+      check_open(h, 24, "It's locked")
+    end
+
+    it "Coffin" do
+      h = HauntedHouse.new(38, HauntedHouse.default_flags, [])
+      check_open(h, 31, "That's creepy!")
+      h.flags[2].should be_false
+    end
+
+    def check_open(h, object, message)
+      h.open(object)
+      h.message.should eql(message)
     end
   end
 

@@ -1,7 +1,7 @@
 class HauntedHouse
-  @@default_flags = Array.new(36).each() {|i| [18,17,2,26,28,23].include?(i)}
+  @@default_flags = Array.new(36).each_with_index.map {|x, i| [18,17,2,26,28,23].include?(i)}
 
-  attr_reader :objects, :descriptions, :message
+  attr_reader :objects, :descriptions, :message, :flags
 
   def self.default_flags
     @@default_flags
@@ -34,7 +34,7 @@ class HauntedHouse
         "Side of the House", "Back of the Hallway", "Dark Alcove", "Small Dark Room",
         "Bottom of a Spiral Staircase", "Wide Passage", "Slippery Steps", "Clifftop",
         "Near a Crumbling Wall", "Gloomy Passage", "Pool of Light", "Impressive Vaulted Hallway",
-        "Hall by a Thick Wooden Door", "Trophy Room", "Cellar with Barred Window", "Cliff Path",
+        "Hall by a Thick Wooden Doors", "Trophy Room", "Cellar with Barred Window", "Cliff Path",
         "Cupboard with Hanging Coat", "Front Hall", "Sitting Room", "Secret Room",
         "Steep Marble Stairs", "Dining Room", "Deep Cellar with a Coffin", "Cliff Path",
         "Closet", "Front Lobby", "Library of Evil Books", "Study with a Desk and Hole in the Wall",
@@ -58,7 +58,7 @@ class HauntedHouse
         46, 38, 35, 50, 13, 18, 28, 42, 10, 25, 26, 4, 2, 7, 47, 60, 43, 32
     ]
 
-    @flags = flags
+    @flags = flags.dup
     @carrying = carrying
     @light_limit = 60
     @message = "Ok"
@@ -230,10 +230,10 @@ class HauntedHouse
   end
 
   def open(wi)
-    if @room == 42 && (wi == 27 || wi == 28)
-      @flags[16] = false
+    if @room == 43 && (wi == 27 || wi == 28)
+      @flags[17] = false
       @message = "Drawer open"
-    elsif @room == 27 and wi == 24
+    elsif @room == 28 and wi == 24
       @message = "It's locked"
     elsif @room == 38 and wi == 31
       @message = "That's creepy!"

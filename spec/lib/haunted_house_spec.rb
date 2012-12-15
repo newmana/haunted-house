@@ -80,7 +80,6 @@ describe 'haunted house' do
         h.parse("take painting")
         h.message.should eql("You already have it")
       }
-      h = HauntedHouse.new(57, HauntedHouse.default_flags, [true])
     end
 
     it "Check flag" do

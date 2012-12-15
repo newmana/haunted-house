@@ -46,11 +46,11 @@ class HauntedHouse
     ]
 
     @objects = [
-        "Painting", "Ring", "Magic Spells", "Goblet", "Scroll", "Coins", "Statue", "Candlestick",
-        "Matches", "Vacuum", "Batteries", "Shovel", "Axe", "Rope", "Boat", "Aerosol", "Candle", "Key",
-        "North", "South", "West", "East", "Up", "Down",
-        "Doors", "Bats", "Ghosts", "Drawer", "Desk", "Coat", "Rubbish",
-        "Coffin", "Books", "Xzanfar", "Wall", "Spells"
+        "PAINTING", "RING", "MAGIC SPELLS", "GOBLET", "SCROLL", "COINS", "STATUE", "CANDLESTICK",
+        "MATCHES", "VACUUM", "BATTERIES", "SHOVEL", "AXE", "ROPE", "BOAT", "AEROSOL", "CANDLE", "KEY",
+        "NORTH", "SOUTH", "WEST", "EAST", "UP", "DOWN",
+        "DOORS", "BATS", "GHOSTS", "DRAWER", "DESK", "COAT", "RUBBISH",
+        "COFFIN", "BOOKS", "XZANFAR", "WALL", "SPELLS"
     ]
 
     # Locations for gettable objects
@@ -71,9 +71,17 @@ class HauntedHouse
     puts @message
     @message = "What?"
     puts "What will you do now?"
-    verb, word = get_verb_word(gets)
+    input = gets
     candle
-    vi, wi, @message = get_message(verb, word)
+    vi, wi = parse(input)
+    dispatch(vi, wi)
+  end
+
+  def parse(input)
+    verb, word = get_verb_word(input)
+    vi, wi = get_verb_word_index(verb, word)
+    word = word.downcase.capitalize unless word.nil?
+    @message = get_message(verb, word, vi, wi)
     display_help if vi == 0
     display_carrying if vi == 1
     if (2..8).include?(vi)
@@ -94,20 +102,19 @@ class HauntedHouse
     unlock(wi) if vi == 22
     leave(wi) if vi == 23
     score if vi == 24
+    return vi, wi
   end
 
   def get_verb_word(question)
     if question.length > 0
       question = question.split
+      question.map! { |q| q.strip.upcase }
       verb = question[0]
+      word = ""
       if question.length > 1
         question.shift
         word = question.join(' ')
       end
-      verb.strip! unless verb.nil?
-      verb.upcase! unless verb.nil?
-      word.strip! unless word.nil?
-      word.capitalize! unless word.nil?
       return verb, word
     end
     return "", ""
@@ -120,17 +127,20 @@ class HauntedHouse
     flags[0] = false if @light_limit < 1
   end
 
-  def get_message(verb, word)
+  def get_verb_word_index(verb, word)
     vi = @verbs.index(verb)
     wi = @objects.index(word)
-    message = "That's silly" if !vi.nil? && wi.nil? && !word.nil? && !word.empty?
-    message = "I need two words" if !word.nil? && word.empty?
-    message = "You don't make sense" if vi.nil? && wi.nil?
-    message = "You can't '#{verb}'" if vi.nil? && !wi.nil?
-    message = "You don't have #{word}" if !vi.nil? && !wi.nil? && wi > 0 && vi > 8 && !@carrying[wi]
-    message = "Your candle is waning!" if @light_limit == 10
-    message = "Your candle is out" if @light_limit == 0
-    return vi, wi, message
+    return vi, wi
+  end
+
+  def get_message(verb, word, vi, wi)
+    return "That's silly" if !vi.nil? && wi.nil? && !word.nil? && !word.empty?
+    return "I need two words" if !word.nil? && word.empty?
+    return "You don't make sense" if vi.nil? && wi.nil?
+    return "You can't '#{verb}'" if vi.nil? && !wi.nil?
+    return "You don't have #{word}" if !vi.nil? && !wi.nil? && wi > 0 && vi > 8 && !@carrying[wi]
+    return "Your candle is waning!" if @light_limit == 10
+    return "Your candle is out" if @light_limit == 0
   end
 
   def display_help

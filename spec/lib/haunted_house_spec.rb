@@ -1,40 +1,50 @@
 require 'haunted_house'
 
 describe 'haunted house' do
-  before(:all) do
-    @carrying = []
-    @house = HauntedHouse.new(57, HauntedHouse.default_flags, @carrying)
-  end
-
   describe "Message" do
     it "Should be silly if we can't find the word" do
-      vi, wi, message = @house.get_message("SPRAY", "paint")
-      vi.should == 20
-      wi.should be_nil
-      message.should eql("That's silly")
+      in_the_house { |h|
+        vi, wi = h.parse("SPRAY paint")
+        vi.should == 20
+        wi.should be_nil
+        h.message.should eql("That's silly")
+      }
     end
 
     it "Should require two words" do
-      vi, wi, message = @house.get_message("SPRAY", "")
-      wi.should be_nil
-      message.should eql("I need two words")
+      in_the_house { |h|
+        vi, wi = h.parse("SPRAY")
+        vi.should == 20
+        wi.should be_nil
+        h.message.should eql("I need two words")
+      }
     end
 
     it "If it doesn't find the verb and object" do
-      vi, wi, message = @house.get_message("FOO", "BAR")
-      message.should eql("You don't make sense")
+      in_the_house { |h|
+        vi, wi = h.parse("FOO BAR")
+        vi.should be_nil
+        wi.should be_nil
+        h.message.should eql("You don't make sense")
+      }
     end
 
     it "Check whether you are carrying" do
-      vi, wi, message = @house.get_message("USE", "Matches")
-      message.should eql("You don't have Matches")
+      in_the_house { |h|
+        vi, wi = h.parse("USE MATCHES")
+        vi.should == 21
+        wi.should == 8
+        h.message.should eql("You don't have Matches")
+      }
     end
 
     it "Check going a direction" do
-      vi, wi, message = @house.get_message("GO", "North")
-      message.should be_nil
-      vi.should == 2
-      wi.should == 18
+      in_the_house { |h|
+        vi, wi = h.parse("GO NORTH")
+        vi.should == 2
+        wi.should == 18
+        h.message.should be_nil
+      }
     end
   end
 
@@ -43,130 +53,150 @@ describe 'haunted house' do
       [18, 23, 35, Random.new.rand(17) + 18].each { |r| check_cant_get_take(r) }
     end
 
-    it "Check location of object" do
-      h = HauntedHouse.new(57, HauntedHouse.default_flags, [])
-      h.get_take(0)
-      h.message.should eql("It isn't here")
-    end
-
-    it "Check flag" do
-      @house.get_take(2)
-      @house.message.should eql("What #{@house.objects[2]}?")
-    end
-
-    it "Check flag" do
-      h = HauntedHouse.new(57, HauntedHouse.default_flags, [true])
-      h.get_take(0)
-      h.message.should eql("You already have it")
-    end
-
-    it "Check flag" do
-      h = HauntedHouse.new(46, HauntedHouse.default_flags, [])
-      h.get_take(0)
-      h.message.should eql("You have the #{h.objects[0]}")
-    end
-
     def check_cant_get_take(object)
-      name = @house.objects[object]
-      @house.get_take(object)
-      @house.message.should eql("I can't get #{name}")
+      in_the_house { |h|
+        name = h.objects[object]
+        h.get_take(object)
+        h.message.should eql("I can't get #{name}")
+      }
+    end
+
+    it "Check location of object" do
+      in_the_house { |h|
+        h.parse("take painting")
+        h.message.should eql("It isn't here")
+      }
+    end
+
+    it "Check flag" do
+      in_the_house { |h|
+        h.parse("take magic spells")
+        h.message.should eql("What #{h.objects[2]}?")
+      }
+    end
+
+    it "Check flag" do
+      in_the_house(57, HauntedHouse.default_flags, [true]) { |h|
+        h.parse("take painting")
+        h.message.should eql("You already have it")
+      }
+      h = HauntedHouse.new(57, HauntedHouse.default_flags, [true])
+    end
+
+    it "Check flag" do
+      in_the_house(46) { |h|
+        h.parse("take painting")
+        h.message.should eql("You have the #{h.objects[0]}")
+      }
     end
   end
 
   describe "Open" do
     it "Drawer" do
-      h = HauntedHouse.new(43, HauntedHouse.default_flags, [])
-      h.flags[17].should be_true
-      check_open(h, 27, "Drawer open")
-      h.flags[17].should be_false
+      in_the_house(43) { |h|
+        h.flags[17].should be_true
+        check_open(h, "drawer", "Drawer open")
+        h.flags[17].should be_false
+      }
     end
 
     it "Desk" do
-      h = HauntedHouse.new(43, HauntedHouse.default_flags, [])
-      h.flags[17].should be_true
-      check_open(h, 28, "Drawer open")
-      h.flags[17].should be_false
+      in_the_house(43) { |h|
+        h.flags[17].should be_true
+        check_open(h, "desk", "Drawer open")
+        h.flags[17].should be_false
+      }
     end
 
     it "Doors" do
-      h = HauntedHouse.new(28, HauntedHouse.default_flags, [])
-      check_open(h, 24, "It's locked")
+      in_the_house(28) { |h|
+        check_open(h, "doors", "It's locked")
+      }
     end
 
     it "Coffin" do
-      h = HauntedHouse.new(38, HauntedHouse.default_flags, [])
-      check_open(h, 31, "That's creepy!")
-      h.flags[2].should be_false
+      in_the_house(38) { |h|
+        check_open(h, "coffin", "That's creepy!")
+        h.flags[2].should be_false
+      }
     end
 
     def check_open(h, object, message)
-      h.open(object)
+      h.parse("open #{object}")
       h.message.should eql(message)
     end
   end
 
   describe "Examine" do
     it "Drawer or Desk" do
-      check_study(27, "There is a drawer")
-      check_study(28, "There is a drawer")
+      in_the_house(43) { |h|
+        check_examine(h, "drawer", "There is a drawer")
+        check_examine(h, "desk", "There is a drawer")
+      }
     end
 
     it "Coat" do
-      @house.flags[18].should be_true
-      @house.examine(29)
-      @house.message.should eql("Something here!")
-      @house.flags[18].should be_false
+      in_the_house { |h|
+        h.flags[18].should be_true
+        check_examine(h, "coat", "Something here!")
+        h.flags[18].should be_false
+      }
     end
 
     it "Rubbish" do
-      @house.examine(30)
-      @house.message.should eql("That's disgusting!")
+      in_the_house { |h|
+        check_examine(h, "rubbish", "That's disgusting!")
+      }
     end
 
     it "Wall" do
-      check_study(34, "There's something beyond")
+      in_the_house(43) { |h|
+        check_examine(h, "wall", "There's something beyond")
+      }
     end
 
-    def check_study(wi, message)
-      h = HauntedHouse.new(43, HauntedHouse.default_flags, [])
-      h.examine(wi)
+    def check_examine(h, object, message)
+      h.parse("examine #{object}")
       h.message.should eql(message)
     end
   end
 
   describe "Read" do
     it "Books" do
-      h = HauntedHouse.new(42, HauntedHouse.default_flags, [])
-      h.read(32)
-      h.message.should eql("They are demonic works.")
+      in_the_house(42) { |h|
+        check_read(h, "books", "They are demonic works.")
+      }
     end
 
     it "Magic Spells or Spells" do
       carrying = []
       carrying[2] = true
-      h = HauntedHouse.new(42, HauntedHouse.default_flags, carrying)
-      check_message(h, 2)
-      check_message(h, 35)
+      in_the_house(42, HauntedHouse.default_flags, carrying) { |h|
+        xzanfar = "Use this word with care 'Xzanfar'."
+        check_read(h, "magic spells", xzanfar)
+        check_read(h, "spells", xzanfar)
+      }
     end
 
     it "Scroll" do
       carrying = []
       carrying[0] = true
-      h = HauntedHouse.new(42, HauntedHouse.default_flags, carrying)
-      h.read(4)
-      h.message.should eql("The script is in an alien tongue.")
+      in_the_house(42, HauntedHouse.default_flags, carrying) { |h|
+        check_read(h, "scroll", "The script is in an alien tongue.")
+      }
     end
 
-    def check_message(h, wi)
-      h.read(wi)
-      h.message.should eql("Use this word with care 'Xzanfar'.")
+    def check_read(h, object, message)
+      h.parse("read #{object}")
+      h.message.should eql(message)
     end
   end
 
   describe "Say" do
     it "Anything" do
-      @house.say("Anything", nil)
-      @house.message.should eql("Ok Anything")
+      in_the_house { |h|
+        check_say(h, "anything", "Ok Anything")
+      }
     end
 
     describe "Xzanfar" do
@@ -176,85 +206,106 @@ describe 'haunted house' do
       end
 
       it "Xzanfar with Goblet not in Chamber" do
-        h = HauntedHouse.new(-1, HauntedHouse.default_flags, @carrying)
-        h.say("Xzanfar", 33)
-        h.message.should eql("*Magic Occurs*")
-        (0..63).should include(h.room)
+        in_the_house(-1, HauntedHouse.default_flags, @carrying) { |h|
+          check_say(h, "Xzanfar", "*Magic Occurs*")
+          (0..63).should include(h.room)
+        }
       end
 
       it "Xzanfar with Goblet in Cold Chamber" do
-        h = HauntedHouse.new(45, HauntedHouse.default_flags, @carrying)
-        h.flags[33].should be_false
-        h.say("Xzanfar", 33)
-        h.message.should eql("*Magic Occurs*")
-        h.flags[33].should be_true
+        in_the_house(45, HauntedHouse.default_flags, @carrying) { |h|
+          h.flags[33].should be_false
+          check_say(h, "Xzanfar", "*Magic Occurs*")
+          h.flags[33].should be_true
+          (0..63).should include(h.room)
+        }
       end
+    end
+
+    def check_say(h, object, message)
+      h.parse("say #{object}")
+      h.message.should eql(message)
     end
   end
 
   describe "Dig" do
+    before(:each) do
+      @carrying = []
+      @carrying[11] = true
+    end
+
     it "Dig in any room" do
-      h = room_with_carrying(57)
-      h.message.should eql("You've made a hole.")
+      in_the_house(1, HauntedHouse.default_flags, @carrying) { |h|
+        h.parse("dig")
+        h.message.should eql("You've made a hole.")
+      }
     end
 
     it "Dig in cellar" do
-      h = room_with_carrying(30)
-      h.message.should eql("Dug the bars out.")
-      h.descriptions[30].should eql("Hole in the wall.")
-    end
-
-    def room_with_carrying(room)
-      @carrying = []
-      @carrying[11] = true
-      h = HauntedHouse.new(room, HauntedHouse.default_flags, @carrying)
-      h.dig
-      h
+      in_the_house(30, HauntedHouse.default_flags, @carrying) { |h|
+        h.parse("dig")
+        h.message.should eql("Dug the bars out.")
+        h.descriptions[30].should eql("Hole in the wall.")
+      }
     end
   end
 
   describe "Swing" do
     describe "Axe" do
-      it "With axe but not in study" do
+      before(:each) do
         @carrying = []
         @carrying[12] = true
-        h = HauntedHouse.new(57, HauntedHouse.default_flags, @carrying)
-        h.swing(12)
-        h.message.should eql("Whoosh")
+      end
+
+      it "With axe but not in study" do
+        in_the_house(57, HauntedHouse.default_flags, @carrying) { |h|
+          h.parse("swing axe")
+          h.message.should eql("Whoosh")
+        }
       end
 
       it "With axe in study" do
-        @carrying = []
-        @carrying[12] = true
-        h = HauntedHouse.new(43, HauntedHouse.default_flags, @carrying)
-        h.swing(12)
-        h.message.should eql("You broke the thin wall.")
+        in_the_house(43, HauntedHouse.default_flags, @carrying) { |h|
+          h.parse("swing axe")
+          h.message.should eql("You broke the thin wall.")
+          h.descriptions[43].should eql("Study with a secret room.")
+        }
       end
     end
 
     describe "Rope" do
-      it "With tree" do
+      before(:each) do
         @carrying = []
         @carrying[13] = true
-        h = HauntedHouse.new(7, HauntedHouse.default_flags, @carrying)
-        h.swing(13)
-        h.message.should eql("This is no time to play games.")
+      end
+
+      it "With tree" do
+        in_the_house(7, HauntedHouse.default_flags, @carrying) { |h|
+          h.parse("swing rope")
+          h.message.should eql("This is no time to play games.")
+        }
       end
 
       it "Without tree" do
-        @carrying = []
-        @carrying[13] = true
-        h = HauntedHouse.new(57, HauntedHouse.default_flags, @carrying)
-        h.swing(13)
-        h.message.should eql("You swung it")
+        in_the_house(57, HauntedHouse.default_flags, @carrying) { |h|
+          h.parse("swing rope")
+          h.message.should eql("You swung it")
+        }
       end
     end
   end
 
   describe "Carrying" do
     it "Check create carrying" do
-      result = @house.create_carrying([false, true], ["Steam", "Shovel"])
-      result.should eql(["Shovel"])
+      in_the_house { |h|
+        result = h.create_carrying([false, true], ["Steam", "Shovel"])
+        result.should eql(["Shovel"])
+      }
     end
+  end
+
+  def in_the_house(room=57, flags=HauntedHouse.default_flags, carrying=[])
+    h = HauntedHouse.new(room, flags, carrying)
+    yield(h)
   end
 end

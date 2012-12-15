@@ -1,6 +1,14 @@
 class HauntedHouse
-  def initialize(flags, carrying)
-    @room = 57
+  @@default_flags = Array.new(36).each() {|i| [18,17,2,26,28,23].include?(i)}
+
+  attr_reader :objects, :descriptions, :message
+
+  def self.default_flags
+    @@default_flags
+  end
+
+  def initialize(start_room, flags, carrying)
+    @room = start_room
 
     @verbs = [
         "HELP", "CARRYING?", "GO", "N", "S", "W", "E", "U", "D", "GET", "TAKE", "OPEN", "EXAMINE", "READ", "SAY",
@@ -65,26 +73,26 @@ class HauntedHouse
     puts "What will you do now?"
     verb, word = get_verb_word(gets)
     candle
-    vi, wi, @message = message(verb, word)
+    vi, wi, @message = get_message(verb, word)
     display_help if vi == 0
     display_carrying if vi == 1
     if (2..8).include?(vi)
       move(vi, wi)
     end
-    get_take(vi, wi) if !wi.nil? && vi == 9 || vi == 10
-    open(vi, wi) if vi == 11
-    examine(vi, wi) if vi == 12
-    read(vi, wi) if vi == 13
+    get_take(wi) if !wi.nil? && vi == 9 || vi == 10
+    open(wi) if vi == 11
+    examine(wi) if vi == 12
+    read(wi) if vi == 13
     say(word, wi) if vi == 14
-    dig(vi, wi) if vi == 15
-    swing(vi, wi) if vi == 16
-    climb(vi, wi) if vi == 17
-    light(vi, wi) if vi == 18
-    unlight(vi, wi) if vi == 19
-    spray(vi, wi) if vi == 20
-    use(vi, wi) if vi == 21
-    unlock(vi, wi) if vi == 22
-    leave(vi, wi) if vi == 23
+    dig if vi == 15
+    swing(wi) if vi == 16
+    climb(wi) if vi == 17
+    light(wi) if vi == 18
+    unlight if vi == 19
+    spray(wi) if vi == 20
+    use(wi) if vi == 21
+    unlock(wi) if vi == 22
+    leave(wi) if vi == 23
     score if vi == 24
   end
 
@@ -112,7 +120,7 @@ class HauntedHouse
     flags[0] = false if @light_limit < 1
   end
 
-  def message(verb, word)
+  def get_message(verb, word)
     vi = @verbs.index(verb)
     wi = @objects.index(word)
     message = "That's silly" if !vi.nil? && wi.nil? && !word.nil? && !word.empty?
@@ -206,19 +214,22 @@ class HauntedHouse
     change
   end
 
-  def get_take(vi, wi)
-    @message = "I can't get #{@objects[wi]}" if wi > 18
-    @message = "It isn't here" if @locations[wi] != @room
-    @message = "What #{@objects[wi]}?" if @flags[wi]
-    @message = "You already have it" if @carrying[wi]
-    if wi > 0 && wi < 18 && @locations[wi] == @room && !@flags[wi]
-      @carrying[wi] = true
-      @locations[wi] = 65
-      @message = "You have the #{@objects[wi]}"
+  def get_take(wi)
+    if wi >= 18
+      @message = "I can't get #{@objects[wi]}"
+    else
+      @message = "It isn't here" if @locations[wi] != @room
+      @message = "What #{@objects[wi]}?" if @flags[wi]
+      @message = "You already have it" if @carrying[wi]
+      if wi > 0 && wi < 18 && @locations[wi] == @room && !@flags[wi]
+        @carrying[wi] = true
+        @locations[wi] = 65
+        @message = "You have the #{@objects[wi]}"
+      end
     end
   end
 
-  def open(vi, wi)
+  def open(wi)
     if @room == 42 && (wi == 27 || wi == 28)
       @flags[16] = false
       @message = "Drawer open"
@@ -230,19 +241,19 @@ class HauntedHouse
     end
   end
 
-  def examine(vi, wi)
+  def examine(wi)
     @message = "There is a drawer" if wi == 27 || wi == 28
     if wi == 29
       @flags[17] = false
       @message = "Something here!"
     end
     @message = "That's disgusting!" if wi == 30
-    open(vi, wi) if wi == 31
-    read(vi, wi) if wi == 32 || wi == 4
+    open(wi) if wi == 31
+    read(wi) if wi == 32 || wi == 4
     @message = "There's something beyond" if @room == 43 && wi == 34
   end
 
-  def read(vi, wi)
+  def read(wi)
     @message = "They are demonic works." if @room == 42 && wi == 32
     @message = "Use this word with care 'Xzanfar'." if (wi == 2 || wi == 35) && @carrying[2] && !@flags[33]
     @message = "The script is in an alien tongue." if @carrying[0] && wi == 4
@@ -260,7 +271,7 @@ class HauntedHouse
     end
   end
 
-  def dig(vi, wi)
+  def dig
     if @carrying[11]
       if @room == 30
         @message = "Dug the bars out."
@@ -272,7 +283,7 @@ class HauntedHouse
     end
   end
 
-  def swing(vi, wi)
+  def swing(wi)
     @message = "This is no time to play games." if @carrying[13] && @room == 7
     @message = "You swung it" if wi == 13 && @carrying[13]
     if wi == 12 && @carrying[12]
@@ -286,7 +297,7 @@ class HauntedHouse
     end
   end
 
-  def climb(vi, wi)
+  def climb(i)
     if wi == 13
       if @carrying[13]
         @message = "It isn't attached to anything!"
@@ -302,7 +313,7 @@ class HauntedHouse
     end
   end
 
-  def light(vi, wi)
+  def light(wi)
     if wi == 16
       if @carrying[16]
         @message = "It will burn your hands." if !@carrying[7]
@@ -315,14 +326,14 @@ class HauntedHouse
     end
   end
 
-  def unlight(vi, wi)
+  def unlight
     if @flags[0]
       @flags[0] = false
       @message = "Extinguished."
     end
   end
 
-  def spray(vi, wi)
+  def spray(wi)
     if wi == 25 && @carrying[15]
       if @flags[26]
         @flags[26] = false
@@ -333,7 +344,7 @@ class HauntedHouse
     end
   end
 
-  def use(vi, wi)
+  def use(wi)
     if wi == 9 and @carrying[9] & @carrying[10]
       @message = "Switched on."
       @flags[24] = true
@@ -344,8 +355,8 @@ class HauntedHouse
     end
   end
 
-  def unlock(vi, wi)
-    open(vi, wi) if @room == 42 && (wi == 26 || wi == 27)
+  def unlock(wi)
+    open(wi) if @room == 42 && (wi == 26 || wi == 27)
     if @room == 27 && wi == 24 && !@flags[24] && @carrying[17]
       @flags[24] = true
       @routes[@room] = "SEW"
@@ -354,7 +365,7 @@ class HauntedHouse
     end
   end
 
-  def leave(vi, wi)
+  def leave(wi)
     if @carrying[wi]
       @carrying[wi] = false
       @locations[wi] = @room

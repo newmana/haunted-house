@@ -79,7 +79,7 @@ class HauntedHouse
   def parse(input)
     verb, word = get_verb_word(input)
     vi, wi = get_verb_word_index(verb, word)
-    word = word.split(' ').map { |w| w.downcase.capitalize } unless word.nil?
+    word = word.split(' ').map { |w| w.downcase.capitalize }.join(" ") unless word.nil?
     @message = get_message(verb, word, vi, wi)
     display_help if vi == 0
     display_carrying if vi == 1

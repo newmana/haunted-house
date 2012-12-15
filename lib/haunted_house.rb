@@ -87,7 +87,7 @@ class HauntedHouse
     if (2..8).include?(vi)
       move(vi, wi)
     end
-    get_take(wi) if !wi.nil? && vi == 9 || vi == 10
+    get_take(wi) if vi == 9 || vi == 10
     open(wi) if vi == 11
     examine(wi) if vi == 12
     read(wi) if vi == 13
@@ -225,6 +225,7 @@ class HauntedHouse
   end
 
   def get_take(wi)
+    return if wi.nil?
     if wi >= 18
       @message = "I can't get #{@objects[wi]}"
     else

@@ -1,5 +1,5 @@
 class HauntedHouse
-  @@default_flags = Array.new(36).each_with_index.map {|x, i| [18,17,2,26,28,23].include?(i)}
+  @@default_flags = Array.new(36).each_with_index.map { |x, i| [18, 17, 2, 26, 28, 23].include?(i) }
 
   attr_reader :objects, :descriptions, :message, :flags, :room
 
@@ -284,9 +284,9 @@ class HauntedHouse
   end
 
   def swing(wi)
-    @message = "This is no time to play games." if @carrying[13] && @room == 7
-    @message = "You swung it" if wi == 13 && @carrying[13]
-    if wi == 12 && @carrying[12]
+    if @carrying[13]
+      @message = @room == 7 ? "This is no time to play games." : "You swung it"
+    elsif @carrying[12] && wi == 12
       if @room == 43
         @descriptions[@room] = "Study with a secret room."
         @routes[@room] = "WN"
@@ -418,4 +418,5 @@ class HauntedHouse
       show_location
     end
   end
+
 end

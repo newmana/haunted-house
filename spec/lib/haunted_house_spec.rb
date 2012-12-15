@@ -213,6 +213,44 @@ describe 'haunted house' do
     end
   end
 
+  describe "Swing" do
+    describe "Axe" do
+      it "With axe but not in study" do
+        @carrying = []
+        @carrying[12] = true
+        h = HauntedHouse.new(57, HauntedHouse.default_flags, @carrying)
+        h.swing(12)
+        h.message.should eql("Whoosh")
+      end
+
+      it "With axe in study" do
+        @carrying = []
+        @carrying[12] = true
+        h = HauntedHouse.new(43, HauntedHouse.default_flags, @carrying)
+        h.swing(12)
+        h.message.should eql("You broke the thin wall.")
+      end
+    end
+
+    describe "Rope" do
+      it "With tree" do
+        @carrying = []
+        @carrying[13] = true
+        h = HauntedHouse.new(7, HauntedHouse.default_flags, @carrying)
+        h.swing(13)
+        h.message.should eql("This is no time to play games.")
+      end
+
+      it "Without tree" do
+        @carrying = []
+        @carrying[13] = true
+        h = HauntedHouse.new(57, HauntedHouse.default_flags, @carrying)
+        h.swing(13)
+        h.message.should eql("You swung it")
+      end
+    end
+  end
+
   describe "Carrying" do
     it "Check create carrying" do
       result = @house.create_carrying([false, true], ["Steam", "Shovel"])

@@ -188,6 +188,7 @@ class HauntedHouse
       change = movement(vi, wi)
       if change != 0
         @room += change
+        @message = "Ok"
         if @room == 41 && @flags[23]
           @routes[49] = "SW"
           @message = "The door slams shut!"

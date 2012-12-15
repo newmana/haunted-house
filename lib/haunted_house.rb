@@ -59,7 +59,7 @@ class HauntedHouse
     ]
 
     @flags = flags.dup
-    @carrying = carrying
+    @carrying = carrying.dup
     @light_limit = 60
     @message = "Ok"
   end

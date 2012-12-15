@@ -73,14 +73,13 @@ class HauntedHouse
     puts "What will you do now?"
     input = gets
     candle
-    vi, wi = parse(input)
-    dispatch(vi, wi)
+    parse(input)
   end
 
   def parse(input)
     verb, word = get_verb_word(input)
     vi, wi = get_verb_word_index(verb, word)
-    word = word.downcase.capitalize unless word.nil?
+    word = word.split(' ').map { |w| w.downcase.capitalize } unless word.nil?
     @message = get_message(verb, word, vi, wi)
     display_help if vi == 0
     display_carrying if vi == 1

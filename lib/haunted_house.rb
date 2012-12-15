@@ -49,7 +49,7 @@ class HauntedHouse
         "Painting", "Ring", "Magic Spells", "Goblet", "Scroll", "Coins", "Statue", "Candlestick",
         "Matches", "Vacuum", "Batteries", "Shovel", "Axe", "Rope", "Boat", "Aerosol", "Candle", "Key",
         "North", "South", "West", "East", "Up", "Down",
-        "Doors", "Bats", "Ghosts", "Drawer", "Desk", "Cost", "Rubbish",
+        "Doors", "Bats", "Ghosts", "Drawer", "Desk", "Coat", "Rubbish",
         "Coffin", "Books", "Xzanfar", "Wall", "Spells"
     ]
 
@@ -244,7 +244,7 @@ class HauntedHouse
   def examine(wi)
     @message = "There is a drawer" if wi == 27 || wi == 28
     if wi == 29
-      @flags[17] = false
+      @flags[18] = false
       @message = "Something here!"
     end
     @message = "That's disgusting!" if wi == 30
@@ -261,7 +261,7 @@ class HauntedHouse
 
   def say(word, wi)
     @message = "Ok #{word}"
-    if @carrying[2] && wi == 33
+    if @carrying[3] && wi == 33
       @message = "*Magic Occurs*"
       if @room == 45
         @flags[33] = true
@@ -272,7 +272,7 @@ class HauntedHouse
   end
 
   def dig
-    if @carrying[11]
+    if @carrying[12]
       if @room == 30
         @message = "Dug the bars out."
         @descriptions[@room] = "Hole in the wall."
@@ -284,30 +284,30 @@ class HauntedHouse
   end
 
   def swing(wi)
-    @message = "This is no time to play games." if @carrying[13] && @room == 7
-    @message = "You swung it" if wi == 13 && @carrying[13]
-    if wi == 12 && @carrying[12]
+    @message = "This is no time to play games." if @carrying[14] && @room == 7
+    @message = "You swung it" if wi == 13 && @carrying[14]
+    if wi == 12 && @carrying[13]
       if @room == 43
         @descriptions[@room] = "Study with a secret room."
         @routes[@room] = "WN"
         @message = "You broke the thin wall."
       else
-        @message = "Whoosh" if wi == 12 && @carrying[12]
+        @message = "Whoosh"
       end
     end
   end
 
   def climb
     if wi == 13
-      if @carrying[13]
+      if @carrying[14]
         @message = "It isn't attached to anything!"
-      elsif !@carrying[13] && @room == 6
-        if @flags[14]
+      elsif !@carrying[14] && @room == 7
+        if @flags[13]
           @message = "Going down."
-          @flags[14] = false
+          @flags[13] = false
         else
           @message = "You see a thick forest and a cliff south."
-          @flags[14] = true
+          @flags[13] = true
         end
       end
     end
@@ -315,10 +315,10 @@ class HauntedHouse
 
   def light(wi)
     if wi == 16
-      if @carrying[16]
-        @message = "It will burn your hands." if !@carrying[7]
-        @message = "Nothing to light it with." if !@carrying[8]
-        if @carrying[7] && @carrying[8]
+      if @carrying[17]
+        @message = "It will burn your hands." if !@carrying[8]
+        @message = "Nothing to light it with." if !@carrying[9]
+        if @carrying[8] && @carrying[9]
           @message = "It casts a flickering light."
           @flags[0] = true
         end

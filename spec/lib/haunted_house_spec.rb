@@ -105,6 +105,64 @@ describe 'haunted house' do
     end
   end
 
+  describe "Examine" do
+    it "Drawer or Desk" do
+      check_study(27, "There is a drawer")
+      check_study(28, "There is a drawer")
+    end
+
+    it "Coat" do
+      @house.flags[18].should be_true
+      @house.examine(29)
+      @house.message.should eql("Something here!")
+      @house.flags[18].should be_false
+    end
+
+    it "Rubbish" do
+      @house.examine(30)
+      @house.message.should eql("That's disgusting!")
+    end
+
+    it "Wall" do
+      check_study(34, "There's something beyond")
+    end
+
+    def check_study(wi, message)
+      h = HauntedHouse.new(43, HauntedHouse.default_flags, [])
+      h.examine(wi)
+      h.message.should eql(message)
+    end
+  end
+
+  describe "Read" do
+    it "Books" do
+      h = HauntedHouse.new(42, HauntedHouse.default_flags, [])
+      h.read(32)
+      h.message.should eql("They are demonic works.")
+    end
+
+    it "Magic Spells or Spells" do
+      carrying = []
+      carrying[2] = true
+      h = HauntedHouse.new(42, HauntedHouse.default_flags, carrying)
+      check_message(h, 2)
+      check_message(h, 35)
+    end
+
+    it "Scroll" do
+      carrying = []
+      carrying[0] = true
+      h = HauntedHouse.new(42, HauntedHouse.default_flags, carrying)
+      h.read(4)
+      h.message.should eql("The script is in an alien tongue.")
+    end
+
+    def check_message(h, wi)
+      h.read(wi)
+      h.message.should eql("Use this word with care 'Xzanfar'.")
+    end
+  end
+
   describe "Carrying" do
     it "Check create carrying" do
       result = @house.create_carrying([false, true], ["Steam", "Shovel"])

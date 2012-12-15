@@ -40,7 +40,7 @@ describe 'haunted house' do
 
   describe "Get take" do
     it "Can't take objects from north (18) on" do
-      [18, 23, 35, Random.new.rand(17) + 18]. each { |r| check_cant_get_take(r) }
+      [18, 23, 35, Random.new.rand(17) + 18].each { |r| check_cant_get_take(r) }
     end
 
     it "Check location of object" do
@@ -160,6 +160,56 @@ describe 'haunted house' do
     def check_message(h, wi)
       h.read(wi)
       h.message.should eql("Use this word with care 'Xzanfar'.")
+    end
+  end
+
+  describe "Say" do
+    it "Anything" do
+      @house.say("Anything", nil)
+      @house.message.should eql("Ok Anything")
+    end
+
+    describe "Xzanfar" do
+      before(:each) do
+        @carrying = []
+        @carrying[2] = true
+      end
+
+      it "Xzanfar with Goblet not in Chamber" do
+        h = HauntedHouse.new(-1, HauntedHouse.default_flags, @carrying)
+        h.say("Xzanfar", 33)
+        h.message.should eql("*Magic Occurs*")
+        (0..63).should include(h.room)
+      end
+
+      it "Xzanfar with Goblet in Cold Chamber" do
+        h = HauntedHouse.new(45, HauntedHouse.default_flags, @carrying)
+        h.flags[33].should be_false
+        h.say("Xzanfar", 33)
+        h.message.should eql("*Magic Occurs*")
+        h.flags[33].should be_true
+      end
+    end
+  end
+
+  describe "Dig" do
+    it "Dig in any room" do
+      h = room_with_carrying(57)
+      h.message.should eql("You've made a hole.")
+    end
+
+    it "Dig in cellar" do
+      h = room_with_carrying(30)
+      h.message.should eql("Dug the bars out.")
+      h.descriptions[30].should eql("Hole in the wall.")
+    end
+
+    def room_with_carrying(room)
+      @carrying = []
+      @carrying[11] = true
+      h = HauntedHouse.new(room, HauntedHouse.default_flags, @carrying)
+      h.dig
+      h
     end
   end
 

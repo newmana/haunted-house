@@ -1,7 +1,7 @@
 class HauntedHouse
   @@default_flags = Array.new(36).each_with_index.map {|x, i| [18,17,2,26,28,23].include?(i)}
 
-  attr_reader :objects, :descriptions, :message, :flags
+  attr_reader :objects, :descriptions, :message, :flags, :room
 
   def self.default_flags
     @@default_flags
@@ -261,18 +261,18 @@ class HauntedHouse
 
   def say(word, wi)
     @message = "Ok #{word}"
-    if @carrying[3] && wi == 33
+    if @carrying[2] && wi == 33
       @message = "*Magic Occurs*"
       if @room == 45
         @flags[33] = true
       else
-        @room = Random.new(64) - 1
+        @room = Random.new.rand(64)
       end
     end
   end
 
   def dig
-    if @carrying[12]
+    if @carrying[11]
       if @room == 30
         @message = "Dug the bars out."
         @descriptions[@room] = "Hole in the wall."
@@ -284,9 +284,9 @@ class HauntedHouse
   end
 
   def swing(wi)
-    @message = "This is no time to play games." if @carrying[14] && @room == 7
-    @message = "You swung it" if wi == 13 && @carrying[14]
-    if wi == 12 && @carrying[13]
+    @message = "This is no time to play games." if @carrying[13] && @room == 7
+    @message = "You swung it" if wi == 13 && @carrying[13]
+    if wi == 12 && @carrying[12]
       if @room == 43
         @descriptions[@room] = "Study with a secret room."
         @routes[@room] = "WN"
@@ -299,9 +299,9 @@ class HauntedHouse
 
   def climb
     if wi == 13
-      if @carrying[14]
+      if @carrying[13]
         @message = "It isn't attached to anything!"
-      elsif !@carrying[14] && @room == 7
+      elsif !@carrying[13] && @room == 7
         if @flags[13]
           @message = "Going down."
           @flags[13] = false

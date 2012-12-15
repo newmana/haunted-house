@@ -41,15 +41,34 @@ describe 'haunted house' do
   end
 
   describe "Get take" do
-    it "Can't take objects from directions up" do
-      check_cant_get_take(57, 18)
-      check_cant_get_take(57, 23)
-      check_cant_get_take(57, 35)
-      check_cant_get_take(57, Random.new.rand(17) + 18)
+    it "Can't take objects from north (18) on" do
+      [18, 23, 35, Random.new.rand(17) + 18]. each { |r| check_cant_get_take(r) }
     end
 
-    def check_cant_get_take(start_room, object)
-      HauntedHouse.new(start_room, HauntedHouse.default_flags, [])
+    it "Check location of object" do
+      h = HauntedHouse.new(57, HauntedHouse.default_flags, [])
+      h.get_take(0)
+      h.message.should eql("It isn't here")
+    end
+
+    it "Check flag" do
+      @house.get_take(2)
+      @house.message.should eql("What #{@house.objects[2]}?")
+    end
+
+    it "Check flag" do
+      h = HauntedHouse.new(57, HauntedHouse.default_flags, [true])
+      h.get_take(0)
+      h.message.should eql("You already have it")
+    end
+
+    it "Check flag" do
+      h = HauntedHouse.new(46, HauntedHouse.default_flags, [])
+      h.get_take(0)
+      h.message.should eql("You have the #{h.objects[0]}")
+    end
+
+    def check_cant_get_take(object)
       name = @house.objects[object]
       @house.get_take(object)
       @house.message.should eql("I can't get #{name}")

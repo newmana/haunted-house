@@ -86,7 +86,7 @@ class HauntedHouse
     say(word, wi) if vi == 14
     dig if vi == 15
     swing(wi) if vi == 16
-    climb(wi) if vi == 17
+    climb if vi == 17
     light(wi) if vi == 18
     unlight if vi == 19
     spray(wi) if vi == 20
@@ -221,7 +221,7 @@ class HauntedHouse
       @message = "It isn't here" if @locations[wi] != @room
       @message = "What #{@objects[wi]}?" if @flags[wi]
       @message = "You already have it" if @carrying[wi]
-      if wi > 0 && wi < 18 && @locations[wi] == @room && !@flags[wi]
+      if wi >= 0 && wi < 18 && @locations[wi] == @room && !@flags[wi]
         @carrying[wi] = true
         @locations[wi] = 65
         @message = "You have the #{@objects[wi]}"
@@ -297,7 +297,7 @@ class HauntedHouse
     end
   end
 
-  def climb(i)
+  def climb
     if wi == 13
       if @carrying[13]
         @message = "It isn't attached to anything!"

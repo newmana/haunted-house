@@ -344,9 +344,9 @@ class HauntedHouse
   def light(wi)
     if wi == 16
       if @carrying[17]
-        @message = "It will burn your hands." if !@carrying[8]
-        @message = "Nothing to light it with." if !@carrying[9]
-        if @carrying[8] && @carrying[9]
+        @message = "It will burn your hands." if !@carrying[7]
+        @message = "Nothing to light it with." if !@carrying[8]
+        if @carrying[7] && @carrying[8]
           @message = "It casts a flickering light."
           @flags[0] = true
         end

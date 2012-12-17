@@ -322,6 +322,36 @@ describe 'haunted house' do
     end
   end
 
+  describe "Light" do
+    it "light candle without candle stick" do
+      check_light_candle(false, false, "Nothing to light it with.", false)
+    end
+
+    it "light candle without matches but with candle stick" do
+      check_light_candle(true, false, "Nothing to light it with.", false)
+    end
+
+    it "light candle without candle stick but with matches" do
+      check_light_candle(false, true, "It will burn your hands.", false)
+    end
+
+    it "light candle with candle stick and matches" do
+      check_light_candle(true, true, "It casts a flickering light.", true)
+    end
+
+    def check_light_candle(candle_stick, matches, expected_message, expected_flag)
+      carrying = []
+      carrying[17] = true
+      carrying[7] = candle_stick
+      carrying[8] = matches
+      in_the_house(7, HauntedHouse.default_flags, carrying) { |h|
+        h.parse("light candle")
+        h.message.should eql(expected_message)
+        h.flags[0].should == expected_flag
+      }
+    end
+  end
+
   describe "Carrying" do
     it "Check create carrying" do
       in_the_house { |h|

@@ -12,7 +12,7 @@ class HauntedHouse
 
     @verbs = [
         "HELP", "CARRYING?", "GO", "N", "S", "W", "E", "U", "D", "GET", "TAKE", "OPEN", "EXAMINE", "READ", "SAY",
-        "DIG", "SWING", "ClIMB", "LIGHT", "UNLIGHT", "SPRAY", "USE", "UNLOCK", "LEAVE", "SCORE"
+        "DIG", "SWING", "CLIMB", "LIGHT", "UNLIGHT", "SPRAY", "USE", "UNLOCK", "LEAVE", "SCORE"
     ]
 
     @routes = [
@@ -95,7 +95,7 @@ class HauntedHouse
     say(word, wi) if vi == 14
     dig if vi == 15
     swing(wi) if vi == 16
-    climb if vi == 17
+    climb(wi) if vi == 17
     light(wi) if vi == 18
     unlight if vi == 19
     spray(wi) if vi == 20
@@ -325,17 +325,17 @@ class HauntedHouse
     end
   end
 
-  def climb
+  def climb(wi)
     if wi == 13
       if @carrying[13]
         @message = "It isn't attached to anything!"
       elsif !@carrying[13] && @room == 7
-        if @flags[13]
-          @message = "Going down."
-          @flags[13] = false
+        if @flags[14]
+          @message = "Going down!"
+          @flags[14] = false
         else
           @message = "You see a thick forest and a cliff south."
-          @flags[13] = true
+          @flags[14] = true
         end
       end
     end

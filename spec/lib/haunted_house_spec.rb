@@ -294,6 +294,34 @@ describe 'haunted house' do
     end
   end
 
+  describe "Climb" do
+    describe "Rope" do
+      before(:each) do
+        @carrying = []
+        @carrying[13] = true
+      end
+
+      it "Unattached rope" do
+        in_the_house(57, HauntedHouse.default_flags, @carrying) { |h|
+          h.parse("climb rope")
+          h.message.should eql("It isn't attached to anything!")
+        }
+      end
+
+      it "Rope with blasted tree" do
+        in_the_house(7, HauntedHouse.default_flags, []) { |h|
+          h.flags[14].should be_false
+          h.parse("climb rope")
+          h.message.should eql("You see a thick forest and a cliff south.")
+          h.flags[14].should be_true
+          h.parse("climb rope")
+          h.message.should eql("Going down.")
+          h.flags[14].should be_false
+        }
+      end
+    end
+  end
+
   describe "Carrying" do
     it "Check create carrying" do
       in_the_house { |h|

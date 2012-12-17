@@ -43,7 +43,7 @@ describe 'haunted house' do
         vi, wi = h.parse("GO NORTH")
         vi.should == 2
         wi.should == 18
-        h.message.should be_nil
+        h.message.should eql("Ok")
       }
     end
   end

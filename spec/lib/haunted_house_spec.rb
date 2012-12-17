@@ -386,6 +386,39 @@ describe 'haunted house' do
     end
   end
 
+  describe "Unlock" do
+    it "Drawer" do
+      in_the_house(43) do |h|
+        h.flags[17].should be_true
+        check_unlock(h, "drawer", "Drawer open")
+        h.flags[17].should be_false
+      end
+    end
+
+    it "Desk" do
+      in_the_house(43) do |h|
+        h.flags[17].should be_true
+        check_unlock(h, "desk", "Drawer open")
+        h.flags[17].should be_false
+      end
+    end
+
+    it "Door" do
+      carrying = []
+      carrying[18] = true
+      in_the_house(28, HauntedHouse.default_flags, carrying) do |h|
+        h.parse("unlock doors")
+        h.descriptions[28].should eql("Huge open door.")
+        h.message.should eql("The key turns!")
+      end
+    end
+
+    def check_unlock(h, object, message)
+      h.parse("unlock #{object}")
+      h.message.should eql(message)
+    end
+  end
+
   def in_the_house(room=57, flags=HauntedHouse.default_flags, carrying=[])
     h = HauntedHouse.new(room, flags, carrying)
     yield(h)

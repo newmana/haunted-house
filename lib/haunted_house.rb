@@ -384,9 +384,9 @@ class HauntedHouse
   end
 
   def unlock(wi)
-    open(wi) if @room == 42 && (wi == 27 || wi == 28)
-    if @room == 27 && wi == 25 && !@flags[24] && @carrying[18]
-      @flags[24] = true
+    open(wi) if @room == 43 && (wi == 28 || wi == 29)
+    if @room == 28 && wi == 25 && !@flags[25] && @carrying[18]
+      @flags[25] = true
       @routes[@room] = "SEW"
       @descriptions[@room] = "Huge open door."
       @message = "The key turns!"

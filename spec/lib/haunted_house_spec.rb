@@ -46,8 +46,19 @@ describe 'haunted house' do
         h.message.should eql("Ok")
       end
     end
+  end
 
+  describe "Move" do
+    it "Too Dark to do so" do
+      (26..30).each { |i| check_too_dark(i) }
+    end
 
+    def check_too_dark(room)
+      in_the_house(room) do |h|
+        h.parse("n")
+        h.message.should eql("Too dark to move.")
+      end
+    end
   end
 
   describe "Carrying" do
@@ -190,7 +201,7 @@ describe 'haunted house' do
 
     it "Scroll" do
       carrying = []
-      carrying[1] = true
+      carrying[5] = true
       in_the_house(42, HauntedHouse.default_flags, carrying) do |h|
         check_read(h, "scroll", "The script is in an alien tongue.")
       end

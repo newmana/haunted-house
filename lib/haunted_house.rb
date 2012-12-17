@@ -197,7 +197,7 @@ class HauntedHouse
       @message = "You're stuck!"
     elsif @carrying[15] and !([53, 54, 55, 57].include?(@room))
       @message = "You can't carry a boat!"
-    elsif (26..30).include?(@room) && @flags[0]
+    elsif (26..30).include?(@room) && !@flags[0]
       @message = "Too dark to move."
     elsif vi == 3 && wi.nil?
       @message = "Go where?"
@@ -284,7 +284,7 @@ class HauntedHouse
   def read(wi)
     @message = "They are demonic works." if @room == 42 && wi == 33
     @message = "Use this word with care 'Xzanfar'." if (wi == 3 || wi == 36) && @carrying[3] && !@flags[33]
-    @message = "The script is in an alien tongue." if @carrying[1] && wi == 5
+    @message = "The script is in an alien tongue." if @carrying[5] && wi == 5
   end
 
   def say(word, wi)

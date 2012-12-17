@@ -81,6 +81,8 @@ class HauntedHouse
     vi, wi = get_verb_word_index(verb, word)
     word = word.split(' ').map { |w| w.downcase.capitalize }.join(" ") unless word.nil?
     @message = get_message(verb, word, vi, wi)
+    return if bats(vi)
+    ghosts
     display_help if vi == 0
     display_carrying if vi == 1
     if (2..8).include?(vi)
@@ -119,11 +121,28 @@ class HauntedHouse
     return "", ""
   end
 
+  def bats(vi)
+    if @flags[26] && @room == 13 && Random.new.rand(3) != 2 && vi != 20
+      @message = "Bats Attacking!"
+      true
+    else
+      false
+    end
+  end
+
+  def ghosts
+    if @room == 44 && Random.new.rand(2) == 1 && !@flags[24]
+      @flags[27] = true
+    end
+  end
+
   def candle
     if @flags[0]
       @light_limit -= 1
     end
     flags[0] = false if @light_limit < 1
+    @message += "\nYour candle is waning!" if @light_limit == 10
+    @message += "\nYour candle is out" if @light_limit == 0
   end
 
   def get_verb_word_index(verb, word)
@@ -138,8 +157,6 @@ class HauntedHouse
     return "You don't make sense" if vi.nil? && wi.nil?
     return "You can't '#{verb}'" if vi.nil? && !wi.nil?
     return "You don't have #{word}" if !vi.nil? && !wi.nil? && wi > 0 && vi > 8 && !@carrying[wi]
-    return "Your candle is waning!" if @light_limit == 10
-    return "Your candle is out" if @light_limit == 0
   end
 
   def display_help

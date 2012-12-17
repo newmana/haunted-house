@@ -5,7 +5,7 @@ describe 'haunted house' do
     it "Should be silly if we can't find the word" do
       in_the_house do |h|
         vi, wi = h.parse("SPRAY paint")
-        vi.should == 20
+        vi.should == 21
         wi.should be_nil
         h.message.should eql("That's silly")
       end
@@ -14,7 +14,7 @@ describe 'haunted house' do
     it "Should require two words" do
       in_the_house do |h|
         vi, wi = h.parse("SPRAY")
-        vi.should == 20
+        vi.should == 21
         wi.should be_nil
         h.message.should eql("I need two words")
       end
@@ -32,8 +32,8 @@ describe 'haunted house' do
     it "Check whether you are carrying" do
       in_the_house do |h|
         vi, wi = h.parse("USE MATCHES")
-        vi.should == 21
-        wi.should == 8
+        vi.should == 22
+        wi.should == 9
         h.message.should eql("You don't have Matches")
       end
     end
@@ -41,8 +41,8 @@ describe 'haunted house' do
     it "Check going a direction" do
       in_the_house do |h|
         vi, wi = h.parse("GO NORTH")
-        vi.should == 2
-        wi.should == 18
+        vi.should == 3
+        wi.should == 19
         h.message.should eql("Ok")
       end
     end
@@ -60,8 +60,8 @@ describe 'haunted house' do
   end
 
   describe "Get take" do
-    it "Can't take objects from north (18) on" do
-      [18, 23, 35, Random.new.rand(17) + 18].each { |r| check_cant_get_take(r) }
+    it "Can't take objects from north (19) on" do
+      [19, 24, 36, Random.new.rand(17) + 19].each { |r| check_cant_get_take(r) }
     end
 
     def check_cant_get_take(object)
@@ -81,13 +81,13 @@ describe 'haunted house' do
 
     it "Check flag" do
       in_the_house do |h|
-        h.parse("take magic spells")
+        h.parse("take ring")
         h.message.should eql("What #{h.objects[2]}?")
       end
     end
 
     it "Check flag" do
-      in_the_house(57, HauntedHouse.default_flags, [true]) do |h|
+      in_the_house(57, HauntedHouse.default_flags, [false, true]) do |h|
         h.parse("take painting")
         h.message.should eql("You already have it")
       end
@@ -96,7 +96,7 @@ describe 'haunted house' do
     it "Check flag" do
       in_the_house(46) do |h|
         h.parse("take painting")
-        h.message.should eql("You have the #{h.objects[0]}")
+        h.message.should eql("You have the #{h.objects[1]}")
       end
     end
   end
@@ -180,7 +180,7 @@ describe 'haunted house' do
 
     it "Magic Spells or Spells" do
       carrying = []
-      carrying[2] = true
+      carrying[3] = true
       in_the_house(42, HauntedHouse.default_flags, carrying) do |h|
         xzanfar = "Use this word with care 'Xzanfar'."
         check_read(h, "magic spells", xzanfar)
@@ -190,7 +190,7 @@ describe 'haunted house' do
 
     it "Scroll" do
       carrying = []
-      carrying[0] = true
+      carrying[1] = true
       in_the_house(42, HauntedHouse.default_flags, carrying) do |h|
         check_read(h, "scroll", "The script is in an alien tongue.")
       end
@@ -212,7 +212,7 @@ describe 'haunted house' do
     describe "Xzanfar" do
       before(:each) do
         @carrying = []
-        @carrying[2] = true
+        @carrying[3] = true
       end
 
       it "With Goblet not in Chamber" do
@@ -241,7 +241,7 @@ describe 'haunted house' do
   describe "Dig" do
     before(:each) do
       @carrying = []
-      @carrying[11] = true
+      @carrying[12] = true
     end
 
     it "In any room" do
@@ -264,7 +264,7 @@ describe 'haunted house' do
     describe "Axe" do
       before(:each) do
         @carrying = []
-        @carrying[12] = true
+        @carrying[13] = true
       end
 
       it "But not in study" do
@@ -286,7 +286,7 @@ describe 'haunted house' do
     describe "Rope" do
       before(:each) do
         @carrying = []
-        @carrying[13] = true
+        @carrying[14] = true
       end
 
       it "With tree" do
@@ -309,7 +309,7 @@ describe 'haunted house' do
     describe "Rope" do
       before(:each) do
         @carrying = []
-        @carrying[13] = true
+        @carrying[14] = true
       end
 
       it "Unattached" do
@@ -352,9 +352,9 @@ describe 'haunted house' do
 
     def check_light_candle(candle_stick, matches, expected_message, expected_flag)
       carrying = []
-      carrying[17] = true
-      carrying[7] = candle_stick
-      carrying[8] = matches
+      carrying[18] = true
+      carrying[8] = candle_stick
+      carrying[9] = matches
       in_the_house(7, HauntedHouse.default_flags, carrying) do |h|
         h.parse("light candle")
         h.message.should eql(expected_message)

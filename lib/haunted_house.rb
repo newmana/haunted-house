@@ -191,11 +191,11 @@ class HauntedHouse
       @message = "Crash! You fell out of a tree!"
     elsif @flags[27] && @room == 52
       @message = "Ghosts will not let you move."
-    elsif @room == 45 && @carrying[1] && !@flags[34]
+    elsif @room == 45 && @carrying[0] && !@flags[34]
       @message = "A magical barrier to the west."
-    elsif @room == 54 && !@carrying[15]
+    elsif @room == 54 && !@carrying[14]
       @message = "You're stuck!"
-    elsif @carrying[15] and !([53, 54, 55, 57].include?(@room))
+    elsif @carrying[14] and !([53, 54, 55, 57].include?(@room))
       @message = "You can't carry a boat!"
     elsif (26..30).include?(@room) && @flags[0]
       @message = "Too dark to move."

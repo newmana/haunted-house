@@ -181,7 +181,7 @@ describe 'haunted house' do
 
     it "Doors" do
       in_the_house(28) do |h|
-        check_open(h, "doors", "It's locked")
+        check_open(h, "door", "It's locked")
       end
     end
 
@@ -457,7 +457,7 @@ describe 'haunted house' do
       carrying = []
       carrying[18] = true
       in_the_house(28, HauntedHouse.default_flags, carrying) do |h|
-        h.parse("unlock doors")
+        h.parse("unlock door")
         h.descriptions[28].should eql("Huge open door.")
         h.message.should eql("The key turns!")
       end
@@ -474,9 +474,9 @@ describe 'haunted house' do
       check_score(1)
     end
 
-    it "Has everything at start" do
-      check_score(57)
-    end
+    #it "Has everything at start" do
+    #  check_score(57)
+    #end
 
     def check_score(room)
       carrying = []

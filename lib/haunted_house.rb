@@ -83,6 +83,7 @@ class HauntedHouse
     @message = get_message(verb, word, vi, wi)
     return if bats(vi)
     ghosts
+    @message == "" if [1, 2, 16, 20, 25].include?(vi)
     display_help if vi == 1
     display_carrying if vi == 2
     if (3..9).include?(vi)
@@ -160,12 +161,10 @@ class HauntedHouse
   end
 
   def display_help
-    @message = ""
     display_list("Words I know:", @verbs)
   end
 
   def display_carrying
-    @message = ""
     display_list("You are carrying:", create_carrying(@carrying, @objects))
   end
 
@@ -302,7 +301,6 @@ class HauntedHouse
   end
 
   def dig
-    @message = ""
     if @carrying[12]
       if @room == 30
         @message = "Dug the bars out."
@@ -358,7 +356,6 @@ class HauntedHouse
   end
 
   def unlight
-    @message = ""
     if @flags[0]
       @flags[0] = false
       @message = "Extinguished."
@@ -406,7 +403,6 @@ class HauntedHouse
   end
 
   def score
-    @message = ""
     score = @carrying.reduce(0) { |sum, value| value.nil? ? sum : sum += 1 }
     if score == 17
       if !@carrying[15] && @room != 57
@@ -417,11 +413,11 @@ class HauntedHouse
       end
     end
     puts "Your score #{score}"
-    press_enter_to_continue
     if score > 18
       puts "Well done! You finished the game."
       exit(true)
     end
+    press_enter_to_continue
   end
 
   def show_room

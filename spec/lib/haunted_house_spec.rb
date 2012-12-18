@@ -73,6 +73,42 @@ describe 'haunted house' do
         h.room.should == 44
       end
     end
+
+    describe "Boat" do
+      before(:each) do
+        @carrying = []
+        @carrying[15] = true
+      end
+
+      it "Can move" do
+        check_can_move_boat(53, "s", @carrying)
+        check_can_move_boat(54, "s", @carrying)
+        check_can_move_boat(55, "n", @carrying)
+        check_can_move_boat(47, "n", @carrying)
+      end
+
+      it "Cannot move" do
+        check_cannot_move_boat(52, "n", @carrying)
+        check_cannot_move_boat(56, "n", @carrying)
+        check_cannot_move_boat(46, "w", @carrying)
+        check_cannot_move_boat(48, "e", @carrying)
+      end
+    end
+
+    def check_can_move_boat(room, direction, carrying)
+      check_boat(room, carrying, direction, "Ok")
+    end
+
+    def check_cannot_move_boat(room, direction, carrying)
+      check_boat(room, carrying, direction, "You can't carry a boat!")
+    end
+
+    def check_boat(room, carrying, direction, message)
+      in_the_house(room, HauntedHouse.default_flags, carrying) do |h|
+        h.parse(direction)
+        h.message.should eql(message)
+      end
+    end
   end
 
   describe "Carrying" do

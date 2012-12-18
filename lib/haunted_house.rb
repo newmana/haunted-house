@@ -195,7 +195,7 @@ class HauntedHouse
       @message = "A magical barrier to the west."
     elsif @room == 54 && !@carrying[15]
       @message = "You're stuck!"
-    elsif @carrying[15] and !([53, 54, 55, 57].include?(@room))
+    elsif @carrying[15] and !([53, 54, 55, 47].include?(@room))
       @message = "You can't carry a boat!"
     elsif (26..30).include?(@room) && !@flags[0]
       @message = "Too dark to move."
@@ -395,7 +395,7 @@ class HauntedHouse
 
   def leave(wi)
     if @carrying[wi]
-      @carrying[wi] = false
+      @carrying[wi] = nil
       @locations[wi] = @room
       @message = "Done."
     end

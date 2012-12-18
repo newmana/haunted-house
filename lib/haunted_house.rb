@@ -49,7 +49,7 @@ class HauntedHouse
         "0", "PAINTING", "RING", "MAGIC SPELLS", "GOBLET", "SCROLL", "COINS", "STATUE", "CANDLESTICK",
         "MATCHES", "VACUUM", "BATTERIES", "SHOVEL", "AXE", "ROPE", "BOAT", "AEROSOL", "CANDLE", "KEY",
         "NORTH", "SOUTH", "WEST", "EAST", "UP", "DOWN",
-        "DOORS", "BATS", "GHOSTS", "DRAWER", "DESK", "COAT", "RUBBISH",
+        "DOOR", "BATS", "GHOSTS", "DRAWER", "DESK", "COAT", "RUBBISH",
         "COFFIN", "BOOKS", "XZANFAR", "WALL", "SPELLS"
     ]
 

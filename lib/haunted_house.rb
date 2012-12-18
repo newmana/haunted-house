@@ -283,7 +283,7 @@ class HauntedHouse
 
   def read(wi)
     @message = "They are demonic works." if @room == 42 && wi == 33
-    @message = "Use this word with care 'Xzanfar'." if (wi == 3 || wi == 36) && @carrying[3] && !@flags[33]
+    @message = "Use this word with care 'Xzanfar'." if (wi == 3 || wi == 36) && @carrying[3] && !@flags[34]
     @message = "The script is in an alien tongue." if @carrying[5] && wi == 5
   end
 
@@ -292,7 +292,7 @@ class HauntedHouse
     if @carrying[3] && wi == 34
       @message = "*Magic Occurs*"
       if @room == 45
-        @flags[33] = true
+        @flags[34] = true
       else
         @room = Random.new.rand(64)
       end

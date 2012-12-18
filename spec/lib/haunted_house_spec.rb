@@ -59,6 +59,20 @@ describe 'haunted house' do
         h.message.should eql("Too dark to move.")
       end
     end
+
+    it "Magic barrier" do
+      in_the_house(45, HauntedHouse.default_flags, [false, true, false, true]) do |h|
+        h.flags[34].should be_false
+        h.parse("w")
+        h.message.should eql("A magical barrier to the west.")
+        h.parse("say xzanfar")
+        h.flags[34].should be_true
+        h.message.should eql("*Magic Occurs*")
+        h.parse("w")
+        h.message.should eql("Ok")
+        h.room.should == 44
+      end
+    end
   end
 
   describe "Carrying" do
@@ -235,9 +249,9 @@ describe 'haunted house' do
 
       it "With Goblet in Cold Chamber" do
         in_the_house(45, HauntedHouse.default_flags, @carrying) do |h|
-          h.flags[33].should be_false
+          h.flags[34].should be_false
           check_say(h, "Xzanfar", "*Magic Occurs*")
-          h.flags[33].should be_true
+          h.flags[34].should be_true
           (0..63).should include(h.room)
         end
       end

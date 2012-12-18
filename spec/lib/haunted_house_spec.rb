@@ -469,6 +469,24 @@ describe 'haunted house' do
     end
   end
 
+  describe "Score" do
+    it "Has everything but boat" do
+      check_score(1)
+    end
+
+    it "Has everything at start" do
+      check_score(57)
+    end
+
+    def check_score(room)
+      carrying = []
+      (1..18).each_with_index { |n, i| carrying[i] = true unless i == 15 }
+      in_the_house(room, HauntedHouse.default_flags, carrying) do |h|
+        h.parse("score")
+      end
+    end
+  end
+
   def in_the_house(room=57, flags=HauntedHouse.default_flags, carrying=[])
     h = HauntedHouse.new(room, flags, carrying)
     yield(h)

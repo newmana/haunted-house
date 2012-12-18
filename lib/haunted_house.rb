@@ -404,9 +404,9 @@ class HauntedHouse
   def score
     score = @carrying.reduce(0) { |sum, value| value.nil? ? sum : sum += 1 }
     if score == 17
-      if @carrying[15] && room != 56
+      if !@carrying[15] && @room != 57
         puts "You have everything.\nReturn to the gate to get the final score"
-      elsif room == 57
+      elsif @room == 57
         puts "Double score for reaching here!"
         score *= 2
       end
@@ -446,5 +446,4 @@ class HauntedHouse
       show_location
     end
   end
-
 end

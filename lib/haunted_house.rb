@@ -444,7 +444,11 @@ class HauntedHouse
 
   def welcome
     while true
-      system("clear")
+      if RUBY_PLATFORM.downcase.include?("mswin")
+        system("cls")
+      else
+        system("clear")
+      end
       puts "Haunted House"
       puts "-------------"
       show_location

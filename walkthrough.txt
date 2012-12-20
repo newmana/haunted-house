@@ -1,0 +1,14 @@
+HAUNTED HOUSE
+
+Walk Through by Dorothy Millard (C64 Version) 
+ 
+
+(Start on a path), E, E, E, GET AEROSOL, W, W, N, N (into the house - the door slams shut behind you), W, N (cupboard with hanging coat), EXAMINE COAT (find a key), GET KEY, S, E, N, N (gloomy passage), GET VACUUM, N, N, E (kitchen), GET MATCHES, E, N, E, GET SHOVEL, W, W, GET AXE, E, S, W, W, S, S, S, E, S (library), GET CANDLE STICK, READ BOOKS (they are demonic works), E (study), EXAMINE DESK (there is a drawer), OPEN DRAWER (see a candle), GET CANDLE, EXAMINE WALL (there is something beyond), SWING AXE (you break through the thin wall), N (secret room), GET MAGIC SPELLS, READ MAGIC SPELLS (use this word with care - XZANFAR). 
+
+S, W, N, N (pool of light), GET BATTERIES, LIGHT CANDLE (using the matches), N (dark alcove), GET COINS, E, E (bottom of spiral staircase), U, E (rear turret room), GET SCROLL (bats are attacking you), SPRAY BATS (with the aerosol), GET SCROLL, READ SCROLL (the script is in an alien tongue), W, S, D, W, S, E, E (hall by a thick wooden door), GET STATUE, UNLOCK DOOR (with the small key), S, S, S, W (the ghosts won't let you pass), USE VACUUM (you vacuum up the ghosts), W, W (front tower), GET GOBLET, E, E, N, E, E (spooky room), GET PAINTING, W, W (a magical barrier to the west prevents you leaving), SAY XZANFAR (magic occurs), W (cobwebby room), N, N, E (trophy room). 
+N, E (slippery steps), D, S (deep cellar with a coffin), OPEN COFFIN, GET RING, N (to where the barred window is), DIG (using the shovel - you dig the bars out), E (cliff path), UNLIGHT CANDLE, N, N, N (to where the blasted tree is), CLIMB ROPE (you see a thick forest and a cliff to the south), CLIMB ROPE (going down), S, S, S, SCORE (you have everything, return to the front gate for final score), S, S, GET BOAT (this enables you to pass safely through the marshes), S, W, S, LEAVE BOAT, W, W, W, W, W (front gate), SCORE. 
+Double score for reaching here.   Your Score 36
+
+Well Done - You finished the game.
+
+http://dorothyirene.fateback.com/Solutions/H/Haunted%20House%20(Start%20on%20Path)%20(ddd).rtf

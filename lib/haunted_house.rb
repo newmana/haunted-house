@@ -444,7 +444,7 @@ class HauntedHouse
 
   def welcome
     while true
-      print "\e[2J\e[f"
+      system("clear")
       puts "Haunted House"
       puts "-------------"
       show_location

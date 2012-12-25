@@ -6,7 +6,7 @@ Learning different things using a simple example.
 The original BASIC version is from "Write Your Own Adventure Programs For Your Microcomputer".
 
 Run:
-./lib/welcome.rb
+ruby ./lib/welcome.rb
 
 hauntedhouse.bas:
 * Based on http://www.shindigital.com/hauntedhouse.txt (with mistakes corrected)

@@ -169,12 +169,11 @@ class HauntedHouse
   end
 
   def create_carrying(carrying, all_objects)
-    index = -1
-    objects = carrying.map do |c|
-      index += 1
-      c ? index : -1
+    objects = []
+    carrying.each_with_index do |c, index|
+      objects << all_objects[index] if c
     end
-    objects.select { |c| !c.nil? && c > 0 }.map { |c| all_objects[c] }
+    objects
   end
 
   def display_list(message, list)

@@ -71,9 +71,8 @@ class HauntedHouse
     puts @message
     @message = "What?"
     puts "What will you do now?"
-    input = gets
     candle
-    parse(input)
+    parse(gets)
   end
 
   def parse(input)
@@ -123,24 +122,17 @@ class HauntedHouse
   end
 
   def bats(vi)
-    if @flags[26] && @room == 13 && Random.new.rand(3) != 2 && vi != 21
-      @message = "Bats Attacking!"
-      true
-    else
-      false
-    end
+    has_bats = @flags[26] && @room == 13 && Random.new.rand(3) != 2 && vi != 21
+    @message = "Bats Attacking!" if has_bats
+    return has_bats
   end
 
   def ghosts
-    if @room == 44 && Random.new.rand(2) == 1 && !@flags[24]
-      @flags[27] = true
-    end
+    @flags[27] = true if @room == 44 && Random.new.rand(2) == 1 && !@flags[24]
   end
 
   def candle
-    if @flags[0]
-      @light_limit -= 1
-    end
+    @light_limit -= 1 if @flags[0]
     flags[0] = false if @light_limit < 1
     @message += "\nYour candle is waning!" if @light_limit == 10
     @message += "\nYour candle is out" if @light_limit == 0

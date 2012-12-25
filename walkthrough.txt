@@ -5,7 +5,7 @@ N (into the house - the door slams shut behind you), W,
 N (cupboard with hanging coat), EXAMINE COAT (find a key), GET KEY, S, E, N, 
 N (gloomy passage), GET VACUUM, N, N, 
 E (kitchen), GET MATCHES, E, N, E, GET SHOVEL, W, W, GET AXE, 
-E, S, W, W, S, S, S, E, S (library), GET CANDLE STICK, READ BOOKS (they are demonic works), 
+E, S, W, W, S, S, S, E, S (library), GET CANDLESTICK, READ BOOKS (they are demonic works), 
 E (study), EXAMINE DESK (there is a drawer), OPEN DRAWER (see a candle), GET CANDLE, 
 EXAMINE WALL (there is something beyond), SWING AXE (you break through the thin wall), 
 N (secret room), GET MAGIC SPELLS, READ MAGIC SPELLS (use this word with care - XZANFAR). 
@@ -22,7 +22,8 @@ SAY XZANFAR (magic occurs), W (cobwebby room), N, N, E (trophy room).
 N, E (slippery steps), D, S (deep cellar with a coffin), OPEN COFFIN, GET RING, 
 N (to where the barred window is), DIG (using the shovel - you dig the bars out), 
 E (cliff path), UNLIGHT CANDLE, N, N, N (to where the blasted tree is), 
-CLIMB ROPE (you see a thick forest and a cliff to the south), CLIMB ROPE (going down), S, S, S, 
+CLIMB ROPE (you see a thick forest and a cliff to the south), CLIMB ROPE (going down), 
+GET ROPE, S, S, S, 
 
 SCORE (you have everything, return to the front gate for final score), 
 S, S, GET BOAT (this enables you to pass safely through the marshes), S, W, S, LEAVE BOAT, 

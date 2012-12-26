@@ -252,9 +252,9 @@ class HauntedHouse
   def open(wi)
     if @room == 43 && (wi == 28 || wi == 29)
       @flags[17] = false
-      @message = "Drawer open"
+      @message = "Drawer open."
     elsif @room == 28 and wi == 25
-      @message = "It's locked"
+      @message = "It's locked."
     elsif @room == 38 and wi == 32
       @message = "That's creepy!"
       @flags[2] = false
@@ -262,7 +262,7 @@ class HauntedHouse
   end
 
   def examine(wi)
-    @message = "There is a drawer" if wi == 28 || wi == 29
+    @message = "There is a drawer." if wi == 28 || wi == 29
     if wi == 30
       @flags[18] = false
       @message = "Something here!"
@@ -270,7 +270,7 @@ class HauntedHouse
     @message = "That's disgusting!" if wi == 31
     open(wi) if wi == 32
     read(wi) if wi == 33 || wi == 4
-    @message = "There's something beyond" if @room == 43 && wi == 35
+    @message = "There's something beyond..." if @room == 43 && wi == 35
   end
 
   def read(wi)

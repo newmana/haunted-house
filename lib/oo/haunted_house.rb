@@ -1,9 +1,9 @@
 require './lib/an_object'
 require './lib/room'
 
-class OoHauntedHouse
+class HauntedHouse
   def initialize
-    Room.new("SE", "Dark Corner")
+    r0 = Room.new("SE", "Dark Corner")
     Room.new("WE", "Overgrown Garden")
     Room.new("WE", "By a Large Wood Pile", [AnObject.new("AXE")])
     Room.new("SWE", "Yard by Rubbish")
@@ -77,4 +77,4 @@ class OoHauntedHouse
   end
 end
 
-OoHauntedHouse.new
+HauntedHouse.new

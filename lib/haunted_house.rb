@@ -1,17 +1,17 @@
 class HauntedHouse
   @@default_flags = Array.new(36).each_with_index.map { |x, i| [18, 17, 2, 26, 28, 23].include?(i) }
-
   attr_reader :objects, :descriptions, :message, :flags, :room
 
   def self.default_flags
     @@default_flags
   end
 
-  def initialize(start_room, flags, carrying)
+  def initialize(start_room=57, flags=HauntedHouse.default_flags, carrying=[])
     @room = start_room
-
+    @flags = flags.dup
+    @carrying = carrying.dup
     @verbs = [
-        "0", "HELP", "CARRYING?", "GO", "N", "S", "W", "E", "U", "D", "GET", "TAKE", "OPEN", "EXAMINE", "READ", "SAY",
+        nil, "HELP", "CARRYING?", "GO", "N", "S", "W", "E", "U", "D", "GET", "TAKE", "OPEN", "EXAMINE", "READ", "SAY",
         "DIG", "SWING", "CLIMB", "LIGHT", "UNLIGHT", "SPRAY", "USE", "UNLOCK", "LEAVE", "SCORE"
     ]
 
@@ -46,7 +46,7 @@ class HauntedHouse
     ]
 
     @objects = [
-        "0", "PAINTING", "RING", "MAGIC SPELLS", "GOBLET", "SCROLL", "COINS", "STATUE", "CANDLESTICK",
+        nil, "PAINTING", "RING", "MAGIC SPELLS", "GOBLET", "SCROLL", "COINS", "STATUE", "CANDLESTICK",
         "MATCHES", "VACUUM", "BATTERIES", "SHOVEL", "AXE", "ROPE", "BOAT", "AEROSOL", "CANDLE", "KEY",
         "NORTH", "SOUTH", "WEST", "EAST", "UP", "DOWN",
         "DOOR", "BATS", "GHOSTS", "DRAWER", "DESK", "COAT", "RUBBISH",
@@ -55,11 +55,8 @@ class HauntedHouse
 
     # Locations for gettable objects
     @locations = [
-        -1, 46, 38, 35, 50, 13, 18, 28, 42, 10, 25, 26, 4, 2, 7, 47, 60, 43, 32
+        nil, 46, 38, 35, 50, 13, 18, 28, 42, 10, 25, 26, 4, 2, 7, 47, 60, 43, 32
     ]
-
-    @flags = flags.dup
-    @carrying = carrying.dup
     @light_limit = 60
     @message = "Ok"
   end
@@ -153,7 +150,7 @@ class HauntedHouse
   end
 
   def display_help
-    display_list("Words I know:", @verbs)
+    display_list("Words I know:", @verbs.select{|x| !x.nil?})
   end
 
   def display_carrying

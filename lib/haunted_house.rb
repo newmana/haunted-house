@@ -34,7 +34,7 @@ class HauntedHouse
         "Side of the House", "Back of the Hallway", "Dark Alcove", "Small Dark Room",
         "Bottom of a Spiral Staircase", "Wide Passage", "Slippery Steps", "Clifftop",
         "Near a Crumbling Wall", "Gloomy Passage", "Pool of Light", "Impressive Vaulted Hallway",
-        "Hall by a Thick Wooden Doors", "Trophy Room", "Cellar with Barred Window", "Cliff Path",
+        "Hall by a Thick Wooden Door", "Trophy Room", "Cellar with Barred Window", "Cliff Path",
         "Cupboard with Hanging Coat", "Front Hall", "Sitting Room", "Secret Room",
         "Steep Marble Stairs", "Dining Room", "Deep Cellar with a Coffin", "Cliff Path",
         "Closet", "Front Lobby", "Library of Evil Books", "Study with a Desk and Hole in the Wall",

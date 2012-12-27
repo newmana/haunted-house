@@ -166,7 +166,7 @@ describe 'haunted house' do
     it "Drawer" do
       in_the_house(43) do |h|
         h.flags[17].should be_true
-        check_open(h, "drawer", "Drawer open")
+        check_open(h, "drawer", "Drawer open.")
         h.flags[17].should be_false
       end
     end
@@ -174,14 +174,14 @@ describe 'haunted house' do
     it "Desk" do
       in_the_house(43) do |h|
         h.flags[17].should be_true
-        check_open(h, "desk", "Drawer open")
+        check_open(h, "desk", "Drawer open.")
         h.flags[17].should be_false
       end
     end
 
     it "Doors" do
       in_the_house(28) do |h|
-        check_open(h, "door", "It's locked")
+        check_open(h, "door", "It's locked.")
       end
     end
 
@@ -201,8 +201,8 @@ describe 'haunted house' do
   describe "Examine" do
     it "Drawer or Desk" do
       in_the_house(43) do |h|
-        check_examine(h, "drawer", "There is a drawer")
-        check_examine(h, "desk", "There is a drawer")
+        check_examine(h, "drawer", "There is a drawer.")
+        check_examine(h, "desk", "There is a drawer.")
       end
     end
 
@@ -222,7 +222,7 @@ describe 'haunted house' do
 
     it "Wall" do
       in_the_house(43) do |h|
-        check_examine(h, "wall", "There's something beyond")
+        check_examine(h, "wall", "There's something beyond...")
       end
     end
 
@@ -440,7 +440,7 @@ describe 'haunted house' do
     it "Drawer" do
       in_the_house(43) do |h|
         h.flags[17].should be_true
-        check_unlock(h, "drawer", "Drawer open")
+        check_unlock(h, "drawer", "Drawer open.")
         h.flags[17].should be_false
       end
     end
@@ -448,7 +448,7 @@ describe 'haunted house' do
     it "Desk" do
       in_the_house(43) do |h|
         h.flags[17].should be_true
-        check_unlock(h, "desk", "Drawer open")
+        check_unlock(h, "desk", "Drawer open.")
         h.flags[17].should be_false
       end
     end

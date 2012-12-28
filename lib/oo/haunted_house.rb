@@ -1,79 +1,95 @@
-require './lib/an_object'
-require './lib/room'
+require './lib/oo/an_object'
+require './lib/oo/room'
+require './lib/oo/direction'
 
 class HauntedHouse
+  include Direction
+
   def initialize
-    r0 = Room.new("SE", "Dark Corner")
-    Room.new("WE", "Overgrown Garden")
-    Room.new("WE", "By a Large Wood Pile", [AnObject.new("AXE")])
-    Room.new("SWE", "Yard by Rubbish")
-    Room.new("WE", "Weed Patch", [AnObject.new("SHOVEL")])
-    Room.new("WE", "Forest")
-    Room.new("SWE", "Thick Forest")
-    Room.new("WS", "Blasted Tree", [AnObject.new("ROPE")])
+    @rooms = []
 
-    Room.new("NS", "Corner of the House")
-    Room.new("SE", "Entrance to the Kitchen")
-    Room.new("WE", "Kitchen and Grimy Cooker", [AnObject.new("MATCHES")])
-    Room.new("NW", "Scullery Door")
-    Room.new("SE", "Room with Inches of Dust")
-    Room.new("W", "Rear Turret Room", [AnObject.new("SCROLL")])
-    Room.new("NE", "Clearing by House")
-    Room.new("NSW", "Path")
+    @rooms << Room.new("Dark Corner")
+    @rooms << Room.new("Overgrown Garden")
+    @rooms << Room.new("By a Large Wood Pile", [AnObject.new("AXE")])
+    @rooms << Room.new("Yard by Rubbish")
+    @rooms << Room.new("Weed Patch", [AnObject.new("SHOVEL")])
+    @rooms << Room.new("Forest")
+    @rooms << Room.new("Thick Forest")
+    @rooms << Room.new("Blasted Tree", [AnObject.new("ROPE")])
 
-    Room.new("NS", "Side of the House")
-    Room.new("NS", "Back of the Hallway")
-    Room.new("SE", "Dark Alcove", AnObject.new("COINS"))
-    Room.new("WE", "Small Dark Room")
-    Room.new("NWUD", "Bottom of a Spiral Staircase")
-    Room.new("SE", "Wide Passage")
-    Room.new("WSUD" , "Slippery Steps")
-    Room.new("NS", "Clifftop")
+    @rooms << Room.new("Corner of the House")
+    @rooms << Room.new("Entrance to the Kitchen")
+    @rooms << Room.new("Kitchen and Grimy Cooker", [AnObject.new("MATCHES")])
+    @rooms << Room.new("Scullery Door")
+    @rooms << Room.new("Room with Inches of Dust")
+    @rooms << Room.new("Rear Turret Room", [AnObject.new("SCROLL")])
+    @rooms << Room.new("Clearing by House")
+    @rooms << Room.new("Path")
 
-    Room.new("N", "Near a Crumbling Wall")
-    Room.new("NS", "Gloomy Passage", [AnObject.new("VACUUM")])
-    Room.new("NSE", "Pool of Light", [AnObject.new("BATTERIES")])
-    Room.new("WE", "Impressive Vaulted Hallway")
-    Room.new("WE", "Hall by a Thick Wooden Door", [AnObject.new("STATUE")])
-    Room.new("NSW", "Trophy Room")
-    Room.new("NS", "Cellar with Barred Window")
-    Room.new("NS", "Cliff Path")
+    @rooms << Room.new("Side of the House")
+    @rooms << Room.new("Back of the Hallway")
+    @rooms << Room.new("Dark Alcove", AnObject.new("COINS"))
+    @rooms << Room.new("Small Dark Room")
+    @rooms << Room.new("Bottom of a Spiral Staircase")
+    @rooms << Room.new("Wide Passage")
+    @rooms << Room.new("Slippery Steps")
+    @rooms << Room.new("Clifftop")
 
-    Room.new("S", "Cupboard with Hanging Coat", [AnObject.new("KEY")])
-    Room.new("NSE", "Front Hall")
-    Room.new("NSW", "Sitting Room")
-    Room.new("S", "Secret Room", [AnObject.new("MAGIC SPELLS")])
-    Room.new("NSUD", "Steep Marble Stairs")
-    Room.new("N", "Dining Room")
-    Room.new("N", "Deep Cellar with a Coffin", [AnObject.new("RING")])
-    Room.new("NS", "Cliff Path")
+    @rooms << Room.new("Near a Crumbling Wall")
+    @rooms << Room.new("Gloomy Passage", [AnObject.new("VACUUM")])
+    @rooms << Room.new("Pool of Light", [AnObject.new("BATTERIES")])
+    @rooms << Room.new("Impressive Vaulted Hallway")
+    @rooms << Room.new("Hall by a Thick Wooden Door", [AnObject.new("STATUE")])
+    @rooms << Room.new("Trophy Room")
+    @rooms << Room.new("Cellar with Barred Window")
+    @rooms << Room.new("Cliff Path")
 
-    Room.new("NE", "Closet")
-    Room.new("NW", "Front Lobby")
-    Room.new("NE", "Library of Evil Books", [AnObject.new("CANDLESTICK")])
-    Room.new("W", "Study with a Desk and Hole in the Wall", [AnObject.new("CANDLE")])
-    Room.new("NSE", "Weird Cobwebby Room")
-    Room.new("WE", "Very Cold Chamber")
-    Room.new("W", "Spooky Room", [AnObject.new("PAINTING")])
-    Room.new("NS", "Cliff Path by the Marsh", [AnObject.new("BOAT")])
+    @rooms << Room.new("Cupboard with Hanging Coat", [AnObject.new("KEY")])
+    @rooms << Room.new("Front Hall")
+    @rooms << Room.new("Sitting Room")
+    @rooms << Room.new("Secret Room", [AnObject.new("MAGIC SPELLS")])
+    @rooms << Room.new("Steep Marble Stairs")
+    @rooms << Room.new("Dining Room")
+    @rooms << Room.new("Deep Cellar with a Coffin", [AnObject.new("RING")])
+    @rooms << Room.new("Cliff Path")
 
-    Room.new("SE", "Rubble-Strewn Verandah")
-    Room.new("NSW", "Front Porch")
-    Room.new("E", "Front Tower", [AnObject.new("GOBLET")])
-    Room.new("WE", "Sloping Corridor")
-    Room.new("NW", "Upper Gallery")
-    Room.new("S", "Marsh by a Wall")
-    Room.new("SW", "Marsh")
-    Room.new("NW", "Soggy Path")
+    @rooms << Room.new("Closet")
+    @rooms << Room.new("Front Lobby")
+    @rooms << Room.new("Library of Evil Books", [AnObject.new("CANDLESTICK")])
+    @rooms << Room.new("Study with a Desk and Hole in the Wall", [AnObject.new("CANDLE")])
+    @rooms << Room.new("Weird Cobwebby Room")
+    @rooms << Room.new("Very Cold Chamber")
+    @rooms << Room.new("Spooky Room", [AnObject.new("PAINTING")])
+    @rooms << Room.new("Cliff Path by the Marsh", [AnObject.new("BOAT")])
 
-    Room.new("NE", "By a Twisted Railing")
-    Room.new("NWE", "Path through an Iron Gate")
-    Room.new("WE", "By Railings")
-    Room.new("WE", "Beneath the Front Tower")
-    Room.new("WE", "Debris from Crumbling Facade", [AnObject.new("AEROSOL")])
-    Room.new("NWE", "Large Fallen Brick Work")
-    Room.new("NWE", "Rotting Stone Arch")
-    Room.new("W", "Crumbling Clifftop")
+    @rooms << Room.new("Rubble-Strewn Verandah")
+    @rooms << Room.new("Front Porch")
+    @rooms << Room.new("Front Tower", [AnObject.new("GOBLET")])
+    @rooms << Room.new("Sloping Corridor")
+    @rooms << Room.new("Upper Gallery")
+    @rooms << Room.new("Marsh by a Wall")
+    @rooms << Room.new("Marsh")
+    @rooms << Room.new("Soggy Path")
+
+    @rooms << Room.new("By a Twisted Railing")
+    @rooms << Room.new("Path through an Iron Gate")
+    @rooms << Room.new("By Railings")
+    @rooms << Room.new("Beneath the Front Tower")
+    @rooms << Room.new("Debris from Crumbling Facade", [AnObject.new("AEROSOL")])
+    @rooms << Room.new("Large Fallen Brick Work")
+    @rooms << Room.new("Rotting Stone Arch")
+    @rooms << Room.new("Crumbling Clifftop")
+
+    Direction.routes(@rooms, [
+      [S, E], [E], [E], [S, E], [E], [E], [S, E], [S],
+      [S], [S, E], [E], [], [E], [], [E], [S],
+      [S], [S], [S, E], [E], [U, D], [S, E], [U, D], [S],
+      [], [S], [S, E], [E], [E], [S], [S], [S],
+      [S], [S, E], [S], [S], [S, U, D], [], [], [S],
+      [E], [], [E], [], [S, E], [E], [], [S],
+      [S, E], [S], [E], [E], [], [S], [S], [],
+      [E], [E], [E], [E], [E], [E], [E], []
+    ])
   end
 end
 

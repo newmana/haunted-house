@@ -150,7 +150,7 @@ class HauntedHouse
   end
 
   def display_help
-    display_list("Words I know:", @verbs.select{|x| !x.nil?})
+    display_list("Words I know:", @verbs.select { |x| !x.nil? })
   end
 
   def display_carrying

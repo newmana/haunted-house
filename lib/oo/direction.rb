@@ -10,10 +10,10 @@ module Direction
     directions.each do |d|
       direction, opposite =
         case d
-          when N then [8, S]
-          when S then [-8, N]
-          when E then [1, W]
+          when N then [-8, S]
+          when S then [8, N]
           when W then [-1, E]
+          when E then [1, W]
           when U
             case index
               when 20 then [8, D]

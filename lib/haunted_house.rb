@@ -121,7 +121,7 @@ class HauntedHouse
   def bats(vi)
     has_bats = @flags[26] && @room == 13 && Random.new.rand(3) != 2 && vi != 21
     @message = "Bats Attacking!" if has_bats
-    return has_bats
+    has_bats
   end
 
   def ghosts

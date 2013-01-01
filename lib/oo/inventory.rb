@@ -20,6 +20,8 @@ module Inventory
   GOBLET = :GOBLET
   AEROSOL = :AEROSOL
 
+  attr_accessor :objects
+
   def initialize
     @all_objects = Inventory.constants(false)
     @objects = Set.new

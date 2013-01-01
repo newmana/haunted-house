@@ -4,11 +4,12 @@ class GoCommand
     ["GO", "N", "S", "E", "W", "U", "D"]
   end
 
-  def execute(verb, word, current_room)
+  def execute(verb, word, house)
     verb = verb.to_sym
-    if current_room.routes.keys.include?(verb.to_sym)
-      return current_room.routes[verb]
+    if house.current_room.routes.keys.include?(verb.to_sym)
+      house.current_room = house.current_room.routes[verb]
+      return "Ok"
     end
-    current_room
+    "You can't go that way!"
   end
 end

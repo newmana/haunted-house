@@ -1,10 +1,10 @@
 module Direction
-  N = :north
-  S = :south
-  W = :west
-  E = :east
-  U = :up
-  D = :down
+  N = :N
+  S = :S
+  W = :W
+  E = :E
+  U = :U
+  D = :D
 
   def route(rooms, index, directions)
     directions.each do |d|

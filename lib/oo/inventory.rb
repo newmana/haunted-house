@@ -20,8 +20,10 @@ module Inventory
   GOBLET = :GOBLET
   AEROSOL = :AEROSOL
 
-  @all_objects = Inventory.constants(false)
-  @objects = Set.new
+  def initialize
+    @all_objects = Inventory.constants(false)
+    @objects = Set.new
+  end
 
   def valid?(object)
     @all_objects.include?(to_up_sym(object))

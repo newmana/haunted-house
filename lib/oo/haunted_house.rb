@@ -1,11 +1,16 @@
 require './lib/oo/room'
 require './lib/oo/direction'
 require './lib/oo/inventory'
+require './lib/oo/parser'
 
 class HauntedHouse
+  attr_accessor :current_room
+
   include Direction, Inventory
 
   def initialize
+    super
+
     @rooms = []
 
     @rooms << Room.new("Dark Corner")
@@ -90,6 +95,11 @@ class HauntedHouse
       [S, E], [S], [E], [E], [], [S], [S], [W],
       [E], [E], [E], [E], [E], [E], [E], []
     ])
+
+    @current_room = @rooms[57]
+    p = Parser.new(self)
+    puts @current_room.show
+    p.parse_input(gets)
   end
 end
 

@@ -18,7 +18,7 @@ class Room
     puts "Your location: #{description}"
     print "Exits: "
     @routes.keys.each.with_index do |k, index|
-      print "#{k.to_s[0].capitalize}"
+      print "#{k.to_s}"
       print "," if index < (@routes.keys.length - 1)
     end
     STDOUT.flush

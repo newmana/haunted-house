@@ -12,6 +12,7 @@ class Parser
     valid_verb = @verbs.include?(verb)
     no_word = word.nil? && word.empty?
     valid_word = !no_word && @inventory.valid?(word)
+    message = ""
     messsage = "I need two words" if no_word
     messsage = "You don't make sense" if !valid_verb
     messsage = "You can't '#{verb}'" if !valid_verb && valid_word

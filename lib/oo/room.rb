@@ -1,7 +1,7 @@
 class Room
   attr_accessor :routes, :description, :objects
 
-  def initialize(description, objects = [])
+  def initialize(description, *objects)
     @routes = {}
     @description = description
     @objects = objects
@@ -24,7 +24,7 @@ class Room
     STDOUT.flush
     puts
     @objects.each do |object|
-      puts "You can see #{object.name}"
+      puts "You can see #{object.to_s}"
     end
     puts "============================"
   end

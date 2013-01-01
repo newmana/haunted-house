@@ -98,8 +98,12 @@ class HauntedHouse
 
     @current_room = @rooms[57]
     p = Parser.new(self)
-    puts @current_room.show
-    p.parse_input(gets)
+    message = "Ok"
+
+    while true
+      puts @current_room.show(message)
+      message = p.parse_input(gets)
+    end
   end
 end
 

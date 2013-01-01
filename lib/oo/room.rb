@@ -7,7 +7,7 @@ class Room
     @objects = objects
   end
 
-  def show
+  def show(message)
     if RUBY_PLATFORM.downcase.include?("mswin")
       system("cls")
     else
@@ -27,5 +27,7 @@ class Room
       puts "You can see #{object.to_s}"
     end
     puts "============================"
+    puts message
+    puts "What will you do now?"
   end
 end

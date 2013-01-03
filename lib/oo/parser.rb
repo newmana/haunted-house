@@ -1,8 +1,4 @@
-require './lib/oo/go_command'
-require './lib/oo/leave_command'
-require './lib/oo/get_take_command'
-require './lib/oo/help_command'
-require './lib/oo/carrying_command'
+Dir["./lib/oo/command/*.rb"].each {|file| require file }
 
 class Parser
   def initialize(house)
@@ -16,6 +12,7 @@ class Parser
     @help = HelpCommand.new(@verbs)
     @leave = LeaveCommand.new
     @get_take = GetTakeCommand.new
+    @all_verbs = [@help, @carrying, @go, @leave, @get_take]
   end
 
   def parse_input(input)
@@ -29,17 +26,11 @@ class Parser
     message = "You can't '#{verb}'" if !valid_verb && valid_word
     message = "That's silly" if !valid_verb && !valid_word
     message = "You don't have #{word}" if valid_verb && valid_word && !@house.carrying?(word)
-    if @help.verbs.include?(verb)
-      @help.execute(verb, word, @house)
-    elsif @carrying.verbs.include?(verb)
-      @carrying.execute(verb, word, @house)
-    elsif @go.verbs.include?(verb)
-      message = @go.execute(verb, word, @house)
-    elsif @leave.verbs.include?(verb)
-      tmp_message = @leave.execute(verb, word, @house)
-      message = tmp_message unless tmp_message.nil?
-    elsif @get_take.verbs.include?(verb)
-      message = @get_take.execute(verb, word, @house)
+    @all_verbs.each do |current_verb|
+      if current_verb.verbs.include?(verb)
+        tmp_message = current_verb.execute(verb, word, @house)
+        message = tmp_message unless tmp_message.nil?
+      end
     end
     message
   end

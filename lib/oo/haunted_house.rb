@@ -61,7 +61,7 @@ class HauntedHouse
     @rooms << Room.new("Closet")
     @rooms << Room.new("Front Lobby")
     @rooms << Room.new("Library of Evil Books", CANDLESTICK)
-    @rooms << Room.new("Study with a Desk and Hole in the Wall", CANDLE)
+    @rooms << Room.new("Study with a Desk and Hole in the Wall", {"DRAWER" => "Drawer open.", "DESK" => "Drawer open."}, CANDLE)
     @rooms << Room.new("Weird Cobwebby Room")
     @rooms << Room.new("Very Cold Chamber")
     @rooms << Room.new("Spooky Room", PAINTING)
@@ -96,12 +96,12 @@ class HauntedHouse
       [E], [E], [E], [E], [E], [E], [E], []
     ])
 
-    @current_room = @rooms[57]
+    @current_room = @rooms[43]
     p = Parser.new(self)
     message = "Ok"
 
     while true
-      puts @current_room.show(message)
+      @current_room.show(message)
       message = p.parse_input(gets)
     end
   end

@@ -1,9 +1,10 @@
 class Room
-  attr_accessor :routes, :description, :objects
+  attr_accessor :routes, :description, :objects, :words
 
-  def initialize(description, *objects)
+  def initialize(description, words=[], *objects)
     @routes = {}
     @description = description
+    @words = words
     @objects = objects
   end
 

@@ -9,8 +9,8 @@ class HauntedHouse
 
   include Direction, Inventory
 
-  def initialize
-    super
+  def initialize(start_room)
+    super()
 
     @rooms = []
 
@@ -93,11 +93,11 @@ class HauntedHouse
       [], [S], [S, E], [E], [E], [S], [S], [S],
       [S], [S, E], [S], [S], [S, U, D], [], [], [S],
       [E], [], [E], [], [S, E], [E], [], [S],
-      [S, E], [S], [E], [E], [], [S], [S], [W],
+      [S, E], [N, S], [E], [E], [], [S], [S], [W],
       [E], [E], [E], [E], [E], [E], [E], []
     ])
 
-    @current_room = @rooms[13]
+    @current_room = @rooms[start_room]
     p = Parser.new(self)
     message = "Ok"
 
@@ -108,4 +108,4 @@ class HauntedHouse
   end
 end
 
-HauntedHouse.new
+HauntedHouse.new(57)

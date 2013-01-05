@@ -8,6 +8,6 @@ class CarryingCommand
   end
 
   def execute(verb, word, house)
-    display_list("You are carrying:", house.objects)
+    display_list("You are carrying:", house.objects.keys)
   end
 end

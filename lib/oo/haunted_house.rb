@@ -45,7 +45,7 @@ class HauntedHouse
     @rooms << Room.new("Gloomy Passage", [], [VACUUM])
     @rooms << Room.new("Pool of Light", [], [BATTERIES])
     @rooms << Room.new("Impressive Vaulted Hallway")
-    @rooms << Room.new("Hall by a Thick Wooden Door", [], [STATUE])
+    @rooms << Room.new("Hall by a Thick Wooden Door", [Door.new], [STATUE])
     @rooms << Room.new("Trophy Room")
     @rooms << Room.new("Cellar with Barred Window")
     @rooms << Room.new("Cliff Path")
@@ -56,7 +56,7 @@ class HauntedHouse
     @rooms << Room.new("Secret Room", [], [MAGIC_SPELLS])
     @rooms << Room.new("Steep Marble Stairs")
     @rooms << Room.new("Dining Room")
-    @rooms << Room.new("Deep Cellar with a Coffin", [], [RING])
+    @rooms << Room.new("Deep Cellar with a Coffin", [Coffin.new], [])
     @rooms << Room.new("Cliff Path")
 
     @rooms << Room.new("Closet")

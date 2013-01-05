@@ -1,6 +1,4 @@
 module Inventory
-  require 'set'
-
   AXE = :AXE
   SHOVEL = :SHOVEL
   ROPE = :ROPE
@@ -23,8 +21,19 @@ module Inventory
   attr_accessor :objects
 
   def initialize
-    @all_objects = Inventory.constants(false)
-    @objects = Set.new
+    @all_objects = {}
+    Inventory.constants(false).each do |obj|
+      begin
+        @all_objects[obj] = Object.const_get(obj.to_s.capitalize).new
+      rescue
+        # Ignore
+      end
+    end
+    @objects = {}
+  end
+
+  def thing(object)
+    @all_objects[to_up_sym(object)]
   end
 
   def valid?(object)
@@ -32,11 +41,12 @@ module Inventory
   end
   
   def carrying?(object)
-    @objects.include?(to_up_sym(object))
+    @objects.keys.include?(to_up_sym(object))
   end
 
   def carry(object)
-    @objects << to_up_sym(object)
+    obj = to_up_sym(object)
+    @objects[obj] = Object.const_get(obj.to_s.capitalize).new
   end
 
   def leave(object)

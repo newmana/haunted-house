@@ -9,9 +9,6 @@ class ExamineCommand
       house.current_room.objects << thing unless thing.nil?
       message
     end
-    # TODO Fix - need to combine this with things and inventory
-    if house.carrying?(word) && word.to_s.upcase.to_sym.eql?(Inventory::SCROLL)
-      Scroll.new.examine
-    end
+    house.thing(word).examine if house.carrying?(word)
   end
 end

@@ -9,6 +9,6 @@ class DeskDrawer
   end
 
   def examine
-    "There is a drawer."
+    ["There is a drawer.", nil]
   end
 end

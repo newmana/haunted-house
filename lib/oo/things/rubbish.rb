@@ -4,6 +4,6 @@ class Rubbish
   end
 
   def examine
-    "That's disgusting!"
+    ["That's disgusting!", nil]
   end
 end

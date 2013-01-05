@@ -4,6 +4,6 @@ class Wall
   end
 
   def examine
-    "There's something beyond..."
+    ["There's something beyond...", nil]
   end
 end

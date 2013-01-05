@@ -266,7 +266,7 @@ class HauntedHouse
     end
     @message = "That's disgusting!" if wi == 31
     open(wi) if wi == 32
-    read(wi) if wi == 33 || wi == 4
+    read(wi) if wi == 33 || wi == 5
     @message = "There's something beyond..." if @room == 43 && wi == 35
   end
 

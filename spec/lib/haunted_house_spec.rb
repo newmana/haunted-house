@@ -226,6 +226,20 @@ describe 'haunted house' do
       end
     end
 
+    it "Books" do
+      in_the_house(42) do |h|
+        check_examine(h, "books", "They are demonic works.")
+      end
+    end
+
+    it "Scroll" do
+      carrying = []
+      carrying[5] = true
+      in_the_house(42, HauntedHouse.default_flags, carrying) do |h|
+        check_examine(h, "scroll", "The script is in an alien tongue.")
+      end
+    end
+
     def check_examine(h, object, message)
       h.parse("examine #{object}")
       h.message.should eql(message)

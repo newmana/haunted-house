@@ -7,4 +7,8 @@ class DeskDrawer
   def open
     ["Drawer open.", Inventory::CANDLE]
   end
+
+  def examine
+    "There is a drawer."
+  end
 end

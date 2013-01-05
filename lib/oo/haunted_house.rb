@@ -17,7 +17,7 @@ class HauntedHouse
     @rooms << Room.new("Dark Corner")
     @rooms << Room.new("Overgrown Garden")
     @rooms << Room.new("By a Large Wood Pile", [], [AXE])
-    @rooms << Room.new("Yard by Rubbish")
+    @rooms << Room.new("Yard by Rubbish", [Rubbish.new])
     @rooms << Room.new("Weed Patch", [], [SHOVEL])
     @rooms << Room.new("Forest")
     @rooms << Room.new("Thick Forest")
@@ -50,7 +50,7 @@ class HauntedHouse
     @rooms << Room.new("Cellar with Barred Window")
     @rooms << Room.new("Cliff Path")
 
-    @rooms << Room.new("Cupboard with Hanging Coat", [], [KEY])
+    @rooms << Room.new("Cupboard with Hanging Coat", [Coat.new], [])
     @rooms << Room.new("Front Hall")
     @rooms << Room.new("Sitting Room")
     @rooms << Room.new("Secret Room", [], [MAGIC_SPELLS])
@@ -61,7 +61,7 @@ class HauntedHouse
 
     @rooms << Room.new("Closet")
     @rooms << Room.new("Front Lobby")
-    @rooms << Room.new("Library of Evil Books", [], [CANDLESTICK])
+    @rooms << Room.new("Library of Evil Books", [Books.new], [CANDLESTICK])
     @rooms << Room.new("Study with a Desk and Hole in the Wall", [DeskDrawer.new], [])
     @rooms << Room.new("Weird Cobwebby Room")
     @rooms << Room.new("Very Cold Chamber")
@@ -97,7 +97,7 @@ class HauntedHouse
       [E], [E], [E], [E], [E], [E], [E], []
     ])
 
-    @current_room = @rooms[57]
+    @current_room = @rooms[13]
     p = Parser.new(self)
     message = "Ok"
 

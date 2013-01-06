@@ -1,5 +1,9 @@
 class MagicSpells
   def name
-    ["MAGIC SPELLS"]
+    ["MAGIC SPELLS", "SPELLS"]
+  end
+
+  def read
+    ["Use this word with care 'Xzanfar'.", nil]
   end
 end

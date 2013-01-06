@@ -2,14 +2,14 @@ require './lib/oo/room'
 require './lib/oo/direction'
 require './lib/oo/inventory'
 require './lib/oo/parser'
-Dir["./lib/oo/things/*.rb"].each {|file| require file }
+Dir["./lib/oo/things/*.rb"].each { |file| require file }
 
 class HauntedHouse
   attr_accessor :current_room
 
   include Direction, Inventory
 
-  def initialize(start_room)
+  def initialize(start_room=57)
     super()
 
     @rooms = []
@@ -108,4 +108,4 @@ class HauntedHouse
   end
 end
 
-HauntedHouse.new(57)
+HauntedHouse.new

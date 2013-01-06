@@ -14,7 +14,8 @@ class Parser
     @get_take = GetTakeCommand.new
     @open = OpenCommand.new
     @examine = ExamineCommand.new
-    @all_verbs = [@help, @carrying, @go, @leave, @get_take, @open, @examine]
+    @read = ReadCommand.new
+    @all_verbs = [@help, @carrying, @go, @leave, @get_take, @open, @examine, @read]
   end
 
   def parse_input(input)

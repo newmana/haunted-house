@@ -1,4 +1,7 @@
-Dir["./lib/oo/command/*.rb"].each {|file| require file }
+require_relative 'display_list'
+Dir[File.dirname(__FILE__) + '/command/*.rb'].each do |file|
+  require_relative './command/' + File.basename(file, File.extname(file))
+end
 
 class Parser
   def initialize(house)
@@ -15,7 +18,8 @@ class Parser
     @open = OpenCommand.new
     @examine = ExamineCommand.new
     @read = ReadCommand.new
-    @all_verbs = [@help, @carrying, @go, @leave, @get_take, @open, @examine, @read]
+    @dig = DigCommand.new
+    @all_verbs = [@help, @carrying, @go, @leave, @get_take, @open, @examine, @read, @dig]
   end
 
   def parse_input(input)

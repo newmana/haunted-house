@@ -6,7 +6,7 @@ module Direction
   U = :U
   D = :D
 
-  def route(rooms, index, directions)
+  def route(index, directions)
     directions.each do |d|
       direction, opposite =
         case d
@@ -37,14 +37,14 @@ module Direction
                 [8, D]
             end
         end
-      rooms[index].routes.store(d, rooms[index + direction])
-      rooms[index + direction].routes.store(opposite, rooms[index])
+      @rooms[index].routes.store(d, @rooms[index + direction])
+      @rooms[index + direction].routes.store(opposite, @rooms[index])
     end
   end
 
-  def routes(rooms, all_directions)
+  def routes(all_directions)
     all_directions.each.with_index do |d, i|
-      route(rooms, i, d)
+      route(i, d)
     end
   end
 end

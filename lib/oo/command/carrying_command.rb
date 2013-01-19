@@ -1,5 +1,3 @@
-require './lib/oo/display_list'
-
 class CarryingCommand
   include DisplayList
 

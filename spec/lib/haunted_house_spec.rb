@@ -1,4 +1,4 @@
-require 'haunted_house'
+require File.dirname(__FILE__) + "/../../lib/haunted_house"
 
 describe 'haunted house' do
   describe "Message" do

@@ -19,7 +19,8 @@ class Parser
     @examine = ExamineCommand.new
     @read = ReadCommand.new
     @dig = DigCommand.new
-    @all_verbs = [@help, @carrying, @go, @leave, @get_take, @open, @examine, @read, @dig]
+    @swing = SwingCommand.new
+    @all_verbs = [@help, @carrying, @go, @leave, @get_take, @open, @examine, @read, @dig, @swing]
   end
 
   def parse_input(input)

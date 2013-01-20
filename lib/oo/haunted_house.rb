@@ -5,10 +5,14 @@ require_relative 'parser'
 Dir[File.dirname(__FILE__) + '/things/*.rb'].each do |file|
   require_relative './things/' + File.basename(file, File.extname(file))
 end
+Dir[File.dirname(__FILE__) + '/rooms/*.rb'].each do |file|
+  require_relative './rooms/' + File.basename(file, File.extname(file))
+end
 
 class OO
   class HauntedHouse
     attr_accessor :current_room
+    attr_reader :rooms
 
     include Direction, Inventory
 
@@ -67,7 +71,7 @@ class OO
       @rooms << Room.new("Library of Evil Books", [Books.new], [CANDLESTICK])
       @rooms << Room.new("Study with a Desk and Hole in the Wall", [DeskDrawer.new], [])
       @rooms << Room.new("Weird Cobwebby Room")
-      @rooms << Room.new("Very Cold Chamber")
+      @rooms << ColdChamber.new("Very Cold Chamber")
       @rooms << Room.new("Spooky Room", [], [PAINTING])
       @rooms << Room.new("Cliff Path by the Marsh", [], [BOAT])
 

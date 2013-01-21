@@ -35,7 +35,7 @@ class OO
       @rooms << Room.new("Kitchen and Grimy Cooker", [], [MATCHES])
       @rooms << Room.new("Scullery Door")
       @rooms << Room.new("Room with Inches of Dust")
-      @rooms << Room.new("Rear Turret Room", [], [SCROLL])
+      @rooms << RearTurret.new("Rear Turret Room", [Bats.new], [SCROLL])
       @rooms << Room.new("Clearing by House")
       @rooms << Room.new("Path")
 

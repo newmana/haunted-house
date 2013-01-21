@@ -32,6 +32,14 @@ class Room
   def climb
   end
 
+  def bats
+    false
+  end
+
+  def spray_bats
+    "Hissss"
+  end
+
   def go_direction(verb)
     if routes.keys.include?(verb)
       return ["Ok", routes[verb]]

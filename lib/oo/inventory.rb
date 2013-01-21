@@ -54,10 +54,11 @@ module Inventory
     @objects.delete(object) if carrying?(object)
   end
 
-  private
   def to_up_sym(object)
     object.to_s.upcase.gsub(/ /, '_').to_sym
   end
+
+  private
 
   def to_class(object)
     object.to_s.split('_').map { |s| s.capitalize }.join

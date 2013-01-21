@@ -54,7 +54,7 @@ class OO
       @rooms << Room.new("Impressive Vaulted Hallway")
       @rooms << Room.new("Hall by a Thick Wooden Door", [Door.new], [STATUE])
       @rooms << Room.new("Trophy Room")
-      @rooms << Room.new("Cellar with Barred Window")
+      @rooms << Cellar.new("Cellar with Barred Window")
       @rooms << Room.new("Cliff Path")
 
       @rooms << Room.new("Cupboard with Hanging Coat", [Coat.new], [])

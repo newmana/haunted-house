@@ -32,6 +32,10 @@ class Room
     "Whoosh"
   end
 
+  def dig_shovel(house)
+    "You've made a hole."
+  end
+
   def climb
   end
 

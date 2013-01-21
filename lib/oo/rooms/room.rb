@@ -24,6 +24,17 @@ class Room
     house.current_room = house.rooms[Random.new.rand(64)]
   end
 
+  def swing_rope
+    "You swung it"
+  end
+
+  def swing_axe(house)
+    "Whoosh"
+  end
+
+  def climb
+  end
+
   def show(message)
     if RUBY_PLATFORM.downcase.include?("mswin")
       system("cls")

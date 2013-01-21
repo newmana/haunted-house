@@ -3,11 +3,11 @@ class Rope
     ["ROPE"]
   end
 
+  def climb
+    "It isn't attached to anything!"
+  end
+
   def swing(house)
-    if house.current_room.description.eql?("Blasted Tree")
-      "This is no time to play games."
-    else
-      "You swung it"
-    end
+    house.current_room.swing_rope
   end
 end

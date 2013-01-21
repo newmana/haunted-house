@@ -1,4 +1,4 @@
-require_relative 'room'
+require_relative './rooms/room'
 require_relative 'direction'
 require_relative 'inventory'
 require_relative 'parser'
@@ -28,7 +28,7 @@ class OO
       @rooms << Room.new("Weed Patch", [], [SHOVEL])
       @rooms << Room.new("Forest")
       @rooms << Room.new("Thick Forest")
-      @rooms << Room.new("Blasted Tree", [], [ROPE])
+      @rooms << BlastedTree.new("Blasted Tree", [], [ROPE])
 
       @rooms << Room.new("Corner of the House")
       @rooms << Room.new("Entrance to the Kitchen")
@@ -69,7 +69,7 @@ class OO
       @rooms << Room.new("Closet")
       @rooms << Room.new("Front Lobby")
       @rooms << Room.new("Library of Evil Books", [Books.new], [CANDLESTICK])
-      @rooms << Room.new("Study with a Desk and Hole in the Wall", [DeskDrawer.new], [])
+      @rooms << Study.new("Study with a Desk and Hole in the Wall", [DeskDrawer.new], [])
       @rooms << Room.new("Weird Cobwebby Room")
       @rooms << ColdChamber.new("Very Cold Chamber")
       @rooms << Room.new("Spooky Room", [], [PAINTING])

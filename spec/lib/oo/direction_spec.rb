@@ -1,5 +1,5 @@
 require File.dirname(__FILE__) + "/../../../lib/oo/direction"
-require File.dirname(__FILE__) + "/../../../lib/oo/room"
+require File.dirname(__FILE__) + "/../../../lib/oo/rooms/room"
 
 describe 'direction' do
   describe "west east creation" do

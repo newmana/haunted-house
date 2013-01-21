@@ -18,7 +18,7 @@ class BlastedTree < Room
   def go_direction(verb)
     if @up
       @up = false
-      "Crash! You fell out of a tree!"
+      ["Crash! You fell out of a tree!", self]
     else
       super(verb)
     end

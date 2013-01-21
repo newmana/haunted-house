@@ -1,8 +1,9 @@
 class ColdChamber < Room
 
-  def initialize(description, things=[], objects=[])
+  def initialize(house, description, things=[], objects=[])
     super(description, things, objects)
     @magical_barrier = true
+    @house = house
   end
 
   def magic_occurs(house)
@@ -10,8 +11,8 @@ class ColdChamber < Room
   end
 
   def go_direction(verb)
-    if @magical_barrier
-      "A magical barrier to the west."
+    if @magical_barrier && @house.carrying?(Inventory::PAINTING)
+      ["A magical barrier to the west.", self]
     else
       super(verb)
     end

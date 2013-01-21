@@ -71,7 +71,7 @@ class OO
       @rooms << Room.new("Library of Evil Books", [Books.new], [CANDLESTICK])
       @rooms << Study.new("Study with a Desk and Hole in the Wall", [DeskDrawer.new], [])
       @rooms << Room.new("Weird Cobwebby Room")
-      @rooms << ColdChamber.new("Very Cold Chamber")
+      @rooms << ColdChamber.new(self, "Very Cold Chamber")
       @rooms << Room.new("Spooky Room", [], [PAINTING])
       @rooms << Room.new("Cliff Path by the Marsh", [], [BOAT])
 

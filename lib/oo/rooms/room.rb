@@ -13,13 +13,6 @@ class Room
     @objects = objects
   end
 
-  def go_direction(verb)
-    if routes.keys.include?(verb)
-      return ["Ok", routes[verb]]
-    end
-    ["You can't go that way!", self]
-  end
-
   def magic_occurs(house)
     house.current_room = house.rooms[Random.new.rand(64)]
   end
@@ -37,6 +30,13 @@ class Room
   end
 
   def climb
+  end
+
+  def go_direction(verb)
+    if routes.keys.include?(verb)
+      return ["Ok", routes[verb]]
+    end
+    ["You can't go that way!", self]
   end
 
   def show(message)

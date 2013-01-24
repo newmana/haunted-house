@@ -7,7 +7,7 @@ class ExamineCommand
     if house.current_room.words.keys.include?(word)
       message, thing = house.current_room.words[word].examine
       house.current_room.objects << thing unless thing.nil?
-      message
+      return message
     end
     house.thing(word).examine if house.carrying?(word)
   end

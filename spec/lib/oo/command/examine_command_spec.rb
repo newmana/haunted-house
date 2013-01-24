@@ -59,6 +59,20 @@ describe 'examine command' do
     end
   end
 
+  context "cellar with coffin" do
+    before { @house = OO::HauntedHouse.new(38) }
+
+    specify "should have correct description" do
+      @house.current_room.description.should eql("Deep Cellar with a Coffin")
+    end
+
+    context "examine coffin" do
+      before { examine("coffin") }
+      specify { @message.should eql("That's creepy!") }
+      specify { @house.current_room.objects.should =~ [Inventory::RING] }
+    end
+  end
+
   def examine(object)
     parser = Parser.new(@house)
     @message = parser.parse_input("examine #{object}")

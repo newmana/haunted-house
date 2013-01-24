@@ -36,6 +36,27 @@ describe 'examine command' do
       specify { @message.should eql("Something here!") }
       specify { @house.current_room.objects.should =~ [Inventory::KEY] }
     end
+
+    context "examine scroll" do
+      before do
+        @house.carry(Inventory::SCROLL)
+        examine("scroll")
+      end
+      specify { @message.should eql("The script is in an alien tongue.") }
+    end
+  end
+
+  context "library" do
+    before { @house = OO::HauntedHouse.new(42) }
+
+    specify "should have correct description" do
+      @house.current_room.description.should eql("Library of Evil Books")
+    end
+
+    context "read books" do
+      before { examine("books") }
+      specify { @message.should eql("They are demonic works.") }
+    end
   end
 
   def examine(object)

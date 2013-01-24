@@ -12,6 +12,6 @@ class Scroll
   end
 
   def examine_or_read
-    ["The script is in an alien tongue.", nil]
+    "The script is in an alien tongue."
   end
 end

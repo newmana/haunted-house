@@ -46,6 +46,19 @@ describe 'examine command' do
     end
   end
 
+  context "yard" do
+    before { @house = OO::HauntedHouse.new(3) }
+
+    specify "should have correct description" do
+      @house.current_room.description.should eql("Yard by Rubbish")
+    end
+
+    context "examine rubbish" do
+      before { examine("rubbish") }
+      specify { @message.should eql("That's disgusting!") }
+    end
+  end
+
   context "library" do
     before { @house = OO::HauntedHouse.new(42) }
 

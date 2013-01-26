@@ -1,4 +1,5 @@
 class RearTurret < Room
+  attr_reader :can_have_bats
 
   def initialize(description, things=[], objects=[])
     super(description, things, objects)

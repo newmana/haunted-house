@@ -36,8 +36,8 @@ class Room
     false
   end
 
-  def spray_bats
-    "Hissss"
+  def ghosts
+    false
   end
 
   def go_direction(verb)

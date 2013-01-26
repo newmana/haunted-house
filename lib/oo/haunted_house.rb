@@ -79,7 +79,7 @@ class OO
       @rooms << Room.new("Front Porch")
       @rooms << Room.new("Front Tower", [], [GOBLET])
       @rooms << Room.new("Sloping Corridor")
-      @rooms << Room.new("Upper Gallery")
+      @rooms << UpperGallery.new("Upper Gallery", [Ghosts.new], [])
       @rooms << Room.new("Marsh by a Wall")
       @rooms << Room.new("Marsh")
       @rooms << Room.new("Soggy Path")

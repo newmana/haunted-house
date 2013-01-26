@@ -13,4 +13,12 @@ class RearTurret < Room
   def bats
     @can_have_bats && Random.new.rand(3) != 2
   end
+
+  def go_direction(verb)
+    if bats
+      ["Bats Attacking!", self]
+    else
+      super(verb)
+    end
+  end
 end

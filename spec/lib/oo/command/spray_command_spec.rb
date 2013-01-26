@@ -8,32 +8,38 @@ describe 'spray command' do
 
     context "has bats" do
       before do
-        fake_random = mock(Random)
-        fake_random.should_receive(:rand).with(3).and_return(1)
-        Random.stub!(:new).and_return(fake_random)
+        Random.any_instance.stub(:rand).with(any_args).and_return(1)
       end
-
       specify { @house.current_room.bats.should be_true }
-    end
 
-    context "spray bats" do
-      before { spray("bats") }
-      specify { @house.current_room.can_have_bats.should be_true }
+      context "spray bats" do
+        before { spray("bats") }
+        specify { @message.should eql("Hissss") }
 
-      context "with aerosol" do
-        before do
-          @house.carry(Inventory::AEROSOL)
-          spray("bats")
+        context "try to move" do
+          before do
+            @message, @next_room = @house.current_room.go_direction(Direction::W)
+          end
+          specify { @message.should eql("Bats Attacking!") }
+          specify { @next_room.description.should eql("Rear Turret Room") }
         end
-        specify { @house.current_room.can_have_bats.should be_false }
-        specify { @house.current_room.bats.should be_false }
+
+        context "with aerosol" do
+          before do
+            @house.carry(Inventory::AEROSOL)
+            spray("bats")
+          end
+          specify { @house.current_room.can_have_bats.should be_false }
+          specify { @house.current_room.bats.should be_false }
+          specify { @message.should eql("Pfft! Got them.") }
+        end
       end
     end
   end
 
   def spray(word)
     parser = Parser.new(@house)
-    @message = parser.parse_input("spray #{word}")
+    @message = parser.parse_input(" spray #{word}")
   end
 
 end

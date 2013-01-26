@@ -23,7 +23,9 @@ class Parser
     @swing = SwingCommand.new
     @climb = ClimbCommand.new
     @spray = SprayCommand.new
-    @all_verbs = [@help, @carrying, @go, @leave, @get_take, @open, @examine, @read, @say, @dig, @swing, @climb, @spray]
+    @use = UseCommand.new
+    @all_verbs = [@help, @carrying, @go, @leave, @get_take, @open, @examine, @read, @say, @dig, @swing, @climb, @spray,
+      @use]
   end
 
   def parse_input(input)
@@ -31,7 +33,6 @@ class Parser
     valid_verb = @verbs.include?(verb)
     no_word = word.nil? && word.empty?
     valid_word = !no_word && @house.valid?(word)
-    return "Bats Attacking!" if @house.current_room.bats && !@spray.verbs.include?(verb)
     message = ""
     message = "I need two words" if no_word
     message = "You don't make sense" if !valid_verb

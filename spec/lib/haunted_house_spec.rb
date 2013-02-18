@@ -1,4 +1,5 @@
-require File.dirname(__FILE__) + "/../../lib/haunted_house"
+require 'spec_helper'
+require 'haunted_house'
 
 describe 'haunted house' do
   describe "Message" do

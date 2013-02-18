@@ -1,5 +1,7 @@
+require_relative 'display_list'
+
 class CarryingCommand
-  include DisplayList
+  include Oo::Command::DisplayList
 
   def verbs
     ["CARRYING?"]

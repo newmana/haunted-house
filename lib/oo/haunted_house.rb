@@ -10,7 +10,7 @@ Dir[File.dirname(__FILE__) + '/rooms/*.rb'].each do |file|
   require_relative './rooms/' + File.basename(file, File.extname(file))
 end
 
-class OO
+module Oo
   class HauntedHouse
     attr_reader :rooms
 

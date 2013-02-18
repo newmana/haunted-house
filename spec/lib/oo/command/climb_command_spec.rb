@@ -1,8 +1,8 @@
-require File.dirname(__FILE__) + "/../../../../lib/oo/haunted_house"
+require "oo/haunted_house"
 
 describe 'climb command' do
   context "blasted tree" do
-    before { @house = OO::HauntedHouse.new(7) }
+    before { @house = Oo::HauntedHouse.new(7) }
 
     specify "should have correct description" do
       @house.current_room.description.should eql("Blasted Tree")
@@ -20,11 +20,11 @@ describe 'climb command' do
   end
 
   context "other room" do
-    before { @house = OO::HauntedHouse.new(0) }
+    before { @house = Oo::HauntedHouse.new(0) }
 
     context "climb rope" do
       before do
-        @house.carry(Inventory::ROPE)
+        @house.carry(Oo::Inventory::ROPE)
         climb
       end
       specify { @message.should eql("It isn't attached to anything!") }
@@ -32,7 +32,7 @@ describe 'climb command' do
   end
 
   def climb
-    parser = Parser.new(@house)
+    parser = Oo::Parser.new(@house)
     @message = parser.parse_input("climb rope")
   end
 end

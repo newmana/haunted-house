@@ -8,7 +8,7 @@ class Vacuum
   end
 
   def use(house)
-    if house.carrying?(Inventory::BATTERIES)
+    if house.carrying?(Oo::Inventory::BATTERIES)
       @turned_on = true
       message = "Switched on."
     end

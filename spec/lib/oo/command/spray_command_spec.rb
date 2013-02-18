@@ -1,8 +1,8 @@
-require File.dirname(__FILE__) + "/../../../../lib/oo/haunted_house"
+require "oo/haunted_house"
 
 describe 'spray command' do
   context "rear turret" do
-    before { @house = OO::HauntedHouse.new(13) }
+    before { @house = Oo::HauntedHouse.new(13) }
     specify { @house.current_room.description.should eql("Rear Turret Room") }
     specify { @house.current_room.can_have_bats.should be_true }
 
@@ -18,7 +18,7 @@ describe 'spray command' do
 
         context "try to move" do
           before do
-            @message, @next_room = @house.current_room.go_direction(Direction::W)
+            @message, @next_room = @house.current_room.go_direction(Oo::Direction::W)
           end
           specify { @message.should eql("Bats Attacking!") }
           specify { @next_room.description.should eql("Rear Turret Room") }
@@ -26,7 +26,7 @@ describe 'spray command' do
 
         context "with aerosol" do
           before do
-            @house.carry(Inventory::AEROSOL)
+            @house.carry(Oo::Inventory::AEROSOL)
             spray("bats")
           end
           specify { @house.current_room.can_have_bats.should be_false }
@@ -38,7 +38,7 @@ describe 'spray command' do
   end
 
   def spray(word)
-    parser = Parser.new(@house)
+    parser = Oo::Parser.new(@house)
     @message = parser.parse_input(" spray #{word}")
   end
 

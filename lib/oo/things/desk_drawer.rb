@@ -5,7 +5,7 @@ class DeskDrawer
   end
 
   def open
-    ["Drawer open.", Inventory::CANDLE]
+    ["Drawer open.", Oo::Inventory::CANDLE]
   end
 
   def examine

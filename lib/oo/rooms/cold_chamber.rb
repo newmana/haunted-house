@@ -11,7 +11,7 @@ class ColdChamber < Room
   end
 
   def go_direction(verb)
-    if @magical_barrier && @house.carrying?(Inventory::PAINTING)
+    if @magical_barrier && @house.carrying?(Oo::Inventory::PAINTING)
       ["A magical barrier to the west.", self]
     else
       super(verb)

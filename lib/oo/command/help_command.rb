@@ -1,5 +1,7 @@
+require_relative 'display_list'
+
 class HelpCommand
-  include DisplayList
+  include Oo::Command::DisplayList
 
   def initialize(commands)
     @commands = commands

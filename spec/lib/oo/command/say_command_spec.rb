@@ -1,8 +1,8 @@
-require File.dirname(__FILE__) + "/../../../../lib/oo/haunted_house"
+require "oo/haunted_house"
 
 describe 'say command' do
   context "very cold chamber" do
-    before { @house = OO::HauntedHouse.new(45) }
+    before { @house = Oo::HauntedHouse.new(45) }
 
     specify "should have correct description" do
       @house.current_room.description.should eql("Very Cold Chamber")
@@ -17,7 +17,7 @@ describe 'say command' do
 
   context "other room" do
     before do
-      @house = OO::HauntedHouse.new(0)
+      @house = Oo::HauntedHouse.new(0)
       fake_random = mock(Random)
       fake_random.should_receive(:rand).with(64).and_return(1)
       Random.stub!(:new).and_return(fake_random)
@@ -31,8 +31,8 @@ describe 'say command' do
   end
 
   def say(word)
-    @house.carry(Inventory::MAGIC_SPELLS)
-    parser = Parser.new(@house)
+    @house.carry(Oo::Inventory::MAGIC_SPELLS)
+    parser = Oo::Parser.new(@house)
     @message = parser.parse_input("say #{word}")
   end
 end

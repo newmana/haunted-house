@@ -1,5 +1,6 @@
 require_relative './rooms/room'
 require_relative 'direction'
+require_relative 'rooms'
 require_relative 'inventory'
 require_relative 'parser'
 Dir[File.dirname(__FILE__) + '/things/*.rb'].each do |file|
@@ -11,7 +12,6 @@ end
 
 class OO
   class HauntedHouse
-    attr_accessor :current_room
     attr_reader :rooms
 
     include Direction, Inventory
@@ -19,81 +19,81 @@ class OO
     def initialize(start_room=57)
       super()
 
-      @rooms = []
+      @rooms = Rooms.new
 
-      @rooms << Room.new("Dark Corner")
-      @rooms << Room.new("Overgrown Garden")
-      @rooms << Room.new("By a Large Wood Pile", [], [AXE])
-      @rooms << Room.new("Yard by Rubbish", [Rubbish.new])
-      @rooms << Room.new("Weed Patch", [], [SHOVEL])
-      @rooms << Room.new("Forest")
-      @rooms << Room.new("Thick Forest")
-      @rooms << BlastedTree.new("Blasted Tree", [], [ROPE])
+      Room.new(@rooms, "Dark Corner")
+      Room.new(@rooms, "Overgrown Garden")
+      Room.new(@rooms, "By a Large Wood Pile", [], [AXE])
+      Room.new(@rooms, "Yard by Rubbish", [Rubbish.new])
+      Room.new(@rooms, "Weed Patch", [], [SHOVEL])
+      Room.new(@rooms, "Forest")
+      Room.new(@rooms, "Thick Forest")
+      BlastedTree.new(@rooms, "Blasted Tree", [], [ROPE])
 
-      @rooms << Room.new("Corner of the House")
-      @rooms << Room.new("Entrance to the Kitchen")
-      @rooms << Room.new("Kitchen and Grimy Cooker", [], [MATCHES])
-      @rooms << Room.new("Scullery Door")
-      @rooms << Room.new("Room with Inches of Dust")
-      @rooms << RearTurret.new("Rear Turret Room", [Bats.new], [SCROLL])
-      @rooms << Room.new("Clearing by House")
-      @rooms << Room.new("Path")
+      Room.new(@rooms, "Corner of the House")
+      Room.new(@rooms, "Entrance to the Kitchen")
+      Room.new(@rooms, "Kitchen and Grimy Cooker", [], [MATCHES])
+      Room.new(@rooms, "Scullery Door")
+      Room.new(@rooms, "Room with Inches of Dust")
+      RearTurret.new(@rooms, "Rear Turret Room", [Bats.new], [SCROLL])
+      Room.new(@rooms, "Clearing by House")
+      Room.new(@rooms, "Path")
 
-      @rooms << Room.new("Side of the House")
-      @rooms << Room.new("Back of the Hallway")
-      @rooms << Room.new("Dark Alcove", [], [COINS])
-      @rooms << Room.new("Small Dark Room")
-      @rooms << Room.new("Bottom of a Spiral Staircase")
-      @rooms << Room.new("Wide Passage")
-      @rooms << Room.new("Slippery Steps")
-      @rooms << Room.new("Clifftop")
+      Room.new(@rooms, "Side of the House")
+      Room.new(@rooms, "Back of the Hallway")
+      Room.new(@rooms, "Dark Alcove", [], [COINS])
+      Room.new(@rooms, "Small Dark Room")
+      Room.new(@rooms, "Bottom of a Spiral Staircase")
+      Room.new(@rooms, "Wide Passage")
+      Room.new(@rooms, "Slippery Steps")
+      Room.new(@rooms, "Clifftop")
 
-      @rooms << Room.new("Near a Crumbling Wall")
-      @rooms << Room.new("Gloomy Passage", [], [VACUUM])
-      @rooms << Room.new("Pool of Light", [], [BATTERIES])
-      @rooms << Room.new("Impressive Vaulted Hallway")
-      @rooms << Room.new("Hall by a Thick Wooden Door", [Door.new], [STATUE])
-      @rooms << Room.new("Trophy Room")
-      @rooms << Cellar.new("Cellar with Barred Window")
-      @rooms << Room.new("Cliff Path")
+      Room.new(@rooms, "Near a Crumbling Wall")
+      Room.new(@rooms, "Gloomy Passage", [], [VACUUM])
+      Room.new(@rooms, "Pool of Light", [], [BATTERIES])
+      Room.new(@rooms, "Impressive Vaulted Hallway")
+      Room.new(@rooms, "Hall by a Thick Wooden Door", [Door.new], [STATUE])
+      Room.new(@rooms, "Trophy Room")
+      Cellar.new(@rooms, "Cellar with Barred Window")
+      Room.new(@rooms, "Cliff Path")
 
-      @rooms << Room.new("Cupboard with Hanging Coat", [Coat.new], [])
-      @rooms << Room.new("Front Hall")
-      @rooms << Room.new("Sitting Room")
-      @rooms << Room.new("Secret Room", [], [MAGIC_SPELLS])
-      @rooms << Room.new("Steep Marble Stairs")
-      @rooms << Room.new("Dining Room")
-      @rooms << Room.new("Deep Cellar with a Coffin", [Coffin.new], [])
-      @rooms << Room.new("Cliff Path")
+      Room.new(@rooms, "Cupboard with Hanging Coat", [Coat.new], [])
+      Room.new(@rooms, "Front Hall")
+      Room.new(@rooms, "Sitting Room")
+      Room.new(@rooms, "Secret Room", [], [MAGIC_SPELLS])
+      Room.new(@rooms, "Steep Marble Stairs")
+      Room.new(@rooms, "Dining Room")
+      Room.new(@rooms, "Deep Cellar with a Coffin", [Coffin.new], [])
+      Room.new(@rooms, "Cliff Path")
 
-      @rooms << Room.new("Closet")
-      @rooms << Room.new("Front Lobby")
-      @rooms << Room.new("Library of Evil Books", [Books.new], [CANDLESTICK])
-      @rooms << Study.new("Study with a Desk and Hole in the Wall", [DeskDrawer.new, Wall.new], [])
-      @rooms << Room.new("Weird Cobwebby Room")
-      @rooms << ColdChamber.new(self, "Very Cold Chamber")
-      @rooms << Room.new("Spooky Room", [], [PAINTING])
-      @rooms << Room.new("Cliff Path by the Marsh", [], [BOAT])
+      Room.new(@rooms, "Closet")
+      Room.new(@rooms, "Front Lobby")
+      Room.new(@rooms, "Library of Evil Books", [Books.new], [CANDLESTICK])
+      Study.new(@rooms, "Study with a Desk and Hole in the Wall", [DeskDrawer.new, Wall.new], [])
+      Room.new(@rooms, "Weird Cobwebby Room")
+      ColdChamber.new(self, @rooms, "Very Cold Chamber")
+      Room.new(@rooms, "Spooky Room", [], [PAINTING])
+      Room.new(@rooms, "Cliff Path by the Marsh", [], [BOAT])
 
-      @rooms << Room.new("Rubble-Strewn Verandah")
-      @rooms << Room.new("Front Porch")
-      @rooms << Room.new("Front Tower", [], [GOBLET])
-      @rooms << Room.new("Sloping Corridor")
-      @rooms << UpperGallery.new("Upper Gallery", [Ghosts.new], [])
-      @rooms << Room.new("Marsh by a Wall")
-      @rooms << Room.new("Marsh")
-      @rooms << Room.new("Soggy Path")
+      Room.new(@rooms, "Rubble-Strewn Verandah")
+      FrontPorch.new(@rooms, "Front Porch")
+      Room.new(@rooms, "Front Tower", [], [GOBLET])
+      Room.new(@rooms, "Sloping Corridor")
+      UpperGallery.new(@rooms, "Upper Gallery", [Ghosts.new], [])
+      Room.new(@rooms, "Marsh by a Wall")
+      Room.new(@rooms, "Marsh")
+      Room.new(@rooms, "Soggy Path")
 
-      @rooms << Room.new("By a Twisted Railing")
-      @rooms << Room.new("Path through an Iron Gate")
-      @rooms << Room.new("By Railings")
-      @rooms << Room.new("Beneath the Front Tower")
-      @rooms << Room.new("Debris from Crumbling Facade", [], [AEROSOL])
-      @rooms << Room.new("Large Fallen Brick Work")
-      @rooms << Room.new("Rotting Stone Arch")
-      @rooms << Room.new("Crumbling Clifftop")
+      Room.new(@rooms, "By a Twisted Railing")
+      Room.new(@rooms, "Path through an Iron Gate")
+      Room.new(@rooms, "By Railings")
+      Room.new(@rooms, "Beneath the Front Tower")
+      Room.new(@rooms, "Debris from Crumbling Facade", [], [AEROSOL])
+      Room.new(@rooms, "Large Fallen Brick Work")
+      Room.new(@rooms, "Rotting Stone Arch")
+      Room.new(@rooms, "Crumbling Clifftop")
 
-      routes([
+      @rooms.routes([
         [S, E], [E], [E], [S, E], [E], [E], [S, E], [S],
         [S], [S, E], [E], [], [E], [], [E], [S],
         [S], [S], [S, E], [E], [U, D], [S, E], [U, D], [S],
@@ -104,14 +104,18 @@ class OO
         [E], [E], [E], [E], [E], [E], [E], []
       ])
 
-      @current_room = @rooms[start_room]
+      @rooms.room(start_room)
+    end
+
+    def current_room
+      @rooms.current_room
     end
 
     def welcome
       p = Parser.new(self)
       message = "Ok"
       while true
-        @current_room.show(message)
+        @rooms.current_room.show(message)
         message = p.parse_input(gets)
       end
     end

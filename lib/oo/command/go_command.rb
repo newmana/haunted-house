@@ -5,9 +5,6 @@ class GoCommand
   end
 
   def execute(verb, word, house)
-    verb = verb.to_sym
-    message, room = house.current_room.go_direction(verb)
-    house.current_room = room
-    message
+    house.rooms.go(verb)
   end
 end

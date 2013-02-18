@@ -7,7 +7,7 @@ class SayCommand
     message = "Ok #{word}"
     if house.carrying?(Inventory::MAGIC_SPELLS) && word.eql?("XZANFAR")
       message = "*Magic Occurs*"
-      house.current_room.magic_occurs(house)
+      house.current_room.magic_occurs
     end
     message
   end

@@ -1,12 +1,12 @@
 class ColdChamber < Room
 
-  def initialize(house, description, things=[], objects=[])
-    super(description, things, objects)
+  def initialize(house, rooms, description, things=[], objects=[])
+    super(rooms, description, things, objects)
     @magical_barrier = true
     @house = house
   end
 
-  def magic_occurs(house)
+  def magic_occurs
     @magical_barrier = false
   end
 

@@ -1,7 +1,8 @@
 class Room
   attr_accessor :routes, :description, :objects, :words
 
-  def initialize(description, things=[], objects=[])
+  def initialize(rooms, description, things=[], objects=[])
+    @rooms = rooms
     @routes = {}
     @description = description
     @words = {}
@@ -11,21 +12,22 @@ class Room
       end
     end
     @objects = objects
+    @rooms << self
   end
 
-  def magic_occurs(house)
-    house.current_room = house.rooms[Random.new.rand(64)]
+  def magic_occurs
+    @rooms.room(Random.new.rand(64))
   end
 
   def swing_rope
     "You swung it"
   end
 
-  def swing_axe(house)
+  def swing_axe
     "Whoosh"
   end
 
-  def dig_shovel(house)
+  def dig_shovel
     "You've made a hole."
   end
 

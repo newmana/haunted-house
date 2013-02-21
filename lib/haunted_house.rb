@@ -145,7 +145,7 @@ class HauntedHouse
     return "That's silly" if !vi.nil? && wi.nil? && !word.nil? && !word.empty?
     return "I need two words" if !word.nil? && word.empty?
     return "You don't make sense" if vi.nil? && wi.nil?
-    return "You can't '#{verb}'" if vi.nil? && !wi.nil?
+    return "You can't '#{verb} #{word}'" if vi.nil? && !wi.nil?
     return "You don't have #{word}" if !vi.nil? && !wi.nil? && wi > 0 && vi > 9 && !@carrying[wi]
   end
 

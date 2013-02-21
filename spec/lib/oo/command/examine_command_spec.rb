@@ -87,7 +87,7 @@ describe 'examine command' do
   end
 
   def examine(object)
-    parser = Oo::Parser.new(@house)
+    parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input("examine #{object}")
   end
 end

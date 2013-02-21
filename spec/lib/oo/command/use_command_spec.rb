@@ -1,4 +1,5 @@
-require "oo/haunted_house"
+require 'spec_helper'
+require 'oo/haunted_house'
 
 describe 'use command' do
   context "anywhere" do
@@ -45,7 +46,7 @@ describe 'use command' do
   def use(word)
     @house.carry(Oo::Inventory::BATTERIES)
     @house.carry(Oo::Inventory::VACUUM)
-    parser = Oo::Parser.new(@house)
+    parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input("use #{word}")
   end
 end

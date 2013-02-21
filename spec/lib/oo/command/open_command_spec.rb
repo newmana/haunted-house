@@ -49,7 +49,7 @@ describe 'open command' do
   end
 
   def open(object)
-    parser = Oo::Parser.new(@house)
+    parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input("open #{object}")
   end
 end

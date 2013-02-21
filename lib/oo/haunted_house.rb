@@ -2,7 +2,7 @@ require_relative './rooms/room'
 require_relative 'direction'
 require_relative 'rooms'
 require_relative 'inventory'
-require_relative 'parser'
+require_relative 'command/parser'
 Dir[File.dirname(__FILE__) + '/things/*.rb'].each do |file|
   require_relative './things/' + File.basename(file, File.extname(file))
 end
@@ -112,7 +112,7 @@ module Oo
     end
 
     def welcome
-      p = Parser.new(self)
+      p = Oo::Command::Parser.new(self)
       message = "Ok"
       while true
         @rooms.current_room.show(message)

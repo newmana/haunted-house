@@ -45,7 +45,7 @@ describe 'swing command' do
 
   def swing(item)
     @house.carry(item)
-    parser = Oo::Parser.new(@house)
+    parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input("swing #{item.to_s}")
   end
 

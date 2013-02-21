@@ -32,7 +32,7 @@ describe 'climb command' do
   end
 
   def climb
-    parser = Oo::Parser.new(@house)
+    parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input("climb rope")
   end
 end

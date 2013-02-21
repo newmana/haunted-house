@@ -1,13 +1,17 @@
-class LeaveCommand
-  def verbs
-    ["LEAVE"]
-  end
+module Oo
+  module Command
+    class LeaveCommand
+      def verbs
+        ["LEAVE"]
+      end
 
-  def execute(verb, word, house)
-    if house.carrying?(word)
-      house.leave(word)
-      house.current_room.objects << house.to_up_sym(word)
-      "Done"
+      def execute(verb, word, house)
+        if house.carrying?(word)
+          house.leave(word)
+          house.current_room.objects << house.to_up_sym(word)
+          "Done"
+        end
+      end
     end
   end
 end

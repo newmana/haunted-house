@@ -32,7 +32,7 @@ describe 'say command' do
 
   def say(word)
     @house.carry(Oo::Inventory::MAGIC_SPELLS)
-    parser = Oo::Parser.new(@house)
+    parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input("say #{word}")
   end
 end

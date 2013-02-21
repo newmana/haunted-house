@@ -32,4 +32,6 @@ describe 'rooms' do
       specify { @object.room(8).routes.should == {Oo::Direction::N => @object.room(0)} }
     end
   end
+
+  describe ""
 end

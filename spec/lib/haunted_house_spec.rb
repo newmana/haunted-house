@@ -3,7 +3,7 @@ require 'haunted_house'
 
 describe 'haunted house' do
   describe "Message" do
-    it "Should be silly if we can't find the word" do
+    it "be silly if we can't find the word" do
       in_the_house do |h|
         vi, wi = h.parse("SPRAY paint")
         vi.should == 21
@@ -12,12 +12,21 @@ describe 'haunted house' do
       end
     end
 
-    it "Should require two words" do
+    it "require two words" do
       in_the_house do |h|
         vi, wi = h.parse("SPRAY")
         vi.should == 21
         wi.should be_nil
         h.message.should eql("I need two words")
+      end
+    end
+
+    it "you can't if the verb is wrong but the object is correct" do
+      in_the_house do |h|
+        vi, wi = h.parse("george AEROSOL")
+        vi.should be_nil
+        wi.should == 16
+        h.message.should eql("You can't 'GEORGE Aerosol'")
       end
     end
 

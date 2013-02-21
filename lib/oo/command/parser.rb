@@ -32,13 +32,14 @@ module Oo
       def parse_input(input)
         verb, word = get_verb_word(input)
         valid_verb = @verbs.include?(verb)
-        no_word = word.nil? && word.empty?
-        valid_word = !no_word && @house.valid?(word)
+        empty_word = !word.nil? && word.empty?
+        has_word = !word.nil? && !word.empty?
+        valid_word = has_word && @house.valid?(word)
         message = ""
-        message = "I need two words" if no_word
+        message = "I need two words" if empty_word
         message = "You don't make sense" if !valid_verb
-        message = "You can't '#{verb}'" if !valid_verb && valid_word
-        message = "That's silly" if !valid_verb && !valid_word
+        message = "You can't '#{verb} #{word}'" if !valid_verb && valid_word
+        message = "That's silly" if valid_verb && has_word
         message = "You don't have #{word}" if valid_verb && valid_word && !@house.carrying?(word)
         @all_verbs.each do |current_verb|
           if current_verb.verbs.include?(verb)

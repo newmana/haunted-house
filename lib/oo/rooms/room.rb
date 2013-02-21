@@ -49,6 +49,10 @@ class Room
     ["You can't go that way!", self]
   end
 
+  def routes_to_s
+    @routes.keys.map { |k| k.to_s }.join(",")
+  end
+
   def show(message)
     if RUBY_PLATFORM.downcase.include?("mswin")
       system("cls")
@@ -59,14 +63,11 @@ class Room
     puts "-------------"
     puts "Your location: #{description}"
     print "Exits: "
-    @routes.keys.each.with_index do |k, index|
-      print "#{k.to_s}"
-      print "," if index < (@routes.keys.length - 1)
-    end
+    print routes_to_s
     STDOUT.flush
     puts
     @objects.each do |object|
-      puts "You can see #{object.to_s}"
+      puts "You can see #{object.to_s.gsub("_", " ")}"
     end
     puts "============================"
     puts message

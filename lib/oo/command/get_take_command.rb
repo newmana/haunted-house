@@ -7,11 +7,11 @@ module Oo
 
       def execute(verb, word, house)
         return if word.nil? || word.empty?
-        word = word.to_s.gsub(/ /,'_').to_sym
-        return "It isn't here" unless house.current_room.objects.include?(word)
-        return "You already have it" if house.carrying?(word)
-        house.current_room.objects.delete(word)
-        house.carry(word)
+        symbol = word.to_s.gsub(/ /,'_').to_sym
+        return "It isn't here" unless house.current_room.objects.include?(symbol)
+        return "You already have it" if house.carrying?(symbol)
+        house.current_room.objects.delete(symbol)
+        house.carry(symbol)
         "You have the #{word}"
       end
     end

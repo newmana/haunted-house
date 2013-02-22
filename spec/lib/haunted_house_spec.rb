@@ -59,6 +59,24 @@ describe 'haunted house' do
       end
     end
 
+    it "check going a direction" do
+      in_the_house do |h|
+        vi, wi = h.parse("N")
+        vi.should == 4
+        wi.should be_nil
+        h.message.should eql("Ok")
+      end
+    end
+
+    it "not let you use an invalid word for the direction" do
+      in_the_house do |h|
+        vi, wi = h.parse("GO WHEREEVER")
+        vi.should == 3
+        wi.should be_nil
+        h.message.should eql("Go where?")
+      end
+    end
+
     it "Too Dark to do so" do
       (26..30).each { |i| check_too_dark(i) }
     end

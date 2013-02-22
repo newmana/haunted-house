@@ -12,6 +12,6 @@ class FrontPorch < Room
       @rooms.remove_route(49, Oo::Direction::N)
       return ["The door slams shut!", next_room]
     end
-    super(house, verb)
+    super(verb)
   end
 end

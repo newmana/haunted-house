@@ -7,7 +7,7 @@ module Oo
     class Parser
       def initialize(house)
         @house = house
-        @go = Oo::Command::GoCommand.new
+        @go = GoCommand.new
         @commands = %w(HELP CARRYING? SCORE)
         @directions = @go.verbs
         @actions = %w(GET TAKE OPEN EXAMINE READ SAY DIG SWING CLIMB LIGHT UNLIGHT SPRAY USE UNLOCK LEAVE)
@@ -30,6 +30,17 @@ module Oo
       end
 
       def parse_input(input)
+        message, verb, word = validate(input)
+        @all_verbs.each do |current_verb|
+          if current_verb.verbs.include?(verb)
+            tmp_message = current_verb.execute(verb, word, @house)
+            message = tmp_message unless tmp_message.nil?
+          end
+        end
+        message
+      end
+
+      def validate(input)
         verb, word = get_verb_word(input)
         valid_verb = @verbs.include?(verb)
         empty_word = !word.nil? && word.empty?
@@ -41,13 +52,7 @@ module Oo
         message = "You can't '#{verb} #{word}'" if !valid_verb && valid_word
         message = "That's silly" if valid_verb && has_word
         message = "You don't have #{word}" if valid_verb && valid_word && !@house.carrying?(word)
-        @all_verbs.each do |current_verb|
-          if current_verb.verbs.include?(verb)
-            tmp_message = current_verb.execute(verb, word, @house)
-            message = tmp_message unless tmp_message.nil?
-          end
-        end
-        message
+        return message, verb, word
       end
 
       private

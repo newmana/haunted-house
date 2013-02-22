@@ -47,7 +47,9 @@ describe 'haunted house' do
         h.message.should eql("You don't have Matches")
       end
     end
+  end
 
+  describe "Move" do
     it "check going a direction" do
       in_the_house do |h|
         vi, wi = h.parse("GO NORTH")
@@ -56,9 +58,7 @@ describe 'haunted house' do
         h.message.should eql("Ok")
       end
     end
-  end
 
-  describe "Move" do
     it "Too Dark to do so" do
       (26..30).each { |i| check_too_dark(i) }
     end

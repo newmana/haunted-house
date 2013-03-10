@@ -75,7 +75,7 @@ class HauntedHouse
   def parse(input)
     verb, word = get_verb_word(input)
     vi, wi = get_verb_word_index(verb, word)
-    word = word.split(' ').map { |w| w.downcase.capitalize }.join(" ") unless word.nil?
+    word = word.split(' ').map { |w| w.downcase.capitalize }.join(' ') unless word.nil?
     @message = get_message(verb, word, vi, wi)
     return if bats(vi)
     ghosts
@@ -175,6 +175,7 @@ class HauntedHouse
   end
 
   def move(vi, wi)
+    change = movement(vi, wi)
     if @flags[14]
       @flags[14] = false
       @message = "Crash! You fell out of a tree!"
@@ -186,12 +187,13 @@ class HauntedHouse
       @message = "You're stuck!"
     elsif @carrying[15] and !([53, 54, 55, 47].include?(@room))
       @message = "You can't carry a boat!"
-    elsif (26..30).include?(@room) && !@flags[0]
+    elsif (27..29).include?(@room) && !@flags[0]
       @message = "Too dark to move."
+    elsif @room == 26 && !@flags[0] && (change == -8 || change == 1)
+      @message = "You need a light."
     elsif vi == 3 && wi.nil?
       @message = "Go where?"
     else
-      change = movement(vi, wi)
       if change != 0
         @room += change
         @message = "Ok"
@@ -210,22 +212,18 @@ class HauntedHouse
     change = 0
     direction = 0
     direction = vi - 3 if wi.nil?
-    direction = wi - 18 if !vi.nil? && vi == 3
+    direction = wi - 18 if !wi.nil? && !vi.nil? && vi == 3
     direction = 1 if direction == 5 && @room == 20
     direction = 3 if direction == 6 && @room == 20
     direction = 3 if direction == 5 && @room == 22
     direction = 2 if direction == 6 && @room == 22
     direction = 2 if direction == 5 && @room == 36
     direction = 1 if direction == 6 && @room == 36
-    if (@room == 26 && !@flags[0]) && (direction == 1 || direction == 4)
-      @message = "You need a light."
-    else
-      @routes[@room].chars.each do |c|
-        change = -8 if c.eql?("N") && direction == 1
-        change = 8 if c.eql?("S") && direction == 2
-        change = -1 if c.eql?("W") && direction == 3
-        change = 1 if c.eql?("E") && direction == 4
-      end
+    @routes[@room].chars.each do |c|
+      change = -8 if c.eql?("N") && direction == 1
+      change = 8 if c.eql?("S") && direction == 2
+      change = -1 if c.eql?("W") && direction == 3
+      change = 1 if c.eql?("E") && direction == 4
     end
     change
   end

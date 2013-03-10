@@ -77,8 +77,20 @@ describe 'haunted house' do
       end
     end
 
+    it "You need a light going north or east" do
+      check_need_light("n")
+      check_need_light("e")
+    end
+
+    def check_need_light(direction)
+      in_the_house(26) do |h|
+        h.parse(direction)
+        h.message.should eql("You need a light.")
+      end
+    end
+
     it "Too Dark to do so" do
-      (26..30).each { |i| check_too_dark(i) }
+      (27..29).each { |i| check_too_dark(i) }
     end
 
     def check_too_dark(room)
@@ -462,6 +474,20 @@ describe 'haunted house' do
         h.parse("light candle")
         h.message.should eql(expected_message)
         h.flags[0].should == expected_flag
+      end
+    end
+
+    it "You need a light going north or east" do
+      check_need_light("n")
+      check_need_light("e")
+    end
+
+    def check_need_light(direction)
+      flags = []
+      flags[0] = true
+      in_the_house(26, flags) do |h|
+        h.parse(direction)
+        h.message.should eql("Ok")
       end
     end
   end

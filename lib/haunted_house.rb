@@ -11,51 +11,51 @@ class HauntedHouse
     @flags = flags.dup
     @carrying = carrying.dup
     @verbs = [
-        nil, "HELP", "CARRYING?", "GO", "N", "S", "W", "E", "U", "D", "GET", "TAKE", "OPEN", "EXAMINE", "READ", "SAY",
-        "DIG", "SWING", "CLIMB", "LIGHT", "UNLIGHT", "SPRAY", "USE", "UNLOCK", "LEAVE", "SCORE"
+      nil, "HELP", "CARRYING?", "GO", "N", "S", "W", "E", "U", "D", "GET", "TAKE", "OPEN", "EXAMINE", "READ", "SAY",
+      "DIG", "SWING", "CLIMB", "LIGHT", "UNLIGHT", "SPRAY", "USE", "UNLOCK", "LEAVE", "SCORE"
     ]
 
     @routes = [
-        "SE", "WE", "WE", "SWE", "WE", "WE", "SWE", "WS",
-        "NS", "SE", "WE", "NW", "SE", "W", "NE", "NSW",
-        "NS", "NS", "SE", "WE", "NWUD", "SE", "WSUD", "NS",
-        "N", "NS", "NSE", "WE", "WE", "NSW", "NS", "NS",
-        "S", "NSE", "NSW", "S", "NSUD", "N", "N", "NS",
-        "NE", "NW", "NE", "W", "NSE", "WE", "W", "NS",
-        "SE", "NSW", "E", "WE", "NW", "S", "SW", "NW",
-        "NE", "NWE", "WE", "WE", "WE", "NWE", "NWE", "W"
+      "SE", "WE", "WE", "SWE", "WE", "WE", "SWE", "WS",
+      "NS", "SE", "WE", "NW", "SE", "W", "NE", "NSW",
+      "NS", "NS", "SE", "WE", "NWUD", "SE", "WSUD", "NS",
+      "N", "NS", "NSE", "WE", "WE", "NSW", "NS", "NS",
+      "S", "NSE", "NSW", "S", "NSUD", "N", "N", "NS",
+      "NE", "NW", "NE", "W", "NSE", "WE", "W", "NS",
+      "SE", "NSW", "E", "WE", "NW", "S", "SW", "NW",
+      "NE", "NWE", "WE", "WE", "WE", "NWE", "NWE", "W"
     ]
 
     @descriptions = [
-        "Dark Corner", "Overgrown Garden", "By a Large Wood Pile", "Yard by Rubbish",
-        "Weed Patch", "Forest", "Thick Forest", "Blasted Tree",
-        "Corner of the House", "Entrance to the Kitchen", "Kitchen and Grimy Cooker", "Scullery Door",
-        "Room with Inches of Dust", "Rear Turret Room", "Clearing by House", "Path",
-        "Side of the House", "Back of the Hallway", "Dark Alcove", "Small Dark Room",
-        "Bottom of a Spiral Staircase", "Wide Passage", "Slippery Steps", "Clifftop",
-        "Near a Crumbling Wall", "Gloomy Passage", "Pool of Light", "Impressive Vaulted Hallway",
-        "Hall by a Thick Wooden Door", "Trophy Room", "Cellar with Barred Window", "Cliff Path",
-        "Cupboard with Hanging Coat", "Front Hall", "Sitting Room", "Secret Room",
-        "Steep Marble Stairs", "Dining Room", "Deep Cellar with a Coffin", "Cliff Path",
-        "Closet", "Front Lobby", "Library of Evil Books", "Study with a Desk and Hole in the Wall",
-        "Weird Cobwebby Room", "Very Cold Chamber", "Spooky Room", "Cliff Path by the Marsh",
-        "Rubble-Strewn Verandah", "Front Porch", "Front Tower", "Sloping Corridor",
-        "Upper Gallery", "Marsh by a Wall", "Marsh", "Soggy Path",
-        "By a Twisted Railing", "Path through an Iron Gate", "By Railings", "Beneath the Front Tower",
-        "Debris from Crumbling Facade", "Large Fallen Brick Work", "Rotting Stone Arch", "Crumbling Clifftop"
+      "Dark Corner", "Overgrown Garden", "By a Large Wood Pile", "Yard by Rubbish",
+      "Weed Patch", "Forest", "Thick Forest", "Blasted Tree",
+      "Corner of the House", "Entrance to the Kitchen", "Kitchen and Grimy Cooker", "Scullery Door",
+      "Room with Inches of Dust", "Rear Turret Room", "Clearing by House", "Path",
+      "Side of the House", "Back of the Hallway", "Dark Alcove", "Small Dark Room",
+      "Bottom of a Spiral Staircase", "Wide Passage", "Slippery Steps", "Clifftop",
+      "Near a Crumbling Wall", "Gloomy Passage", "Pool of Light", "Impressive Vaulted Hallway",
+      "Hall by a Thick Wooden Door", "Trophy Room", "Cellar with Barred Window", "Cliff Path",
+      "Cupboard with Hanging Coat", "Front Hall", "Sitting Room", "Secret Room",
+      "Steep Marble Stairs", "Dining Room", "Deep Cellar with a Coffin", "Cliff Path",
+      "Closet", "Front Lobby", "Library of Evil Books", "Study with a Desk and Hole in the Wall",
+      "Weird Cobwebby Room", "Very Cold Chamber", "Spooky Room", "Cliff Path by the Marsh",
+      "Rubble-Strewn Verandah", "Front Porch", "Front Tower", "Sloping Corridor",
+      "Upper Gallery", "Marsh by a Wall", "Marsh", "Soggy Path",
+      "By a Twisted Railing", "Path through an Iron Gate", "By Railings", "Beneath the Front Tower",
+      "Debris from Crumbling Facade", "Large Fallen Brick Work", "Rotting Stone Arch", "Crumbling Clifftop"
     ]
 
     @objects = [
-        nil, "PAINTING", "RING", "MAGIC SPELLS", "GOBLET", "SCROLL", "COINS", "STATUE", "CANDLESTICK",
-        "MATCHES", "VACUUM", "BATTERIES", "SHOVEL", "AXE", "ROPE", "BOAT", "AEROSOL", "CANDLE", "KEY",
-        "NORTH", "SOUTH", "WEST", "EAST", "UP", "DOWN",
-        "DOOR", "BATS", "GHOSTS", "DRAWER", "DESK", "COAT", "RUBBISH",
-        "COFFIN", "BOOKS", "XZANFAR", "WALL", "SPELLS"
+      nil, "PAINTING", "RING", "MAGIC SPELLS", "GOBLET", "SCROLL", "COINS", "STATUE", "CANDLESTICK",
+      "MATCHES", "VACUUM", "BATTERIES", "SHOVEL", "AXE", "ROPE", "BOAT", "AEROSOL", "CANDLE", "KEY",
+      "NORTH", "SOUTH", "WEST", "EAST", "UP", "DOWN",
+      "DOOR", "BATS", "GHOSTS", "DRAWER", "DESK", "COAT", "RUBBISH",
+      "COFFIN", "BOOKS", "XZANFAR", "WALL", "SPELLS"
     ]
 
     # Locations for gettable objects
     @locations = [
-        nil, 46, 38, 35, 50, 13, 18, 28, 42, 10, 25, 26, 4, 2, 7, 47, 60, 43, 32
+      nil, 46, 38, 35, 50, 13, 18, 28, 42, 10, 25, 26, 4, 2, 7, 47, 60, 43, 32
     ]
     @light_limit = 60
     @message = "Ok"
@@ -329,14 +329,12 @@ class HauntedHouse
   end
 
   def light(wi)
-    if wi == 17
-      if @carrying[18]
-        @message = "It will burn your hands." if !@carrying[8]
-        @message = "Nothing to light it with." if !@carrying[9]
-        if @carrying[8] && @carrying[9]
-          @message = "It casts a flickering light."
-          @flags[0] = true
-        end
+    if wi == 17 && @carrying[18]
+      @message = "It will burn your hands." if !@carrying[8]
+      @message = "Nothing to light it with." if !@carrying[9]
+      if @carrying[8] && @carrying[9]
+        @message = "It casts a flickering light."
+        @flags[0] = true
       end
     end
   end

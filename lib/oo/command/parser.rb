@@ -25,8 +25,9 @@ module Oo
         @climb = ClimbCommand.new
         @spray = SprayCommand.new
         @use = UseCommand.new
+        @light = LightCommand.new
         @all_verbs = [@help, @carrying, @go, @leave, @get_take, @open, @examine, @read, @say, @dig, @swing, @climb, @spray,
-          @use]
+          @use, @light]
       end
 
       def parse_input(input)

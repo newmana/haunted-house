@@ -18,4 +18,4 @@ See also:
 
 License
 =======
-The code is licensed under the MIT license.  See the LICENSE file for full details.
+The original source code (under lib and spec) is licensed under the MIT license.  See the LICENSE file for full details.

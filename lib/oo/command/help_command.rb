@@ -1,15 +1,21 @@
-class HelpCommand
-  include DisplayList
+require_relative 'display_list'
 
-  def initialize(commands)
-    @commands = commands
-  end
+module Oo
+  module Command
+    class HelpCommand
+      include DisplayList
 
-  def verbs
-    ["HELP"]
-  end
+      def initialize(commands)
+        @commands = commands
+      end
 
-  def execute(verb, word, house)
-    display_list("Words I know:", @commands)
+      def verbs
+        ["HELP"]
+      end
+
+      def execute(verb, word, house)
+        display_list("Words I know:", @commands)
+      end
+    end
   end
 end

@@ -4,6 +4,6 @@ class Shovel
   end
 
   def dig(house)
-    house.current_room.dig_shovel(house)
+    house.current_room.dig_shovel
   end
 end

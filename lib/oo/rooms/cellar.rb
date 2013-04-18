@@ -1,12 +1,12 @@
 class Cellar < Room
 
-  def initialize(description, things=[], objects=[])
-    super(description, things, objects)
+  def initialize(rooms, description, things=[], objects=[])
+    super(rooms, description, things, objects)
   end
 
-  def dig_shovel(house)
+  def dig_shovel
     self.description = "Hole in the wall."
-    house.route(30, [Direction::N, Direction::S, Direction::E])
+    @rooms.route(30, [Oo::Direction::N, Oo::Direction::S, Oo::Direction::E])
     "Dug the bars out."
   end
 end

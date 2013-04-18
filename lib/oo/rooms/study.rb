@@ -1,12 +1,12 @@
 class Study < Room
 
-  def initialize(description, things=[], objects=[])
-    super(description, things, objects)
+  def initialize(rooms, description, things=[], objects=[])
+    super(rooms, description, things, objects)
   end
 
-  def swing_axe(house)
+  def swing_axe
     self.description = "Study with a secret room."
-    house.route(43, [Direction::W, Direction::N])
+    @rooms.route(43, [Oo::Direction::W, Oo::Direction::N])
     "You broke the thin wall."
   end
 end

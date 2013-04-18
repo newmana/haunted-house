@@ -1,9 +1,10 @@
-require File.dirname(__FILE__) + "/../../../../lib/oo/haunted_house"
+require 'spec_helper'
+require 'oo/haunted_house'
 
 describe 'use command' do
   context "anywhere" do
     before do
-      @house = OO::HauntedHouse.new(0)
+      @house = Oo::HauntedHouse.new(0)
       use("vacuum")
     end
     specify { @message.should eql("Switched on.") }
@@ -12,7 +13,7 @@ describe 'use command' do
 
   context "turret room" do
     before do
-      @house = OO::HauntedHouse.new(52)
+      @house = Oo::HauntedHouse.new(52)
       Random.any_instance.stub(:rand).with(any_args).and_return(1)
     end
     specify { @house.current_room.description.should eql("Upper Gallery") }
@@ -35,7 +36,7 @@ describe 'use command' do
 
       context "try to move" do
         before do
-          @message, @next_room = @house.current_room.go_direction(Direction::N)
+          @message, @next_room = @house.current_room.go_direction(Oo::Direction::N)
         end
         specify { @next_room.description.should eql("Weird Cobwebby Room") }
       end
@@ -43,9 +44,9 @@ describe 'use command' do
   end
 
   def use(word)
-    @house.carry(Inventory::BATTERIES)
-    @house.carry(Inventory::VACUUM)
-    parser = Parser.new(@house)
+    @house.carry(Oo::Inventory::BATTERIES)
+    @house.carry(Oo::Inventory::VACUUM)
+    parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input("use #{word}")
   end
 end

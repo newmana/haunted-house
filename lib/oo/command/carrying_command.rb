@@ -1,11 +1,17 @@
-class CarryingCommand
-  include DisplayList
+require_relative 'display_list'
 
-  def verbs
-    ["CARRYING?"]
-  end
+module Oo
+  module Command
+    class CarryingCommand
+      include DisplayList
 
-  def execute(verb, word, house)
-    display_list("You are carrying:", house.objects.keys)
+      def verbs
+        ["CARRYING?"]
+      end
+
+      def execute(verb, word, house)
+        display_list("You are carrying:", house.objects.keys)
+      end
+    end
   end
 end

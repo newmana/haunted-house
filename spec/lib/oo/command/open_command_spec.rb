@@ -1,8 +1,8 @@
-require File.dirname(__FILE__) + "/../../../../lib/oo/haunted_house"
+require "oo/haunted_house"
 
 describe 'open command' do
   context "study" do
-    before { @house = OO::HauntedHouse.new(43) }
+    before { @house = Oo::HauntedHouse.new(43) }
 
     specify "should have correct description" do
       @house.current_room.description.should eql("Study with a Desk and Hole in the Wall")
@@ -11,18 +11,18 @@ describe 'open command' do
     context "open desk" do
       before { open("desk") }
       specify { @message.should eql("Drawer open.") }
-      specify { @house.current_room.objects.should =~ [Inventory::CANDLE] }
+      specify { @house.current_room.objects.should =~ [Oo::Inventory::CANDLE] }
     end
 
     context "open drawer" do
       before { open("drawer") }
       specify { @message.should eql("Drawer open.") }
-      specify { @house.current_room.objects.should =~ [Inventory::CANDLE] }
+      specify { @house.current_room.objects.should =~ [Oo::Inventory::CANDLE] }
     end
   end
 
   context "study" do
-    before { @house = OO::HauntedHouse.new(28) }
+    before { @house = Oo::HauntedHouse.new(28) }
 
     specify "should have correct description" do
       @house.current_room.description.should eql("Hall by a Thick Wooden Door")
@@ -35,7 +35,7 @@ describe 'open command' do
   end
 
   context "cellar with coffin" do
-    before { @house = OO::HauntedHouse.new(38) }
+    before { @house = Oo::HauntedHouse.new(38) }
 
     specify "should have correct description" do
       @house.current_room.description.should eql("Deep Cellar with a Coffin")
@@ -44,12 +44,12 @@ describe 'open command' do
     context "open coffin" do
       before { open("coffin") }
       specify { @message.should eql("That's creepy!") }
-      specify { @house.current_room.objects.should =~ [Inventory::RING] }
+      specify { @house.current_room.objects.should =~ [Oo::Inventory::RING] }
     end
   end
 
   def open(object)
-    parser = Parser.new(@house)
+    parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input("open #{object}")
   end
 end

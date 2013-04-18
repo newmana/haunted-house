@@ -1,13 +1,13 @@
 module Oo
   module Command
-    class SwingCommand
+    class LightCommand
 
       def verbs
-        ["SWING"]
+        ["LIGHT"]
       end
 
       def execute(verb, word, house)
-        house.thing(word).swing(house) if house.carrying?(word)
+        house.thing(word).light(house) if house.carrying?(word)
       end
     end
   end

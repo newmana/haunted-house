@@ -1,8 +1,8 @@
-require File.dirname(__FILE__) + "/../../../../lib/oo/haunted_house"
+require "oo/haunted_house"
 
 describe 'examine command' do
   context "study" do
-    before { @house = OO::HauntedHouse.new(43) }
+    before { @house = Oo::HauntedHouse.new(43) }
 
     specify "should have correct description" do
       @house.current_room.description.should eql("Study with a Desk and Hole in the Wall")
@@ -25,7 +25,7 @@ describe 'examine command' do
   end
 
   context "cupboard" do
-    before { @house = OO::HauntedHouse.new(32) }
+    before { @house = Oo::HauntedHouse.new(32) }
 
     specify "should have correct description" do
       @house.current_room.description.should eql("Cupboard with Hanging Coat")
@@ -34,12 +34,12 @@ describe 'examine command' do
     context "examine coat" do
       before { examine("coat") }
       specify { @message.should eql("Something here!") }
-      specify { @house.current_room.objects.should =~ [Inventory::KEY] }
+      specify { @house.current_room.objects.should =~ [Oo::Inventory::KEY] }
     end
 
     context "examine scroll" do
       before do
-        @house.carry(Inventory::SCROLL)
+        @house.carry(Oo::Inventory::SCROLL)
         examine("scroll")
       end
       specify { @message.should eql("The script is in an alien tongue.") }
@@ -47,7 +47,7 @@ describe 'examine command' do
   end
 
   context "yard" do
-    before { @house = OO::HauntedHouse.new(3) }
+    before { @house = Oo::HauntedHouse.new(3) }
 
     specify "should have correct description" do
       @house.current_room.description.should eql("Yard by Rubbish")
@@ -60,7 +60,7 @@ describe 'examine command' do
   end
 
   context "library" do
-    before { @house = OO::HauntedHouse.new(42) }
+    before { @house = Oo::HauntedHouse.new(42) }
 
     specify "should have correct description" do
       @house.current_room.description.should eql("Library of Evil Books")
@@ -73,7 +73,7 @@ describe 'examine command' do
   end
 
   context "cellar with coffin" do
-    before { @house = OO::HauntedHouse.new(38) }
+    before { @house = Oo::HauntedHouse.new(38) }
 
     specify "should have correct description" do
       @house.current_room.description.should eql("Deep Cellar with a Coffin")
@@ -82,12 +82,12 @@ describe 'examine command' do
     context "examine coffin" do
       before { examine("coffin") }
       specify { @message.should eql("That's creepy!") }
-      specify { @house.current_room.objects.should =~ [Inventory::RING] }
+      specify { @house.current_room.objects.should =~ [Oo::Inventory::RING] }
     end
   end
 
   def examine(object)
-    parser = Parser.new(@house)
+    parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input("examine #{object}")
   end
 end

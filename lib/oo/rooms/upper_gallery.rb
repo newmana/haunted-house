@@ -1,6 +1,6 @@
 class UpperGallery < Room
-  def initialize(description, things=[], objects=[])
-    super(description, things, objects)
+  def initialize(rooms, description, things=[], objects=[])
+    super(rooms, description, things, objects)
     @can_have_ghosts = true
     @has_ghosts = false
   end

@@ -8,7 +8,7 @@ class Bats
   end
 
   def spray(house)
-    if !@sprayed && house.carrying?(Inventory::AEROSOL)
+    if !@sprayed && house.carrying?(Oo::Inventory::AEROSOL)
       house.current_room.spray_bats
       @sprayed = true
       "Pfft! Got them."

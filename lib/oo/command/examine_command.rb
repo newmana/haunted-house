@@ -1,14 +1,19 @@
-class ExamineCommand
-  def verbs
-    ["EXAMINE"]
-  end
+module Oo
+  module Command
+    class ExamineCommand
+      def verbs
+        ["EXAMINE"]
+      end
 
-  def execute(verb, word, house)
-    if house.current_room.words.keys.include?(word)
-      message, thing = house.current_room.words[word].examine
-      house.current_room.objects << thing unless thing.nil?
-      return message
+      def execute(verb, word, house)
+        current_room = house.current_room
+        if current_room.words.keys.include?(word)
+          message, thing = current_room.words[word].examine
+          current_room.objects << thing unless thing.nil?
+          return message
+        end
+        house.thing(word).examine if house.carrying?(word)
+      end
     end
-    house.thing(word).examine if house.carrying?(word)
   end
 end

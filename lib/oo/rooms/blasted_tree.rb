@@ -1,7 +1,7 @@
 class BlastedTree < Room
 
-  def initialize(description, things=[], objects=[])
-    super(description, things, objects)
+  def initialize(rooms, description, things=[], objects=[])
+    super(rooms, description, things, objects)
     @up = false
   end
 

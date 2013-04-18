@@ -1,8 +1,9 @@
-require File.dirname(__FILE__) + "/../../lib/haunted_house"
+require 'spec_helper'
+require 'haunted_house'
 
 describe 'haunted house' do
   describe "Message" do
-    it "Should be silly if we can't find the word" do
+    it "is silly if we can't find the word" do
       in_the_house do |h|
         vi, wi = h.parse("SPRAY paint")
         vi.should == 21
@@ -11,7 +12,7 @@ describe 'haunted house' do
       end
     end
 
-    it "Should require two words" do
+    it "requires two words" do
       in_the_house do |h|
         vi, wi = h.parse("SPRAY")
         vi.should == 21
@@ -20,7 +21,16 @@ describe 'haunted house' do
       end
     end
 
-    it "If it doesn't find the verb and object" do
+    it "is you can't if the verb is wrong but the object is correct" do
+      in_the_house do |h|
+        vi, wi = h.parse("george AEROSOL")
+        vi.should be_nil
+        wi.should == 16
+        h.message.should eql("You can't 'GEORGE Aerosol'")
+      end
+    end
+
+    it "doesn't find the verb and object" do
       in_the_house do |h|
         vi, wi = h.parse("FOO BAR")
         vi.should be_nil
@@ -29,7 +39,7 @@ describe 'haunted house' do
       end
     end
 
-    it "Check whether you are carrying" do
+    it "check whether you are carrying" do
       in_the_house do |h|
         vi, wi = h.parse("USE MATCHES")
         vi.should == 22
@@ -37,8 +47,10 @@ describe 'haunted house' do
         h.message.should eql("You don't have Matches")
       end
     end
+  end
 
-    it "Check going a direction" do
+  describe "Move" do
+    it "check going a direction" do
       in_the_house do |h|
         vi, wi = h.parse("GO NORTH")
         vi.should == 3
@@ -46,11 +58,39 @@ describe 'haunted house' do
         h.message.should eql("Ok")
       end
     end
-  end
 
-  describe "Move" do
+    it "check going a direction" do
+      in_the_house do |h|
+        vi, wi = h.parse("N")
+        vi.should == 4
+        wi.should be_nil
+        h.message.should eql("Ok")
+      end
+    end
+
+    it "not let you use an invalid word for the direction" do
+      in_the_house do |h|
+        vi, wi = h.parse("GO WHEREEVER")
+        vi.should == 3
+        wi.should be_nil
+        h.message.should eql("Go where?")
+      end
+    end
+
+    it "You need a light going north or east" do
+      check_need_light("n")
+      check_need_light("e")
+    end
+
+    def check_need_light(direction)
+      in_the_house(26) do |h|
+        h.parse(direction)
+        h.message.should eql("You need a light.")
+      end
+    end
+
     it "Too Dark to do so" do
-      (26..30).each { |i| check_too_dark(i) }
+      (27..29).each { |i| check_too_dark(i) }
     end
 
     def check_too_dark(room)
@@ -434,6 +474,20 @@ describe 'haunted house' do
         h.parse("light candle")
         h.message.should eql(expected_message)
         h.flags[0].should == expected_flag
+      end
+    end
+
+    it "You need a light going north or east" do
+      check_need_light("n")
+      check_need_light("e")
+    end
+
+    def check_need_light(direction)
+      flags = []
+      flags[0] = true
+      in_the_house(26, flags) do |h|
+        h.parse(direction)
+        h.message.should eql("Ok")
       end
     end
   end

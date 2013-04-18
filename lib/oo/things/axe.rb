@@ -4,6 +4,6 @@ class Axe
   end
 
   def swing(house)
-    house.current_room.swing_axe(house)
+    house.current_room.swing_axe
   end
 end

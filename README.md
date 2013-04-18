@@ -15,3 +15,7 @@ hauntedhouse.bas:
 
 See also:
 * haunted_house.rb by Joshua Clulow: https://gist.github.com/628124
+
+License
+=======
+The code is licensed under the MIT license.  See the LICENSE file for full details.

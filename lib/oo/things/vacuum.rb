@@ -1,10 +1,6 @@
-class Vacuum
+class Vacuum < Thing
   def initialize
     @turned_on = false
-  end
-
-  def name
-    ["VACUUM"]
   end
 
   def use(house)

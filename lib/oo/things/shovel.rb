@@ -1,8 +1,4 @@
-class Shovel
-  def name
-    ["SHOVEL"]
-  end
-
+class Shovel < Thing
   def dig(house)
     house.current_room.dig_shovel
   end

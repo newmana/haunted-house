@@ -55,6 +55,14 @@ module Oo
       @objects.delete(object) if carrying?(object)
     end
 
+    def time
+      message = ""
+      @objects.each_value do |object|
+        message += object.time
+      end
+      message
+    end
+
     def to_up_sym(object)
       object.to_s.upcase.gsub(/ /, '_').to_sym
     end

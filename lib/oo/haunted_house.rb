@@ -3,6 +3,7 @@ require_relative 'direction'
 require_relative 'rooms'
 require_relative 'inventory'
 require_relative 'command/parser'
+require_relative 'things/thing'
 Dir[File.dirname(__FILE__) + '/things/*.rb'].each do |file|
   require_relative './things/' + File.basename(file, File.extname(file))
 end
@@ -116,7 +117,9 @@ module Oo
       message = "Ok"
       while true
         @rooms.current_room.show(message)
-        message = p.parse_input(gets)
+        message = ""
+        message += time
+        message += p.parse_input(gets)
       end
     end
   end

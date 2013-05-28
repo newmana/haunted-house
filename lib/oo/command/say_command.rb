@@ -6,7 +6,7 @@ module Oo
       end
 
       def execute(verb, word, house)
-        message = "Ok #{word}"
+        message = "#{word}"
         if house.carrying?(Oo::Inventory::MAGIC_SPELLS) && word.eql?("XZANFAR")
           message = "*Magic Occurs*"
           house.current_room.magic_occurs

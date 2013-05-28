@@ -1,5 +1,2 @@
-class Painting
-  def name
-    ["PAINTING"]
-  end
+class Painting < Thing
 end

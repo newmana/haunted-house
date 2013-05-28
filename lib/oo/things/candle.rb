@@ -1,11 +1,8 @@
-class Candle
+class Candle < Thing
 
   def initialize
     @lit = false
-  end
-
-  def name
-    ["CANDLE"]
+    @light_left = 60
   end
 
   def is_lit?
@@ -14,6 +11,18 @@ class Candle
 
   def set_lit
     @lit = true
+  end
+
+  def time
+    burn
+  end
+
+  def burn
+    @light_left -= 1 if @lit
+    @lit = false if @light_left < 1
+    return "Your candle is waning!\n" if @light_left == 10
+    return "Your candle is out\n" if @light_left == 0
+    ""
   end
 
   def light(house)

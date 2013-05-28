@@ -1,5 +1,2 @@
-class Matches
-  def name
-    ["MATCHES"]
-  end
+class Matches < Thing
 end

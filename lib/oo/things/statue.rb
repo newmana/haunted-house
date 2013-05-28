@@ -1,5 +1,2 @@
-class Statue
-  def name
-    ["STATUE"]
-  end
+class Statue < Thing
 end

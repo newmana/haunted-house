@@ -1,5 +1,2 @@
-class Aerosol
-  def name
-    ["AEROSOL"]
-  end
+class Aerosol < Thing
 end

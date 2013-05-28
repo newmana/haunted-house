@@ -1,8 +1,4 @@
-class Rope
-  def name
-    ["ROPE"]
-  end
-
+class Rope < Thing
   def climb
     "It isn't attached to anything!"
   end

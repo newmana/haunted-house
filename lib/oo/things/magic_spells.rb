@@ -1,4 +1,4 @@
-class MagicSpells
+class MagicSpells < Thing
   def name
     ["MAGIC SPELLS", "SPELLS"]
   end

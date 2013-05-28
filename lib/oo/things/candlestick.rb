@@ -1,5 +1,2 @@
-class Candlestick
-  def name
-    ["CANDLESTICK"]
-  end
+class Candlestick < Thing
 end

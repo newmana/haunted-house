@@ -1,8 +1,4 @@
-class Axe
-  def name
-    ["AXE"]
-  end
-
+class Axe < Thing
   def swing(house)
     house.current_room.swing_axe
   end

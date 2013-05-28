@@ -1,5 +1,2 @@
-class Boat
-  def name
-    ["BOAT"]
-  end
+class Boat < Thing
 end

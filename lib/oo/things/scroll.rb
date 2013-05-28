@@ -1,8 +1,4 @@
-class Scroll
-  def name
-    ["SCROLL"]
-  end
-
+class Scroll < Thing
   def examine
     examine_or_read
   end

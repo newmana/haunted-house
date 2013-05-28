@@ -1,5 +1,2 @@
-class Coins
-  def name
-    ["COINS"]
-  end
+class Coins < Thing
 end

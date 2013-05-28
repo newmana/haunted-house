@@ -1,5 +1,2 @@
-class Batteries
-  def name
-    ["BATTERIES"]
-  end
+class Batteries < Thing
 end

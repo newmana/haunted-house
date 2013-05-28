@@ -15,3 +15,8 @@ hauntedhouse.bas:
 
 See also:
 * haunted_house.rb by Joshua Clulow: https://gist.github.com/628124
+* JavaScript port: http://www.robertgomez.org/sites/default/files/Haunted-House.js via http://www.robertgomez.org/content/haunted-house-text-adventure
+
+License
+=======
+The original source code (under lib and spec) is licensed under the MIT license.  See the LICENSE file for full details.

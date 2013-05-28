@@ -465,6 +465,8 @@ describe 'haunted house' do
       check_light_candle(true, true, "It casts a flickering light.", true)
     end
 
+    #TODO Add test for candle waning and going out.
+
     def check_light_candle(candle_stick, matches, expected_message, expected_flag)
       carrying = []
       carrying[17] = true

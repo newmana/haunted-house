@@ -21,7 +21,7 @@ class Candle < Thing
     @light_left -= 1 if @lit
     @lit = false if @light_left < 1
     return "Your candle is waning!\n" if @light_left == 10
-    return "Your candle is out\n" if @light_left == 0
+    return "Your candle is out\n" if @light_left == 1
     ""
   end
 

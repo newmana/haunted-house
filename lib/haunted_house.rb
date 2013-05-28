@@ -132,7 +132,7 @@ class HauntedHouse
     @light_limit -= 1 if @flags[0]
     flags[0] = false if @light_limit < 1
     @message += "\nYour candle is waning!" if @light_limit == 10
-    @message += "\nYour candle is out" if @light_limit == 0
+    @message += "\nYour candle is out" if @light_limit == 1
   end
 
   def get_verb_word_index(verb, word)

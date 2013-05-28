@@ -467,7 +467,7 @@ describe 'haunted house' do
 
     def check_light_candle(candle_stick, matches, expected_message, expected_flag)
       carrying = []
-      carrying[18] = true
+      carrying[17] = true
       carrying[8] = candle_stick
       carrying[9] = matches
       in_the_house(7, HauntedHouse.default_flags, carrying) do |h|

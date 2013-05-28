@@ -68,8 +68,8 @@ class HauntedHouse
     puts @message
     @message = "What?"
     puts "What will you do now?"
-    candle
     parse(gets)
+    candle
   end
 
   def parse(input)
@@ -329,7 +329,7 @@ class HauntedHouse
   end
 
   def light(wi)
-    if wi == 17 && @carrying[18]
+    if wi == 17 && @carrying[17]
       @message = "It will burn your hands." if !@carrying[8]
       @message = "Nothing to light it with." if !@carrying[9]
       if @carrying[8] && @carrying[9]

@@ -465,17 +465,37 @@ describe 'haunted house' do
       check_light_candle(true, true, "It casts a flickering light.", true)
     end
 
-    #TODO Add test for candle waning and going out.
+    it "carry candle, light it and watch it go out" do
+      more_expectations = -> h {
+        expectations("It casts a flickering light.", true).(h)
+        (1..25).each { h.parse("w"); h.candle; h.parse("e"); h.candle }
+        h.message.should eql("Ok\nYour candle is waning!")
+        (1..4).each { h.parse("w"); h.candle; h.parse("e"); h.candle }
+        h.candle
+        h.message.should eql("Ok\nYour candle is out")
+      }
+      carry_candle_and_check(true, true, more_expectations)
+    end
+
+    def expectations(expected_message, expected_flag)
+      -> h {
+        h.parse("light candle")
+        h.message.should eql(expected_message)
+        h.flags[0].should == expected_flag
+      }
+    end
 
     def check_light_candle(candle_stick, matches, expected_message, expected_flag)
+      carry_candle_and_check(candle_stick, matches, expectations(expected_message, expected_flag))
+    end
+
+    def carry_candle_and_check(candle_stick, matches, expectations)
       carrying = []
       carrying[17] = true
       carrying[8] = candle_stick
       carrying[9] = matches
       in_the_house(7, HauntedHouse.default_flags, carrying) do |h|
-        h.parse("light candle")
-        h.message.should eql(expected_message)
-        h.flags[0].should == expected_flag
+        expectations.(h)
       end
     end
 
@@ -536,6 +556,31 @@ describe 'haunted house' do
     def check_unlock(h, object, message)
       h.parse("unlock #{object}")
       h.message.should eql(message)
+    end
+  end
+
+  describe "Leave" do
+    it "Something that doesn't exist" do
+      in_the_house do |h|
+        h.parse("leave asdf")
+        h.message.should eql("That's silly")
+      end
+    end
+
+    it "Something that you don't have" do
+      in_the_house do |h|
+        h.parse("leave ring")
+        h.message.should eql("You don't have Ring")
+      end
+    end
+
+    it "Something that you do have" do
+      carrying = []
+      carrying[2] = true
+      in_the_house(1, HauntedHouse.default_flags, carrying) do |h|
+        h.parse("leave ring")
+        h.message.should eql("Done.")
+      end
     end
   end
 

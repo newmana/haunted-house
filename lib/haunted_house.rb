@@ -379,7 +379,7 @@ class HauntedHouse
   end
 
   def leave(wi)
-    if @carrying[wi]
+    if wi && @carrying[wi]
       @carrying[wi] = nil
       @locations[wi] = @room
       @message = "Done."

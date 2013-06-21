@@ -53,7 +53,7 @@ module Oo
       Room.new(@rooms, "Gloomy Passage", [], [VACUUM])
       PoolOfLight.new(self, @rooms, "Pool of Light", [], [BATTERIES])
       Room.new(@rooms, "Impressive Vaulted Hallway")
-      Room.new(@rooms, "Hall by a Thick Wooden Door", [Door.new], [STATUE])
+      Hall.new(@rooms, "Hall by a Thick Wooden Door", [Door.new], [STATUE])
       Room.new(@rooms, "Trophy Room")
       Cellar.new(@rooms, "Cellar with Barred Window")
       Room.new(@rooms, "Cliff Path")

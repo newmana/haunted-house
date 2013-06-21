@@ -42,6 +42,9 @@ class Room
     false
   end
 
+  def unlock_door
+  end
+
   def go_direction(verb)
     if routes.keys.include?(verb)
       return ["Ok", routes[verb]]

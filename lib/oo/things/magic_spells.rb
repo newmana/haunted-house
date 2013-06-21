@@ -4,6 +4,6 @@ class MagicSpells < Thing
   end
 
   def read
-    ["Use this word with care 'Xzanfar'.", nil]
+    "Use this word with care 'Xzanfar'."
   end
 end

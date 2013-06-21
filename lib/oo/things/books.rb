@@ -12,6 +12,6 @@ class Books
   end
 
   def examine_or_read
-    ["They are demonic works.", nil]
+    "They are demonic works."
   end
 end

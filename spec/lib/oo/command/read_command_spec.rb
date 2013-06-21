@@ -26,6 +26,14 @@ describe 'read command' do
       end
       specify { @message.should eql("The script is in an alien tongue.") }
     end
+
+    context "magic spells" do
+      before do
+        @house.carry(Oo::Inventory::MAGIC_SPELLS)
+        read("magic spells")
+      end
+      specify { @message.should eql("Use this word with care 'Xzanfar'.") }
+    end
   end
 
   def read(object)

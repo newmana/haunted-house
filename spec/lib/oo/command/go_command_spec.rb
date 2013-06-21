@@ -43,8 +43,22 @@ describe 'go command' do
     end
   end
 
+  context "bottom of spiral staircase" do
+    before { @house = Oo::HauntedHouse.new(20) }
+
+    specify { @house.current_room.description.should eql("Bottom of a Spiral Staircase") }
+
+    context "go up" do
+      before { go("go up") }
+
+      specify { @message.should eql("Ok") }
+      specify { @house.current_room.description.should eql("Room with Inches of Dust") }
+    end
+  end
+
   def go(direction)
     parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input("#{direction}")
   end
+
 end

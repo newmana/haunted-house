@@ -38,7 +38,7 @@ module Oo
         when U
           case index
             when 20 then
-              [8, D]
+              [-8, D]
             when 22 then
               [-1, D]
             when 36 then
@@ -47,7 +47,7 @@ module Oo
         when D
           case index
             when 20 then
-              [-8, D]
+              [-1, D]
             when 22 then
               [1, D]
             when 36 then

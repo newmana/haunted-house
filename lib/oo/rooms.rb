@@ -42,16 +42,16 @@ module Oo
             when 22 then
               [-1, D]
             when 36 then
-              [-8, D]
+              [8, D]
           end
         when D
           case index
             when 20 then
-              [-1, D]
+              [-1, U]
             when 22 then
-              [1, D]
+              [8, U]
             when 36 then
-              [8, D]
+              [-8, U]
           end
       end
     end

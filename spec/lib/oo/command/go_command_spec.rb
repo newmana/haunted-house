@@ -55,14 +55,52 @@ describe 'go command' do
 
   context "bottom of spiral staircase" do
     before { @house = Oo::HauntedHouse.new(20) }
-
     specify { @house.current_room.description.should eql("Bottom of a Spiral Staircase") }
 
     context "go up" do
       before { go("go up") }
-
       specify { @message.should eql("Ok") }
       specify { @house.current_room.description.should eql("Room with Inches of Dust") }
+    end
+
+    context "go down" do
+      before { go("go down") }
+      specify { @message.should eql("Ok") }
+      specify { @house.current_room.description.should eql("Small Dark Room") }
+    end
+  end
+
+  context "slippery steps" do
+    before { @house = Oo::HauntedHouse.new(22) }
+    specify { @house.current_room.description.should eql("Slippery Steps") }
+
+    context "go up" do
+      before { go("go up") }
+      specify { @message.should eql("Ok") }
+      specify { @house.current_room.description.should eql("Wide Passage") }
+    end
+
+    context "go down" do
+      before { go("go down") }
+      specify { @message.should eql("Ok") }
+      specify { @house.current_room.description.should eql("Cellar with Barred Window") }
+    end
+  end
+
+  context "slippery steps" do
+    before { @house = Oo::HauntedHouse.new(36) }
+    specify { @house.current_room.description.should eql("Steep Marble Stairs") }
+
+    context "go up" do
+      before { go("go up") }
+      specify { @message.should eql("Ok") }
+      specify { @house.current_room.description.should eql("Weird Cobwebby Room") }
+    end
+
+    context "go down" do
+      before { go("go down") }
+      specify { @message.should eql("Ok") }
+      specify { @house.current_room.description.should eql("Hall by a Thick Wooden Door") }
     end
   end
 

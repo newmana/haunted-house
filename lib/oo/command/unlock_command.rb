@@ -12,7 +12,9 @@ module Oo
           if house.carrying?(Oo::Inventory::KEY)
             house.thing("KEY").unlock(house)
           else
-            current_room.words[word].unlock
+            message, thing = current_room.words[word].unlock
+            current_room.objects << thing unless thing.nil?
+            return message
           end
         end
       end

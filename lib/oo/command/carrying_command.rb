@@ -1,9 +1,10 @@
 require_relative 'display_list'
+require_relative 'press_enter'
 
 module Oo
   module Command
     class CarryingCommand
-      include DisplayList
+      include DisplayList, PressEnter
 
       def verbs
         ["CARRYING?"]

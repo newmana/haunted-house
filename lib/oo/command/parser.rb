@@ -27,8 +27,9 @@ module Oo
         @use = UseCommand.new
         @light = LightCommand.new
         @unlock = UnlockCommand.new
+        @score = ScoreCommand.new
         @all_verbs = [@help, @carrying, @go, @leave, @get_take, @open, @examine, @read, @say, @dig, @swing, @climb, @spray,
-          @use, @light, @unlock]
+          @use, @light, @unlock, @score]
       end
 
       def parse_input(input)

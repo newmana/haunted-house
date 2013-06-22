@@ -45,6 +45,10 @@ module Oo
       @objects.keys.include?(to_up_sym(object))
     end
 
+    def score
+      @objects.keys.reduce(0) { |sum, value| value.nil? ? sum : sum += 1 }
+    end
+
     def carry(object)
       object = to_up_sym(object)
       @objects[object] = @all_objects[object]

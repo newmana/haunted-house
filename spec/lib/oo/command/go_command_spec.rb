@@ -138,6 +138,40 @@ describe 'go command' do
     end
   end
 
+  context "marsh" do
+    before { @house = Oo::HauntedHouse.new(54) }
+    specify { @house.current_room.description.should eql("Marsh") }
+
+    context "without boat" do
+      before { go("go south") }
+      specify { @message.should eql("You're stuck!") }
+      specify { @house.current_room.description.should eql("Marsh") }
+    end
+  end
+
+  context "around marsh" do
+    before do
+      [53, 54, 55, 47].each do |room|
+        @house = Oo::HauntedHouse.new(room)
+        @house.carry(Oo::Inventory::BOAT)
+        go("go south")
+        @message.should eql("Ok")
+      end
+    end
+  end
+
+  context "can't carry boat outside marsh" do
+    before do
+      @house = Oo::HauntedHouse.new(1)
+      @house.carry(Oo::Inventory::BOAT)
+    end
+
+    specify do
+      go("go west")
+      @message.should eql("You can't carry a boat!")
+    end
+  end
+
   def go(direction)
     parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input("#{direction}")

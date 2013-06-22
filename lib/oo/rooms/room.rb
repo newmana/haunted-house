@@ -1,7 +1,8 @@
 class Room
   attr_accessor :routes, :description, :objects, :words
 
-  def initialize(rooms, description, things=[], objects=[])
+  def initialize(house, rooms, description, things=[], objects=[])
+    @house = house
     @rooms = rooms
     @routes = {}
     @description = description
@@ -45,16 +46,24 @@ class Room
   def unlock_door
   end
 
+  def stop_boat
+    @house.carrying?(Oo::Inventory::BOAT)
+  end
+
   def score(has_boat, score)
     puts "You have everything.\nReturn to the gate to get the final score" if !has_boat
     score
   end
 
   def go_direction(verb)
-    if routes.keys.include?(verb)
-      return ["Ok", routes[verb]]
+    if stop_boat
+      ["You can't carry a boat!", self]
+    else
+      if routes.keys.include?(verb)
+        return ["Ok", routes[verb]]
+      end
+      ["You can't go that way!", self]
     end
-    ["You can't go that way!", self]
   end
 
   def routes_to_s

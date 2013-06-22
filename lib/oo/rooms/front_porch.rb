@@ -1,7 +1,7 @@
 class FrontPorch < Room
 
-  def initialize(rooms, description, things=[], objects=[])
-    super(rooms, description, things, objects)
+  def initialize(house, rooms, description, things=[], objects=[])
+    super(house, rooms, description, things, objects)
     @door_open = true
   end
 

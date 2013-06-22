@@ -6,9 +6,10 @@ require 'oo/rooms/room'
 describe 'rooms' do
   describe "west east creation" do
     before(:each) do
+      @house = Oo::HauntedHouse.new(1)
       @object = Oo::Rooms.new
-      Room.new(@object, "First Room")
-      Room.new(@object, "Second Room")
+      Room.new(@house, @object, "First Room")
+      Room.new(@house, @object, "Second Room")
     end
 
     context "Simple west east creation" do
@@ -21,9 +22,9 @@ describe 'rooms' do
   describe "north south creation" do
     before(:each) do
       @object = Oo::Rooms.new
-      Room.new(@object, "First Room")
-      (0..7).each { Room.new(@object, "Empty Room") }
-      Room.new(@object, "Second Room")
+      Room.new(@house, @object, "First Room")
+      (0..7).each { Room.new(@house, @object, "Empty Room") }
+      Room.new(@house, @object, "Second Room")
     end
 
     context "Simple west east creation" do

@@ -41,6 +41,25 @@ describe 'go command' do
       go("e")
       @message.should eql("You need a light.")
     end
+
+    context "with a lit candle move" do
+      before do
+        @house.carry(Oo::Inventory::CANDLE)
+        @house.carry(Oo::Inventory::CANDLESTICK)
+        @house.carry(Oo::Inventory::MATCHES)
+        @house.thing("candle").light(@house)
+      end
+
+      specify "try go north" do
+        go("n")
+        @message.should eql("Ok")
+      end
+
+      specify "try go east" do
+        go("e")
+        @message.should eql("Ok")
+      end
+    end
   end
 
   context "You need a light in a dark room" do
@@ -50,6 +69,21 @@ describe 'go command' do
         go("n")
         @message.should eql("Too dark to move.")
       end
+    end
+
+    context "with lit candle" do
+      specify "try go north" do
+        (27..29).each do |room|
+          @house = Oo::HauntedHouse.new(room)
+          @house.carry(Oo::Inventory::CANDLE)
+          @house.carry(Oo::Inventory::CANDLESTICK)
+          @house.carry(Oo::Inventory::MATCHES)
+          @house.thing("candle").light(@house)
+          go("w")
+          @message.should eql("Ok")
+        end
+      end
+
     end
   end
 

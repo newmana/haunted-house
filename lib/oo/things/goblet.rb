@@ -1,4 +1,4 @@
-class Goblet
+class Goblet < Thing
   def name
     ["GOBLET"]
   end

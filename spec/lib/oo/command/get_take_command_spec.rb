@@ -16,6 +16,20 @@ describe 'get/take command' do
     end
   end
 
+  context "front tower" do
+    before do
+      @house = Oo::HauntedHouse.new(50)
+    end
+
+    specify { @house.current_room.description.should eql("Front Tower") }
+
+    context "get/take goblet" do
+      before { get("goblet") }
+      specify { @message.should eql("You have the GOBLET") }
+      specify { @house.time }
+    end
+  end
+
   def get(word)
     parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input(" get #{word}")

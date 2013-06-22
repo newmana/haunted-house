@@ -12,7 +12,8 @@ describe 'dig command' do
       before { dig }
       specify { @message.should eql("Dug the bars out.") }
       specify { @house.current_room.description.should eql("Hole in the wall.") }
-      specify { @house.current_room.routes.keys.should =~ [Oo::Direction::S, Oo::Direction::N, Oo::Direction::E] }
+      specify { @house.current_room.routes.keys.should =~ [Oo::Direction::U, Oo::Direction::S, Oo::Direction::N,
+        Oo::Direction::E] }
     end
   end
 

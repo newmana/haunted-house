@@ -45,6 +45,11 @@ class Room
   def unlock_door
   end
 
+  def score(has_boat, score)
+    puts "You have everything.\nReturn to the gate to get the final score" if !has_boat
+    score
+  end
+
   def go_direction(verb)
     if routes.keys.include?(verb)
       return ["Ok", routes[verb]]

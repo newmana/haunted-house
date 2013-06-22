@@ -86,7 +86,7 @@ module Oo
       Room.new(@rooms, "Soggy Path")
 
       Room.new(@rooms, "By a Twisted Railing")
-      Room.new(@rooms, "Path through an Iron Gate")
+      Path.new(@rooms, "Path through an Iron Gate")
       Room.new(@rooms, "By Railings")
       Room.new(@rooms, "Beneath the Front Tower")
       Room.new(@rooms, "Debris from Crumbling Facade", [], [AEROSOL])

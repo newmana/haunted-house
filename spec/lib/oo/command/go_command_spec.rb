@@ -43,6 +43,16 @@ describe 'go command' do
     end
   end
 
+  context "You need a light in a dark room" do
+    specify "try go north" do
+      (27..29).each do |room|
+        @house = Oo::HauntedHouse.new(room)
+        go("n")
+        @message.should eql("Too dark to move.")
+      end
+    end
+  end
+
   context "bottom of spiral staircase" do
     before { @house = Oo::HauntedHouse.new(20) }
 

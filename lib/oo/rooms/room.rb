@@ -57,11 +57,7 @@ class Room
   end
 
   def show(message)
-    if RUBY_PLATFORM.downcase.include?("mswin")
-      system("cls")
-    else
-      system("clear")
-    end
+    RUBY_PLATFORM.downcase.include?("mswin") ? system("cls") : system("clear")
     puts "Haunted House"
     puts "-------------"
     puts "Your location: #{description}"

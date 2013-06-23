@@ -30,7 +30,7 @@ module Oo
       while true
         @rooms.current_room.show(message)
         message = ""
-        message += inventory.time
+        message += @rooms.inventory.time
         message += p.parse_input(gets)
       end
     end

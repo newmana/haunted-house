@@ -3,7 +3,7 @@ class Rope < Thing
     "It isn't attached to anything!"
   end
 
-  def swing(house)
-    house.current_room.swing_rope
+  def swing(rooms)
+    rooms.current_room.swing_rope
   end
 end

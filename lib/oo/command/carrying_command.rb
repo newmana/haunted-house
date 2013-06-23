@@ -10,8 +10,8 @@ module Oo
         ["CARRYING?"]
       end
 
-      def execute(verb, word, house)
-        display_list("You are carrying:", house.inventory.objects.keys)
+      def execute(verb, word, inventory, rooms)
+        display_list("You are carrying:", inventory.objects.keys)
       end
     end
   end

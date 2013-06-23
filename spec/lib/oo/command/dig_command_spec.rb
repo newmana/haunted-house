@@ -5,14 +5,14 @@ describe 'dig command' do
     before { @house = Oo::HauntedHouse.new(30) }
 
     specify "should have correct description" do
-      @house.current_room.description.should eql("Cellar with Barred Window")
+      @house.rooms.current_room.description.should eql("Cellar with Barred Window")
     end
 
     context "dig" do
       before { dig }
       specify { @message.should eql("Dug the bars out.") }
-      specify { @house.current_room.description.should eql("Hole in the wall.") }
-      specify { @house.current_room.routes.keys.should =~ [Oo::Direction::U, Oo::Direction::S, Oo::Direction::N,
+      specify { @house.rooms.current_room.description.should eql("Hole in the wall.") }
+      specify { @house.rooms.current_room.routes.keys.should =~ [Oo::Direction::U, Oo::Direction::S, Oo::Direction::N,
         Oo::Direction::E] }
     end
   end

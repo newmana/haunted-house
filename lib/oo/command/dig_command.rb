@@ -5,8 +5,8 @@ module Oo
         ["DIG"]
       end
 
-      def execute(verb, word, house)
-        house.inventory.thing("SHOVEL").dig(house) if house.inventory.carrying?(Oo::Things::SHOVEL)
+      def execute(verb, word, inventory, rooms)
+        inventory.thing("SHOVEL").dig(rooms.current_room) if inventory.carrying?(Oo::Things::SHOVEL)
       end
     end
   end

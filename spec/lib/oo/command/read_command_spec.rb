@@ -5,7 +5,7 @@ describe 'read command' do
     before { @house = Oo::HauntedHouse.new(42) }
 
     specify "should have correct description" do
-      @house.current_room.description.should eql("Library of Evil Books")
+      @house.rooms.current_room.description.should eql("Library of Evil Books")
     end
 
     context "read books" do

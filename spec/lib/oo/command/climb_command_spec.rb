@@ -5,7 +5,7 @@ describe 'climb command' do
     before { @house = Oo::HauntedHouse.new(7) }
 
     specify "should have correct description" do
-      @house.current_room.description.should eql("Blasted Tree")
+      @house.rooms.current_room.description.should eql("Blasted Tree")
     end
 
     context "climb up rope" do

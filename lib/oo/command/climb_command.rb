@@ -6,11 +6,11 @@ module Oo
         ["CLIMB"]
       end
 
-      def execute(verb, word, house)
-        if house.inventory.carrying?(word)
-          house.inventory.thing(word).climb
+      def execute(verb, word, inventory, rooms)
+        if inventory.carrying?(word)
+          inventory.thing(word).climb
         else
-          house.current_room.climb
+          rooms.current_room.climb
         end
       end
     end

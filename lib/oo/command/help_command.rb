@@ -13,7 +13,7 @@ module Oo
         ["HELP"]
       end
 
-      def execute(verb, word, house)
+      def execute(verb, word, inventory, rooms)
         display_list("Words I know:", @commands)
       end
     end

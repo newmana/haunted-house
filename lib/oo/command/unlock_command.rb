@@ -6,11 +6,11 @@ module Oo
         ["UNLOCK"]
       end
 
-      def execute(verb, word, house)
-        current_room = house.current_room
+      def execute(verb, word, inventory, rooms)
+        current_room = rooms.current_room
         if current_room.words.keys.include?(word)
-          if house.inventory.carrying?(Oo::Things::KEY)
-            house.inventory.thing("KEY").unlock(house)
+          if inventory.carrying?(Oo::Things::KEY)
+            inventory.thing("KEY").unlock(rooms)
           else
             message, thing = current_room.words[word].unlock
             current_room.objects << thing unless thing.nil?

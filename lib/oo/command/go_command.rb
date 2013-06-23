@@ -10,7 +10,7 @@ module Oo
         ["GO", "N", "S", "E", "W", "U", "D"]
       end
 
-      def execute(verb, word, house)
+      def execute(verb, word, inventory, rooms)
         if verb.eql?("GO")
           if @valid_directions.include?(word)
             verb = word[0]
@@ -18,7 +18,7 @@ module Oo
             return "Go where?"
           end
         end
-        house.rooms.go(verb)
+        rooms.go(verb)
       end
     end
   end

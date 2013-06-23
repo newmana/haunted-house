@@ -5,13 +5,13 @@ describe 'say command' do
     before { @house = Oo::HauntedHouse.new(45) }
 
     specify "should have correct description" do
-      @house.current_room.description.should eql("Very Cold Chamber")
+      @house.rooms.current_room.description.should eql("Very Cold Chamber")
     end
 
     context "say xzanfar" do
       before { say("XZANFAR") }
       specify { @message.should eql("*Magic Occurs*") }
-      specify { @house.current_room.description.should eql("Very Cold Chamber") }
+      specify { @house.rooms.current_room.description.should eql("Very Cold Chamber") }
     end
   end
 
@@ -26,7 +26,7 @@ describe 'say command' do
     context "say xzanfar" do
       before { say("XZANFAR") }
       specify { @message.should eql("*Magic Occurs*") }
-      specify { @house.current_room.description.should eql("Overgrown Garden") }
+      specify { @house.rooms.current_room.description.should eql("Overgrown Garden") }
     end
   end
 

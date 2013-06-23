@@ -47,7 +47,7 @@ describe 'go command' do
         @house.inventory.carry(Oo::Things::CANDLE)
         @house.inventory.carry(Oo::Things::CANDLESTICK)
         @house.inventory.carry(Oo::Things::MATCHES)
-        @house.inventory.thing("candle").light(@house)
+        @house.inventory.thing("candle").light(@house.inventory)
       end
 
       specify "try go north" do
@@ -78,7 +78,7 @@ describe 'go command' do
           @house.inventory.carry(Oo::Things::CANDLE)
           @house.inventory.carry(Oo::Things::CANDLESTICK)
           @house.inventory.carry(Oo::Things::MATCHES)
-          @house.inventory.thing("candle").light(@house)
+          @house.inventory.thing("candle").light(@house.inventory)
           go("w")
           @message.should eql("Ok")
         end
@@ -89,63 +89,63 @@ describe 'go command' do
 
   context "bottom of spiral staircase" do
     before { @house = Oo::HauntedHouse.new(20) }
-    specify { @house.current_room.description.should eql("Bottom of a Spiral Staircase") }
+    specify { @house.rooms.current_room.description.should eql("Bottom of a Spiral Staircase") }
 
     context "go up" do
       before { go("go up") }
       specify { @message.should eql("Ok") }
-      specify { @house.current_room.description.should eql("Room with Inches of Dust") }
+      specify { @house.rooms.current_room.description.should eql("Room with Inches of Dust") }
     end
 
     context "go down" do
       before { go("go down") }
       specify { @message.should eql("Ok") }
-      specify { @house.current_room.description.should eql("Small Dark Room") }
+      specify { @house.rooms.current_room.description.should eql("Small Dark Room") }
     end
   end
 
   context "slippery steps" do
     before { @house = Oo::HauntedHouse.new(22) }
-    specify { @house.current_room.description.should eql("Slippery Steps") }
+    specify { @house.rooms.current_room.description.should eql("Slippery Steps") }
 
     context "go up" do
       before { go("go up") }
       specify { @message.should eql("Ok") }
-      specify { @house.current_room.description.should eql("Wide Passage") }
+      specify { @house.rooms.current_room.description.should eql("Wide Passage") }
     end
 
     context "go down" do
       before { go("go down") }
       specify { @message.should eql("Ok") }
-      specify { @house.current_room.description.should eql("Cellar with Barred Window") }
+      specify { @house.rooms.current_room.description.should eql("Cellar with Barred Window") }
     end
   end
 
   context "slippery steps" do
     before { @house = Oo::HauntedHouse.new(36) }
-    specify { @house.current_room.description.should eql("Steep Marble Stairs") }
+    specify { @house.rooms.current_room.description.should eql("Steep Marble Stairs") }
 
     context "go up" do
       before { go("go up") }
       specify { @message.should eql("Ok") }
-      specify { @house.current_room.description.should eql("Weird Cobwebby Room") }
+      specify { @house.rooms.current_room.description.should eql("Weird Cobwebby Room") }
     end
 
     context "go down" do
       before { go("go down") }
       specify { @message.should eql("Ok") }
-      specify { @house.current_room.description.should eql("Hall by a Thick Wooden Door") }
+      specify { @house.rooms.current_room.description.should eql("Hall by a Thick Wooden Door") }
     end
   end
 
   context "marsh" do
     before { @house = Oo::HauntedHouse.new(54) }
-    specify { @house.current_room.description.should eql("Marsh") }
+    specify { @house.rooms.current_room.description.should eql("Marsh") }
 
     context "without boat" do
       before { go("go south") }
       specify { @message.should eql("You're stuck!") }
-      specify { @house.current_room.description.should eql("Marsh") }
+      specify { @house.rooms.current_room.description.should eql("Marsh") }
     end
   end
 

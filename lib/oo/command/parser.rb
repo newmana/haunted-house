@@ -6,7 +6,8 @@ module Oo
   module Command
     class Parser
       def initialize(house)
-        @house = house
+        @inventory = house.inventory
+        @rooms = house.rooms
         @go = GoCommand.new
         @commands = %w(HELP CARRYING? SCORE)
         @directions = @go.verbs
@@ -36,7 +37,7 @@ module Oo
         message, verb, word = validate(input)
         @all_verbs.each do |current_verb|
           if current_verb.verbs.include?(verb)
-            tmp_message = current_verb.execute(verb, word, @house)
+            tmp_message = current_verb.execute(verb, word, @inventory, @rooms)
             message = tmp_message unless tmp_message.nil?
           end
         end
@@ -48,13 +49,13 @@ module Oo
         valid_verb = @verbs.include?(verb)
         empty_word = !word.nil? && word.empty?
         has_word = !word.nil? && !word.empty?
-        valid_word = has_word && @house.inventory.valid?(word)
+        valid_word = has_word && @inventory.valid?(word)
         message = ""
         message = "I need two words" if empty_word
         message = "You don't make sense" if !valid_verb
         message = "You can't '#{verb} #{word}'" if !valid_verb && valid_word
         message = "That's silly" if valid_verb && has_word
-        message = "You don't have #{word}" if valid_verb && valid_word && !@house.inventory.carrying?(word)
+        message = "You don't have #{word}" if valid_verb && valid_word && !@inventory.carrying?(word)
         return message, verb, word
       end
 

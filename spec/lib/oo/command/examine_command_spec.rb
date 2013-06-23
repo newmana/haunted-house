@@ -5,7 +5,7 @@ describe 'examine command' do
     before { @house = Oo::HauntedHouse.new(43) }
 
     specify "should have correct description" do
-      @house.current_room.description.should eql("Study with a Desk and Hole in the Wall")
+      @house.rooms.current_room.description.should eql("Study with a Desk and Hole in the Wall")
     end
 
     context "examine desk" do
@@ -28,13 +28,13 @@ describe 'examine command' do
     before { @house = Oo::HauntedHouse.new(32) }
 
     specify "should have correct description" do
-      @house.current_room.description.should eql("Cupboard with Hanging Coat")
+      @house.rooms.current_room.description.should eql("Cupboard with Hanging Coat")
     end
 
     context "examine coat" do
       before { examine("coat") }
       specify { @message.should eql("Something here!") }
-      specify { @house.current_room.objects.should =~ [Oo::Things::KEY] }
+      specify { @house.rooms.current_room.objects.should =~ [Oo::Things::KEY] }
     end
 
     context "examine scroll" do
@@ -50,7 +50,7 @@ describe 'examine command' do
     before { @house = Oo::HauntedHouse.new(3) }
 
     specify "should have correct description" do
-      @house.current_room.description.should eql("Yard by Rubbish")
+      @house.rooms.current_room.description.should eql("Yard by Rubbish")
     end
 
     context "examine rubbish" do
@@ -63,7 +63,7 @@ describe 'examine command' do
     before { @house = Oo::HauntedHouse.new(42) }
 
     specify "should have correct description" do
-      @house.current_room.description.should eql("Library of Evil Books")
+      @house.rooms.current_room.description.should eql("Library of Evil Books")
     end
 
     context "read books" do
@@ -76,13 +76,13 @@ describe 'examine command' do
     before { @house = Oo::HauntedHouse.new(38) }
 
     specify "should have correct description" do
-      @house.current_room.description.should eql("Deep Cellar with a Coffin")
+      @house.rooms.current_room.description.should eql("Deep Cellar with a Coffin")
     end
 
     context "examine coffin" do
       before { examine("coffin") }
       specify { @message.should eql("That's creepy!") }
-      specify { @house.current_room.objects.should =~ [Oo::Things::RING] }
+      specify { @house.rooms.current_room.objects.should =~ [Oo::Things::RING] }
     end
   end
 

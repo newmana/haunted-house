@@ -6,14 +6,14 @@ describe 'swing command' do
     before { @house = Oo::HauntedHouse.new(43) }
 
     specify "should have correct description" do
-      @house.current_room.description.should eql("Study with a Desk and Hole in the Wall")
+      @house.rooms.current_room.description.should eql("Study with a Desk and Hole in the Wall")
     end
 
     context "swing axe" do
       before { swing(Oo::Things::AXE) }
       specify { @message.should eql("You broke the thin wall.") }
-      specify { @house.current_room.description.should eql("Study with a secret room.") }
-      specify { @house.current_room.routes.keys.should =~ [Oo::Direction::W, Oo::Direction::N] }
+      specify { @house.rooms.current_room.description.should eql("Study with a secret room.") }
+      specify { @house.rooms.current_room.routes.keys.should =~ [Oo::Direction::W, Oo::Direction::N] }
     end
   end
 
@@ -21,7 +21,7 @@ describe 'swing command' do
     before { @house = Oo::HauntedHouse.new(7) }
 
     specify "should have correct description" do
-      @house.current_room.description.should eql("Blasted Tree")
+      @house.rooms.current_room.description.should eql("Blasted Tree")
     end
 
     context "swing rope" do

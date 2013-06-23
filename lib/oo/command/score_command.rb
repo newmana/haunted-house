@@ -9,9 +9,9 @@ module Oo
         ["SCORE"]
       end
 
-      def execute(verb, word, house)
-        score = house.score
-        score = house.current_room.score(house.inventory.carrying?(Oo::Things::BOAT), score) if score == 17
+      def execute(verb, word, inventory, rooms)
+        score = inventory.score
+        score = rooms.current_room.score(inventory.carrying?(Oo::Things::BOAT), score) if score == 17
         puts "Your score #{score}"
         if score > 18
           puts "Well done! You finished the game."

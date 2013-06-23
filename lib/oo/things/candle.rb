@@ -25,9 +25,9 @@ class Candle < Thing
     ""
   end
 
-  def light(house)
-    return "Nothing to light it with." unless house.inventory.carrying?(Oo::Things::MATCHES)
-    return "It will burn your hands." unless house.inventory.carrying?(Oo::Things::CANDLESTICK)
+  def light(inventory)
+    return "Nothing to light it with." unless inventory.carrying?(Oo::Things::MATCHES)
+    return "It will burn your hands." unless inventory.carrying?(Oo::Things::CANDLESTICK)
     set_lit
     "It casts a flickering light."
   end

@@ -109,15 +109,11 @@ module Oo
       @rooms.room(start_room)
     end
 
-    def current_room
-      @rooms.current_room
-    end
-
     def welcome
-      p = Oo::Command::Parser.new(self)
+      p = Oo::Command::Parser.new(@house)
       message = "Ok"
       while true
-        @rooms.current_room.show(message)
+        current_room.show(message)
         message = ""
         message += inventory.time
         message += p.parse_input(gets)

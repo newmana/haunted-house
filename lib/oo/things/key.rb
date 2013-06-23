@@ -1,5 +1,5 @@
 class Key < Thing
-  def unlock(house)
-    house.current_room.unlock_door
+  def unlock(rooms)
+    rooms.current_room.unlock_door
   end
 end

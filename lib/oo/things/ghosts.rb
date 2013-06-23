@@ -3,8 +3,8 @@ class Ghosts
     ["GHOSTS"]
   end
 
-  def vacuum(house)
-    house.current_room.vacuum_ghosts
+  def vacuum(rooms)
+    rooms.current_room.vacuum_ghosts
     "Whizz -- Vacuumed the ghosts up!"
   end
 end

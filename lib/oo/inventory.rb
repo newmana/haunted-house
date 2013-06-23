@@ -1,29 +1,11 @@
 module Oo
-  module Inventory
-    AXE = :AXE
-    SHOVEL = :SHOVEL
-    ROPE = :ROPE
-    MATCHES = :MATCHES
-    SCROLL = :SCROLL
-    COINS = :COINS
-    VACUUM = :VACUUM
-    BATTERIES = :BATTERIES
-    STATUE = :STATUE
-    KEY = :KEY
-    MAGIC_SPELLS = :MAGIC_SPELLS
-    RING = :RING
-    CANDLESTICK = :CANDLESTICK
-    CANDLE = :CANDLE
-    PAINTING = :PAINTING
-    BOAT = :BOAT
-    GOBLET = :GOBLET
-    AEROSOL = :AEROSOL
+  class Inventory
 
     attr_accessor :objects
 
     def initialize
       @all_objects = {}
-      Inventory.constants(false).each do |obj|
+      Oo::Things.constants(false).each do |obj|
         begin
           @all_objects[obj] = Object.const_get(to_class(obj)).new
         rescue

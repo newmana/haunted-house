@@ -11,13 +11,13 @@ describe 'open command' do
     context "open desk" do
       before { open("desk") }
       specify { @message.should eql("Drawer open.") }
-      specify { @house.current_room.objects.should =~ [Oo::Inventory::CANDLE] }
+      specify { @house.current_room.objects.should =~ [Oo::Things::CANDLE] }
     end
 
     context "open drawer" do
       before { open("drawer") }
       specify { @message.should eql("Drawer open.") }
-      specify { @house.current_room.objects.should =~ [Oo::Inventory::CANDLE] }
+      specify { @house.current_room.objects.should =~ [Oo::Things::CANDLE] }
     end
   end
 
@@ -44,7 +44,7 @@ describe 'open command' do
     context "open coffin" do
       before { open("coffin") }
       specify { @message.should eql("That's creepy!") }
-      specify { @house.current_room.objects.should =~ [Oo::Inventory::RING] }
+      specify { @house.current_room.objects.should =~ [Oo::Things::RING] }
     end
   end
 

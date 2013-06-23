@@ -7,7 +7,7 @@ module Oo
       end
 
       def execute(verb, word, house)
-        house.thing(word).light(house) if house.carrying?(word)
+        house.inventory.thing(word).light(house) if house.inventory.carrying?(word)
       end
     end
   end

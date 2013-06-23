@@ -7,7 +7,7 @@ module Oo
       end
 
       def execute(verb, word, house)
-        house.thing(word).swing(house) if house.carrying?(word)
+        house.inventory.thing(word).swing(house) if house.inventory.carrying?(word)
       end
     end
   end

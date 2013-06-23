@@ -48,13 +48,13 @@ module Oo
         valid_verb = @verbs.include?(verb)
         empty_word = !word.nil? && word.empty?
         has_word = !word.nil? && !word.empty?
-        valid_word = has_word && @house.valid?(word)
+        valid_word = has_word && @house.inventory.valid?(word)
         message = ""
         message = "I need two words" if empty_word
         message = "You don't make sense" if !valid_verb
         message = "You can't '#{verb} #{word}'" if !valid_verb && valid_word
         message = "That's silly" if valid_verb && has_word
-        message = "You don't have #{word}" if valid_verb && valid_word && !@house.carrying?(word)
+        message = "You don't have #{word}" if valid_verb && valid_word && !@house.inventory.carrying?(word)
         return message, verb, word
       end
 

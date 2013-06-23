@@ -31,7 +31,7 @@ describe 'say command' do
   end
 
   def say(word)
-    @house.carry(Oo::Inventory::MAGIC_SPELLS)
+    @house.inventory.carry(Oo::Things::MAGIC_SPELLS)
     parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input("say #{word}")
   end

@@ -6,9 +6,9 @@ module Oo
       end
 
       def execute(verb, word, house)
-        if house.carrying?(word)
-          house.leave(word)
-          house.current_room.objects << house.to_up_sym(word)
+        if house.inventory.carrying?(word)
+          house.inventory.leave(word)
+          house.current_room.objects << house.inventory.to_up_sym(word)
           "Done"
         end
       end

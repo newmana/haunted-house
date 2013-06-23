@@ -44,8 +44,8 @@ describe 'use command' do
   end
 
   def use(word)
-    @house.carry(Oo::Inventory::BATTERIES)
-    @house.carry(Oo::Inventory::VACUUM)
+    @house.inventory.carry(Oo::Things::BATTERIES)
+    @house.inventory.carry(Oo::Things::VACUUM)
     parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input("use #{word}")
   end

@@ -1,8 +1,8 @@
 class RearTurret < Room
   attr_reader :can_have_bats
 
-  def initialize(house, rooms, description, things=[], objects=[])
-    super(house, rooms, description, things, objects)
+  def initialize(inventory, rooms, description, things=[], objects=[])
+    super(inventory, rooms, description, things, objects)
     @can_have_bats = true
   end
 

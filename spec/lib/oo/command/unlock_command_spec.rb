@@ -11,13 +11,13 @@ describe 'unlock command' do
     context "unlock desk" do
       before { unlock("desk") }
       specify { @message.should eql("Drawer open.") }
-      specify { @house.current_room.objects.should =~ [Oo::Inventory::CANDLE] }
+      specify { @house.current_room.objects.should =~ [Oo::Things::CANDLE] }
     end
 
     context "unlock drawer" do
       before { unlock("drawer") }
       specify { @message.should eql("Drawer open.") }
-      specify { @house.current_room.objects.should =~ [Oo::Inventory::CANDLE] }
+      specify { @house.current_room.objects.should =~ [Oo::Things::CANDLE] }
     end
   end
 
@@ -36,7 +36,7 @@ describe 'unlock command' do
 
     context "successful unlock door" do
       before do
-        @house.carry(Oo::Inventory::KEY)
+        @house.inventory.carry(Oo::Things::KEY)
         unlock("door")
       end
       specify { @house.current_room.description.should eql("Huge open door.") }

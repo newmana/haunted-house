@@ -26,7 +26,7 @@ describe 'spray command' do
 
         context "with aerosol" do
           before do
-            @house.carry(Oo::Inventory::AEROSOL)
+            @house.inventory.carry(Oo::Things::AEROSOL)
             spray("bats")
           end
           specify { @house.current_room.can_have_bats.should be_false }
@@ -41,5 +41,4 @@ describe 'spray command' do
     parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input(" spray #{word}")
   end
-
 end

@@ -44,10 +44,10 @@ describe 'go command' do
 
     context "with a lit candle move" do
       before do
-        @house.carry(Oo::Inventory::CANDLE)
-        @house.carry(Oo::Inventory::CANDLESTICK)
-        @house.carry(Oo::Inventory::MATCHES)
-        @house.thing("candle").light(@house)
+        @house.inventory.carry(Oo::Things::CANDLE)
+        @house.inventory.carry(Oo::Things::CANDLESTICK)
+        @house.inventory.carry(Oo::Things::MATCHES)
+        @house.inventory.thing("candle").light(@house)
       end
 
       specify "try go north" do
@@ -75,10 +75,10 @@ describe 'go command' do
       specify "try go north" do
         (27..29).each do |room|
           @house = Oo::HauntedHouse.new(room)
-          @house.carry(Oo::Inventory::CANDLE)
-          @house.carry(Oo::Inventory::CANDLESTICK)
-          @house.carry(Oo::Inventory::MATCHES)
-          @house.thing("candle").light(@house)
+          @house.inventory.carry(Oo::Things::CANDLE)
+          @house.inventory.carry(Oo::Things::CANDLESTICK)
+          @house.inventory.carry(Oo::Things::MATCHES)
+          @house.inventory.thing("candle").light(@house)
           go("w")
           @message.should eql("Ok")
         end
@@ -153,7 +153,7 @@ describe 'go command' do
     before do
       [53, 54, 55, 47].each do |room|
         @house = Oo::HauntedHouse.new(room)
-        @house.carry(Oo::Inventory::BOAT)
+        @house.inventory.carry(Oo::Things::BOAT)
         go("go south")
         @message.should eql("Ok")
       end
@@ -163,7 +163,7 @@ describe 'go command' do
   context "can't carry boat outside marsh" do
     before do
       @house = Oo::HauntedHouse.new(1)
-      @house.carry(Oo::Inventory::BOAT)
+      @house.inventory.carry(Oo::Things::BOAT)
     end
 
     specify do

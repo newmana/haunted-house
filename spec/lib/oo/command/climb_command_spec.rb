@@ -24,7 +24,7 @@ describe 'climb command' do
 
     context "climb rope" do
       before do
-        @house.carry(Oo::Inventory::ROPE)
+        @house.inventory.carry(Oo::Things::ROPE)
         climb
       end
       specify { @message.should eql("It isn't attached to anything!") }

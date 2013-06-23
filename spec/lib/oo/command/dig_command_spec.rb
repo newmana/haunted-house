@@ -27,7 +27,7 @@ describe 'dig command' do
   end
 
   def dig
-    @house.carry(Oo::Inventory::SHOVEL)
+    @house.inventory.carry(Oo::Things::SHOVEL)
     parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input("dig")
   end

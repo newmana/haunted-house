@@ -4,6 +4,6 @@ class Coat
   end
 
   def examine
-    ["Something here!", Oo::Inventory::KEY]
+    ["Something here!", Oo::Things::KEY]
   end
 end

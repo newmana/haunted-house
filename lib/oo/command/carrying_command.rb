@@ -11,7 +11,7 @@ module Oo
       end
 
       def execute(verb, word, house)
-        display_list("You are carrying:", house.objects.keys)
+        display_list("You are carrying:", house.inventory.objects.keys)
       end
     end
   end

@@ -4,7 +4,7 @@ describe 'get/take command' do
   context "in cupboard" do
     before do
       @house = Oo::HauntedHouse.new(32)
-      @house.current_room.objects << Oo::Inventory::KEY
+      @house.current_room.objects << Oo::Things::KEY
     end
 
     specify { @house.current_room.description.should eql("Cupboard with Hanging Coat") }
@@ -12,7 +12,7 @@ describe 'get/take command' do
     context "get/take key" do
       before { get("key") }
       specify { @message.should eql("You have the KEY") }
-      specify { @house.time }
+      specify { @house.inventory.time }
     end
   end
 
@@ -26,7 +26,7 @@ describe 'get/take command' do
     context "get/take goblet" do
       before { get("goblet") }
       specify { @message.should eql("You have the GOBLET") }
-      specify { @house.time }
+      specify { @house.inventory.time }
     end
   end
 

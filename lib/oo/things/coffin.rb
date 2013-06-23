@@ -12,6 +12,6 @@ class Coffin
   end
 
   def examine_or_open
-    ["That's creepy!", Oo::Inventory::RING]
+    ["That's creepy!", Oo::Things::RING]
   end
 end

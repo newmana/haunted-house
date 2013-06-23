@@ -1,8 +1,8 @@
 class Room
   attr_accessor :routes, :description, :objects, :words
 
-  def initialize(house, rooms, description, things=[], objects=[])
-    @house = house
+  def initialize(inventory, rooms, description, things=[], objects=[])
+    @inventory = inventory
     @rooms = rooms
     @routes = {}
     @description = description
@@ -47,7 +47,7 @@ class Room
   end
 
   def stop_boat
-    @house.carrying?(Oo::Inventory::BOAT)
+    @inventory.carrying?(Oo::Things::BOAT)
   end
 
   def score(has_boat, score)

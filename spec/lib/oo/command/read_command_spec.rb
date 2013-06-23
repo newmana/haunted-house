@@ -21,7 +21,7 @@ describe 'read command' do
 
     context "read scroll" do
       before do
-        @house.carry(Oo::Inventory::SCROLL)
+        @house.inventory.carry(Oo::Things::SCROLL)
         read("scroll")
       end
       specify { @message.should eql("The script is in an alien tongue.") }
@@ -29,7 +29,7 @@ describe 'read command' do
 
     context "magic spells" do
       before do
-        @house.carry(Oo::Inventory::MAGIC_SPELLS)
+        @house.inventory.carry(Oo::Things::MAGIC_SPELLS)
         read("magic spells")
       end
       specify { @message.should eql("Use this word with care 'Xzanfar'.") }

@@ -6,14 +6,14 @@ describe 'light command' do
 
     context "light candle no candlestick or matches" do
       before do
-        @house.carry(Oo::Inventory::CANDLE)
+        @house.inventory.carry(Oo::Things::CANDLE)
         light_candle
       end
       specify { @message.should eql("Nothing to light it with.") }
 
       context "light candle no matches" do
         before do
-          @house.carry(Oo::Inventory::CANDLESTICK)
+          @house.inventory.carry(Oo::Things::CANDLESTICK)
           light_candle
         end
 
@@ -21,7 +21,7 @@ describe 'light command' do
 
         context "light candle" do
           before do
-            @house.carry(Oo::Inventory::MATCHES)
+            @house.inventory.carry(Oo::Things::MATCHES)
             light_candle
           end
 
@@ -31,7 +31,7 @@ describe 'light command' do
 
       context "light candle no candlestick" do
         before do
-          @house.carry(Oo::Inventory::MATCHES)
+          @house.inventory.carry(Oo::Things::MATCHES)
           light_candle
         end
 

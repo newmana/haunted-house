@@ -12,7 +12,7 @@ module Oo
           current_room.objects << thing unless thing.nil?
           return message
         end
-        house.thing(word).read if house.carrying?(word)
+        house.inventory.thing(word).read if house.inventory.carrying?(word)
       end
     end
   end

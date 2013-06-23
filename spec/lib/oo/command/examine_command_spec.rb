@@ -34,12 +34,12 @@ describe 'examine command' do
     context "examine coat" do
       before { examine("coat") }
       specify { @message.should eql("Something here!") }
-      specify { @house.current_room.objects.should =~ [Oo::Inventory::KEY] }
+      specify { @house.current_room.objects.should =~ [Oo::Things::KEY] }
     end
 
     context "examine scroll" do
       before do
-        @house.carry(Oo::Inventory::SCROLL)
+        @house.inventory.carry(Oo::Things::SCROLL)
         examine("scroll")
       end
       specify { @message.should eql("The script is in an alien tongue.") }
@@ -82,7 +82,7 @@ describe 'examine command' do
     context "examine coffin" do
       before { examine("coffin") }
       specify { @message.should eql("That's creepy!") }
-      specify { @house.current_room.objects.should =~ [Oo::Inventory::RING] }
+      specify { @house.current_room.objects.should =~ [Oo::Things::RING] }
     end
   end
 

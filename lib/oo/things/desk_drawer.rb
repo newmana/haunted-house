@@ -17,6 +17,6 @@ class DeskDrawer
   end
 
   def unlock_or_open
-    ["Drawer open.", Oo::Inventory::CANDLE]
+    ["Drawer open.", Oo::Things::CANDLE]
   end
 end

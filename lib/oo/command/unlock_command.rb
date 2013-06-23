@@ -9,8 +9,8 @@ module Oo
       def execute(verb, word, house)
         current_room = house.current_room
         if current_room.words.keys.include?(word)
-          if house.carrying?(Oo::Inventory::KEY)
-            house.thing("KEY").unlock(house)
+          if house.inventory.carrying?(Oo::Things::KEY)
+            house.inventory.thing("KEY").unlock(house)
           else
             message, thing = current_room.words[word].unlock
             current_room.objects << thing unless thing.nil?

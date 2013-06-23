@@ -7,8 +7,8 @@ module Oo
       end
 
       def execute(verb, word, house)
-        if house.carrying?(word)
-          house.thing(word).climb
+        if house.inventory.carrying?(word)
+          house.inventory.thing(word).climb
         else
           house.current_room.climb
         end

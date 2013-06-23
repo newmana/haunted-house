@@ -1,7 +1,7 @@
 class Hall < DarkRoom
 
-  def initialize(house, rooms, description, things=[], objects=[])
-    super(house, rooms, description, things, objects)
+  def initialize(inventory, rooms, description, things=[], objects=[])
+    super(inventory, rooms, description, things, objects)
     @door_locked = true
   end
 

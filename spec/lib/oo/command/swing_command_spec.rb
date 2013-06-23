@@ -1,6 +1,7 @@
 require "oo/haunted_house"
 
 describe 'swing command' do
+
   context "study with a desk" do
     before { @house = Oo::HauntedHouse.new(43) }
 
@@ -9,7 +10,7 @@ describe 'swing command' do
     end
 
     context "swing axe" do
-      before { swing(Oo::Inventory::AXE) }
+      before { swing(Oo::Things::AXE) }
       specify { @message.should eql("You broke the thin wall.") }
       specify { @house.current_room.description.should eql("Study with a secret room.") }
       specify { @house.current_room.routes.keys.should =~ [Oo::Direction::W, Oo::Direction::N] }
@@ -24,7 +25,7 @@ describe 'swing command' do
     end
 
     context "swing rope" do
-      before { swing(Oo::Inventory::ROPE) }
+      before { swing(Oo::Things::ROPE) }
       specify { @message.should eql("This is no time to play games.") }
     end
   end
@@ -33,18 +34,18 @@ describe 'swing command' do
     before { @house = Oo::HauntedHouse.new(0) }
 
     context "swing axe" do
-      before { swing(Oo::Inventory::AXE) }
+      before { swing(Oo::Things::AXE) }
       specify { @message.should eql("Whoosh") }
     end
 
     context "swing rope" do
-      before { swing(Oo::Inventory::ROPE) }
+      before { swing(Oo::Things::ROPE) }
       specify { @message.should eql("You swung it") }
     end
   end
 
   def swing(item)
-    @house.carry(item)
+    @house.inventory.carry(item)
     parser = Oo::Command::Parser.new(@house)
     @message = parser.parse_input("swing #{item.to_s}")
   end

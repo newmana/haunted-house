@@ -29,8 +29,9 @@ module Oo
         @light = LightCommand.new
         @unlock = UnlockCommand.new
         @score = ScoreCommand.new
+        @unlight = UnlightCommand.new
         @all_verbs = [@help, @carrying, @go, @leave, @get_take, @open, @examine, @read, @say, @dig, @swing, @climb, @spray,
-          @use, @light, @unlock, @score]
+          @use, @light, @unlock, @score, @unlight]
       end
 
       def parse_input(input)

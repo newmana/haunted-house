@@ -15,7 +15,7 @@ describe 'carrying command' do
   context "other room" do
     before do
       @house = Oo::HauntedHouse.new(0)
-      @house.inventory.carry(Oo::Things::ROPE)
+      @house.rooms.inventory.carry(Oo::Things::ROPE)
     end
 
     specify do

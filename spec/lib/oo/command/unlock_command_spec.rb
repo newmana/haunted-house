@@ -36,7 +36,7 @@ describe 'unlock command' do
 
     context "successful unlock door" do
       before do
-        @house.inventory.carry(Oo::Things::KEY)
+        @house.rooms.inventory.carry(Oo::Things::KEY)
         unlock("door")
       end
       specify { @house.rooms.current_room.description.should eql("Huge open door.") }

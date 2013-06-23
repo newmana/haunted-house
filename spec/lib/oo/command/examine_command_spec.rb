@@ -39,7 +39,7 @@ describe 'examine command' do
 
     context "examine scroll" do
       before do
-        @house.inventory.carry(Oo::Things::SCROLL)
+        @house.rooms.inventory.carry(Oo::Things::SCROLL)
         examine("scroll")
       end
       specify { @message.should eql("The script is in an alien tongue.") }

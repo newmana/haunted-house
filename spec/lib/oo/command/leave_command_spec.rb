@@ -4,7 +4,7 @@ describe 'get/take command' do
   context "leave rope" do
     before do
       @house = Oo::HauntedHouse.new(0)
-      @house.inventory.carry(Oo::Things::ROPE)
+      @house.rooms.inventory.carry(Oo::Things::ROPE)
       leave("rope")
     end
 

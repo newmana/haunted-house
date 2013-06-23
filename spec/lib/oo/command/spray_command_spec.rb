@@ -26,7 +26,7 @@ describe 'spray command' do
 
         context "with aerosol" do
           before do
-            @house.inventory.carry(Oo::Things::AEROSOL)
+            @house.rooms.inventory.carry(Oo::Things::AEROSOL)
             spray("bats")
           end
           specify { @house.rooms.current_room.can_have_bats.should be_false }

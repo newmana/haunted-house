@@ -1,15 +1,17 @@
 require 'spec_helper'
 require 'oo/direction'
-require 'oo/rooms'
 require 'oo/rooms/room'
+require 'oo/inventory'
+require 'oo/rooms'
+require 'oo/haunted_house'
 
 describe 'rooms' do
   describe "west east creation" do
     before(:each) do
-      @house = Oo::HauntedHouse.new(1)
+      @inventory = Oo::Inventory.new
       @object = Oo::Rooms.new
-      Room.new(@house, @object, "First Room")
-      Room.new(@house, @object, "Second Room")
+      Room.new(@inventory, @object, "First Room")
+      Room.new(@inventory, @object, "Second Room")
     end
 
     context "Simple west east creation" do

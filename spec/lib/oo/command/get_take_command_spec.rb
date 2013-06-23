@@ -12,7 +12,7 @@ describe 'get/take command' do
     context "get/take key" do
       before { get("key") }
       specify { @message.should eql("You have the KEY") }
-      specify { @house.inventory.time }
+      specify { @house.rooms.inventory.time }
     end
   end
 
@@ -26,7 +26,7 @@ describe 'get/take command' do
     context "get/take goblet" do
       before { get("goblet") }
       specify { @message.should eql("You have the GOBLET") }
-      specify { @house.inventory.time }
+      specify { @house.rooms.inventory.time }
     end
   end
 

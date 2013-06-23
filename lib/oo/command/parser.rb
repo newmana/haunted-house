@@ -6,7 +6,7 @@ module Oo
   module Command
     class Parser
       def initialize(house)
-        @inventory = house.inventory
+        @inventory = house.rooms.inventory
         @rooms = house.rooms
         @go = GoCommand.new
         @commands = %w(HELP CARRYING? SCORE)

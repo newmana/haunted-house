@@ -110,10 +110,10 @@ module Oo
     end
 
     def welcome
-      p = Oo::Command::Parser.new(@house)
+      p = Oo::Command::Parser.new(self)
       message = "Ok"
       while true
-        current_room.show(message)
+        @rooms.current_room.show(message)
         message = ""
         message += inventory.time
         message += p.parse_input(gets)

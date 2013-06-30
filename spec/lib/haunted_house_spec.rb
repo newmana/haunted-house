@@ -586,12 +586,11 @@ describe 'haunted house' do
 
   describe "Score" do
     it "Has everything but boat" do
+      $stdout.should_receive(:puts).with("You have everything.\nReturn to the gate to get the final score")
+      $stdout.should_receive(:puts).with("Your score 17")
+      $stdout.should_receive(:puts).with("\nPress enter to continue")
       check_score(1)
     end
-
-    #it "Has everything at start" do
-    #  check_score(57)
-    #end
 
     def check_score(room)
       carrying = []

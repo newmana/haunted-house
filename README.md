@@ -9,7 +9,7 @@ Original:
     ruby ./lib/welcome.rb
 OO Version:
     ruby ./lib/oo/welcome.rb
-Prototype Version:
+Prototypes Version:
     ruby ./lib/proto/welcome.rb
 
 hauntedhouse.bas:
@@ -20,7 +20,7 @@ hauntedhouse.bas:
 See also:
 * haunted_house.rb by Joshua Clulow: https://gist.github.com/628124
 * JavaScript port: http://www.robertgomez.org/sites/default/files/Haunted-House.js via http://www.robertgomez.org/content/haunted-house-text-adventure
-* Prototype version based on Avdi Grimm's blog post: https://practicingruby.com/articles/adventure-in-prototypes?u=dc2ab0f9bb
+* Prototypes version based on Avdi Grimm's blog post: https://practicingruby.com/articles/adventure-in-prototypes?u=dc2ab0f9bb
 
 License
 =======

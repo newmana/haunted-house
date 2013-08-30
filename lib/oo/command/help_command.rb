@@ -3,7 +3,7 @@ require_relative 'display_list'
 module Oo
   module Command
     class HelpCommand
-      include DisplayList
+      include DisplayList, PressEnter
 
       def initialize(commands)
         @commands = commands

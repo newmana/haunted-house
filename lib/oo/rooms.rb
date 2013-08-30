@@ -4,6 +4,9 @@ require_relative 'inventory'
 Dir[File.dirname(__FILE__) + '/things/*.rb'].each do |file|
   require_relative './things/' + File.basename(file, File.extname(file))
 end
+require_relative '../oo/rooms/room'
+require_relative '../oo/rooms/dark_room'
+require_relative '../oo/rooms/boating'
 Dir[File.dirname(__FILE__) + '/rooms/*.rb'].each do |file|
   require_relative './rooms/' + File.basename(file, File.extname(file))
 end

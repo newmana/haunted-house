@@ -63,7 +63,7 @@ module Oo
       private
 
       def get_verb_word(input)
-        if input.length > 0
+        if input && input.length > 0
           input = input.split
           input.map! { |q| q.strip.upcase }
           verb = input[0]

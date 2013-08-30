@@ -43,6 +43,13 @@ describe "parser" do
         word.should eql("MATCHES")
         message.should eql("You don't have MATCHES")
       end
+
+      specify "that a control character is also ignored" do
+        message, verb, word = @parser.validate(nil)
+        verb.should eql("")
+        word.should eql("")
+        message.should eql("You don't make sense")
+      end
     end
   end
 end

@@ -1,7 +1,7 @@
 haunted-house
 =============
 
-Learning different things using a simple example.
+Learning different programming paradigms through a simple text adventure.
 
 The original BASIC version is from "Write Your Own Adventure Programs For Your Microcomputer".
 

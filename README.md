@@ -3,7 +3,7 @@ haunted-house
 
 Learning different programming paradigms through a simple text adventure.
 
-The original BASIC version is from "Write Your Own Adventure Programs For Your Microcomputer".
+The original BASIC version is from (http://mocagh.org/loadpage.php?getcompany=usborne-hayes "Write Your Own Adventure Programs For Your Microcomputer").
 
 Original:
     ruby ./lib/welcome.rb

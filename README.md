@@ -6,11 +6,13 @@ Learning different programming paradigms through a simple text adventure.
 The original BASIC version is from "Write Your Own Adventure Programs For Your Microcomputer" (http://mocagh.org/loadpage.php?getcompany=usborne-hayes).
 
 Original:
-    ruby ./lib/welcome.rb
+* ruby ./lib/welcome.rb
+
 OO Version:
-    ruby ./lib/oo/welcome.rb
-Prototypes Version:
-    ruby ./lib/proto/welcome.rb
+* ruby ./lib/oo/welcome.rb
+
+Prototype Version (incomplete):
+* ruby ./lib/proto/welcome.rb
 
 hauntedhouse.bas:
 * Based on http://www.shindigital.com/hauntedhouse.txt (with mistakes corrected)

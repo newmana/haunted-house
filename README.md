@@ -14,8 +14,8 @@ OO Version:
 Prototype Version (incomplete):
 * ruby ./lib/proto/welcome.rb
 
-hauntedhouse.bas:
-* Based on http://www.shindigital.com/hauntedhouse.txt (with mistakes corrected)
+The file "hauntedhouse.bas" is the original BASIC version from the book:
+* Originally from http://www.shindigital.com/hauntedhouse.txt (with mistakes corrected)
 * You can run it using a BASIC Interpreter, such as: http://www.calormen.com/applesoft/
 * See http://www.shindigital.com/site/blogpost/56
 

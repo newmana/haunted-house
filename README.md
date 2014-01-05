@@ -5,7 +5,7 @@ Learning different programming paradigms through a simple text adventure.
 
 The original BASIC version is from "Write Your Own Adventure Programs For Your Microcomputer" (http://mocagh.org/loadpage.php?getcompany=usborne-hayes).
 
-Procedural Version (port of original BASIC version):
+Unstructured Version (port of original BASIC version):
 * ruby ./lib/welcome.rb
 
 OO Version:
